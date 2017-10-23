@@ -8,15 +8,20 @@
 	</head>
 
 	<body>
+	
+	<form method="POST" enctype="application/x-www-form-urlencoded">
 		<input type="text" class="form-control" id="txtEmail" placeholder="Email">
 		<input type="text" class="form-control" id="txtCPF" placeholder="CPF">
 		
-		<input class="btn btn-primary" type="submit" ng-click="enviar()" value="Enviar">
+		<div ng-controller="validatePassword">
+			<input class="btn btn-primary" type="submit" ng-click="enviar()" value="Enviar">
+		</div>
 	
 		<div ng-controller="Hello">
 			<div ng-repeat="(key, value) in greeting">
 				<p>Modalidade: {{value.modalityId}}, Sigla: {{value.acronyms}}, Descrição: {{value.description}}</p>
 			</div>
 		</div>
+	</form>
 	</body>
 </html>

@@ -10,8 +10,8 @@ angular.module('demo', [])
 })
 .controller('validatePassword', function($scope, $http) {
 	$scope.enviar = function() {
-        $email = $('txtEmail').val();
-        $cpf = $('txtCPF').val();
+        $email = $('#txtEmail').val();
+        $cpf = $('#txtCPF').val();
         alert($email + ' - ' + $cpf);
       };	
 });
