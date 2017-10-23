@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
  
  <modelVersion>4.0.0</modelVersion>
- <groupId>com.arpit.java2blog</groupId>
+ <groupId>divulga.editais.ifsuldeminas.edu.br</groupId>
  <artifactId>DivulgaEditais</artifactId>
  <packaging>war</packaging>
  <version>0.0.1-SNAPSHOT</version>
@@ -66,16 +66,24 @@
 	    <artifactId>hibernate-entitymanager</artifactId>
 	    <version>4.3.1.Final</version>
 	</dependency>
+	
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
 	    <version>4.3.4.Final</version>
 	    <type>jar</type>
 	</dependency>
+	
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>5.1.34</version>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.eclipse.persistence</groupId>
+	  <artifactId>eclipselink</artifactId>
+	  <version>2.5.2</version>
 	</dependency>
 	
  </dependencies>
