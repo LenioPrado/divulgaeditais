@@ -12,12 +12,13 @@ angular.module('demo', [])
 	$scope.enviar = function() {
         $email = $('#txtEmail').val();
         $cpf = $('#txtCPF').val();
-        var msgdata = {
-                email : $email
-        };
+        var msgdata = {"modalityId":1,"acronyms":"abc","description":"This is a test","notices":[]};
         var res = $http.post('http://localhost:8080/DivulgaEditais/rest/modality/login',msgdata);
         res.success(function(data, status, headers, config) {
             console.log(data);
+        }).error(function() {
+            alert("zebra");
         });
+        return res;
       };	
 });

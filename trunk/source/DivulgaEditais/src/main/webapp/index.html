@@ -9,12 +9,12 @@
 
 	<body>
 	
-	<form method="POST" action="http://localhost:8080/DivulgaEditais/rest/modality/login" enctype="application/x-www-form-urlencoded">
+	<form method="POST" enctype="application/x-www-form-urlencoded">
 		<input type="text" class="form-control" id="txtEmail" placeholder="Email">
 		<input type="text" class="form-control" id="txtCPF" placeholder="CPF">
 		
-		<div ng-controller="validatePassword1">
-			<input class="btn btn-primary" type="submit" ng-click="enviar1()" value="Enviar">
+		<div ng-controller="validatePassword">
+			<input class="btn btn-primary" type="submit" ng-click="enviar()" value="Enviar">
 		</div>
 	
 		<div ng-controller="Hello">

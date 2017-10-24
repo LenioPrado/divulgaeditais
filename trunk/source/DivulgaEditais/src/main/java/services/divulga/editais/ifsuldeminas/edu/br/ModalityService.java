@@ -31,9 +31,9 @@ public class ModalityService extends BaseService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/login")
-    public Modality read(String email) {
+    public Modality login(Modality modality) {
     	System.out.println("Output from Server .... \n");
-    	System.out.println(email);    	
+    	System.out.println(modality);    	
     	Query q = getEM().createQuery("select t from Modality t");
     	List<Modality> todoList = q.getResultList();
         return todoList.get(0);
