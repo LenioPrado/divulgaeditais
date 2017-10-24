@@ -12,6 +12,12 @@ angular.module('demo', [])
 	$scope.enviar = function() {
         $email = $('#txtEmail').val();
         $cpf = $('#txtCPF').val();
-        alert($email + ' - ' + $cpf);
+        var msgdata = {
+                email : $email
+        };
+        var res = $http.post('http://localhost:8080/DivulgaEditais/rest/modality/login',msgdata);
+        res.success(function(data, status, headers, config) {
+            console.log(data);
+        });
       };	
 });
