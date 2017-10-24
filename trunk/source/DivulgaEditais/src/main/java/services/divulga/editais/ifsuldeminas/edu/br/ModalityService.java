@@ -3,11 +3,16 @@ package services.divulga.editais.ifsuldeminas.edu.br;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONObject;
 
 import beans.divulga.editais.ifsuldeminas.edu.br.Modality;
 
@@ -22,11 +27,14 @@ public class ModalityService extends BaseService {
         return todoList;
     }
 		
-    @GET
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public Modality read(@PathParam("id") long modalityId) {
-    	Query q = getEM().createQuery("select t from Modality t where t.modalityId = " + modalityId);
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/login")
+    public Modality read(String email) {
+    	System.out.println("Output from Server .... \n");
+    	System.out.println(email);    	
+    	Query q = getEM().createQuery("select t from Modality t");
     	List<Modality> todoList = q.getResultList();
         return todoList.get(0);
     }
