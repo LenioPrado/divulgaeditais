@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"/>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"/></script>
     <script src="js/form-validation.js"></script>
 </head>
 
@@ -12,19 +12,19 @@
     <h1>Cadastro de Usuario</h1>
 <form name= "registerForm" method="post" onSubmit="return validation();" action="javascript:alert('success!');" >
 
-    <label type="text" name="labelName"> Nome</label>
+    <label> Nome</label>
     <input type="text" name="name" id="name" /> <br>
-    <label type="text" name="labelEmail"> Email </label>
+    <label> Email </label>
     <input type="text" name="email" id="email"/> <br>
-    <label type="text" name="labelPassword"> Senha</label>
+    <label> Senha</label>
     <input type="password" name="password" id="password" /> <br>
-    <label type="text" name="labelIdentification"> Identificação</label>
+    <label> Identificação</label>
     <select id="identification" name="identification">
             <option value="" selected="selected">(Selecione uma opção)</option>
             <option value="townhall">Usuário da Prefeitura</option>
             <option value="company">Empresa concorrente</option>
     </select> <br>
-    <label type="text" name="labelSize"> Tipo de Empresa</label>
+    <label> Tipo de Empresa</label>
     <select id="companySize" name="companySize">
             <option value="" selected="selected">(Selecione uma opção)</option>
             <option value="MEI">Microempreendedor Individual</option>
@@ -33,27 +33,27 @@
             <option value="SA">Sociedade Anônima (SA)</option>
             <option value="LTDA">Sociedade Limitada (LTDA)</option>
     </select> <br>
-    <label type="text" name="labelBranch"> CNAE ou Setor de atuação</label>
+    <label> CNAE ou Setor de atuação</label>
     <input type="text" name="branch" id="branch"/> <br>
-    <label type="text" name="labelZipCode"> CEP</label>
+    <label> CEP</label>
     <input type="text" name="zipcode" id="zipcode"/> <br>
-    <label type="text" name="labelStreet"> Endereço</label>
+    <label> Endereço</label>
     <input type="text" name="Street" id="Street"/> <br>
-    <label type="text" name="labelNumber"> Numero</label>
+    <label> Numero</label>
     <input type="text" name="Number" id="Number"/> <br>
-    <label type="text" name="labelComplement"> Complemento</label>
+    <label> Complemento</label>
     <input type="text" name="Complement" id="Complement"/> <br>
-    <label type="text" name="labelNeighbourhood"> Bairro</label>
+    <label> Bairro</label>
     <input type="text" name="Neighbourhood" id="Neighbourhood"/> <br>
-    <label type="text" name="labelCity"> Cidade</label>
+    <label> Cidade</label>
     <input type="text" name="city" id="city"/> <br>
-    <label type="text" name="labelState"> Estado</label>
+    <label> Estado</label>
     <input type="text" name="state" id="state"/> <br>
-    <label type="text" name="labelPrimaryPhoneNumber"> Telefone Principal</label>
+    <label> Telefone Principal</label>
     <input type="text" name="PrimaryPhoneNumber" id="PrimaryPhoneNumber"/> <br>
-    <label type="text" name="labelSecondPhoneNumber"> Celular</label>
+    <label> Celular</label>
     <input type="text" name="secondPhoneNumber" id="secondPhoneNumber"/> <br>
-    <label type="text" name="labelMainPerson"> Responsável</label>
+    <label> Responsável</label>
     <input type="text" name="mainPerson" id="mainPerson"/> <br>
     <input type="submit" value="Cadastrar"></input>
 
