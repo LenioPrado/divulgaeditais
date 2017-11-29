@@ -16,19 +16,17 @@
 $.getJSON('modality.json', function(json) {
 	$select = $('#modality');
 	$.each(json, function(i, value) {
-		//<option value="townhall">Usuário da Prefeitura</option>
-           $select.append('<option id="' + value.acronyms+ '">' + value.description + '</option>');
+           $select.append('<option value="' + value.modality_id + '">' + value.acronyms + ' - ' +value.description + '</option>');
         });
-    console.log(json); // this will show the info it in firebug console
+    console.log(json);
 });
 
 </script>
 <!-- modality, number, object, trading_date, url -->
 <!-- modality: acronyms, description  =  pre, prp-e, inex -->
-<form name= "registerNotice" method="post" onSubmit="return validation();" action="javascript:alert('success!');" enctype="multipart/form-data">
+<form name= "registerNotice" method="post" onSubmit="return submit();" action="javascript:alert('success!');" enctype="multipart/form-data">
     <label type="text" name="labelModality"> Modalidade</label>
-    <select id="modality" name="modality">
-    </select> <br>
+    <select id="modality" name="modality"></select> <br>
     <label type="text" name="labelNumber"> Numero </label>
     <input type="text" name="number" id="number" /> <br>
     <label type="text" name="labelObject"> Objeto </label>
@@ -41,13 +39,12 @@ $.getJSON('modality.json', function(json) {
     <input type="submit" value="Cadastrar"></input>
 
 </form>
-<div id="outputDiv"></div>
 <script>
 
 function validation() {
   $("form[name='registerNotice']").validate({
             rules: {
-               modality: "required",
+                modality: "required",
                 number: "required",
                 object: "required",
                 trading_date: "required",
