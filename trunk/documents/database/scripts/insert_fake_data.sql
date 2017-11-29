@@ -1,8 +1,26 @@
 ## Insert Fake Data ##
 
-use sisa;
+use divulgaeditais;
 
-## Courses ##
+
+
+## modalities ##
+INSERT INTO `divulgaeditais`.`modalities` (`modality_id`,`acronyms`,`description`)VALUES(<{modality_id: }>,<{acronyms: }>,<{description: }>);
+
+## users_roles ##
+## users ##
+## roles ##
+## providers ##
+## notices ##
+
+INSERT INTO `divulgaeditais`.`notices`(`notice_id`,`modality_id`,`number`,`object`,`trading_date`,`url`)VALUES(<{notice_id: }>,<{modality_id: }>,<{number: }>,
+<{object: }>,
+<{trading_date: }>,
+<{url: }>);
+
+
+
+
 INSERT INTO courses (course_id,name,short_name,modality,shift) VALUES (1,'Curso 1','Nome Abreviado 1',1,3);
 INSERT INTO courses (course_id,name,short_name,modality,shift) VALUES (2,'Curso 2','Nome Abreviado 2',1,3);
 INSERT INTO courses (course_id,name,short_name,modality,shift) VALUES (3,'Curso 3','Nome Abreviado 3',2,1);
