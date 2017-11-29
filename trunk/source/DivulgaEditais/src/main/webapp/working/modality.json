@@ -1,13 +1,16 @@
 [
 		{
+			"modalityId": 1,
 			"acronyms":"pre",
 			"description":"Tomada de Preço"
 		},
 		{
+			"modality_id": 2,
 			"acronyms":"prp-e",
 			"description":"Outro tipo de modalidade"
 		},
 		{
+			"modality_id": 3,
 			"acronyms":"prp",
 			"description":"Modalidade"
 		}

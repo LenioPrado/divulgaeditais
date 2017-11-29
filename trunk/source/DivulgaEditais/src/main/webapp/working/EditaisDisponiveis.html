@@ -16,7 +16,7 @@
 $.getJSON('notice.json', function(json) {
 	$table = $('#notices');
 	$.each(json, function(i, value) {
-           $('#notices > tbody:last-child').append('<tr><td>' + value.modality_id+ '</td><td>' + value.number + '</td><td>' + value.object + '</td><td>' + value.trading_date + '</td><td>' + value.url + '</td><td><button id="open" onclick="sendNotice('+value.number+')"> Abrir Edital </button></td></tr>');
+           $('#notices > tbody:last-child').append('<tr><td>' + value.modality.acronyms + '</td><td>' + value.number + '</td><td id="open" onclick="sendNotice('+value.number+')">' + value.object + '</td><td>' + value.trading_date + '</td><td>' + value.url + '</td><td><button id="open" onclick="sendNotice('+value.number+')"> Concorrer </button></td></tr>');
            // onClcick="sendNotice('+value.number+')"
            console.log(value);
         });
@@ -32,6 +32,7 @@ $.getJSON('notice.json', function(json) {
 <script>
 function sendNotice(noticeNumber){
     window.location.href = "expandedNotice.html";
+
 }
 
 function validation() {
