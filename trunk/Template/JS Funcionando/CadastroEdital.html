@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"/>
+ 	<script src="modality.json"></script>
+</head>
+
+<body>
+	
+<h1>Cadastro de Edital</h1>
+<script>
+
+$.getJSON('modality.json', function(json) {
+	$select = $('#modality');
+	$.each(json, function(i, value) {
+		//<option value="townhall">Usuário da Prefeitura</option>
+           $select.append('<option id="' + value.acronyms+ '">' + value.description + '</option>');
+        });
+    console.log(json); // this will show the info it in firebug console
+});
+
+</script>
+<!-- modality, number, object, trading_date, url -->
+<!-- modality: acronyms, description  =  pre, prp-e, inex -->
+<form name= "registerNotice" method="post" onSubmit="return validation();" action="javascript:alert('success!');" enctype="multipart/form-data">
+    <label type="text" name="labelModality"> Modalidade</label>
+    <select id="modality" name="modality">
+    </select> <br>
+    <label type="text" name="labelNumber"> Numero </label>
+    <input type="text" name="number" id="number" /> <br>
+    <label type="text" name="labelObject"> Objeto </label>
+    <input type="text" name="object" id="object"/> <br>
+    <label type="text" name="labelDate"> Data do Pregão</label>
+    <input type="date" name="trading_date" id="trading_date" /> <br>
+    <label type="text" name="labelFile"> PDF </label>
+   	<input type="file" name="file" id="file" accept=".pdf"/> <br>
+	<button type="button" onclick="Upload()">Enter</button>
+    <input type="submit" value="Cadastrar"></input>
+
+</form>
+<div id="outputDiv"></div>
+<script>
+
+function validation() {
+  $("form[name='registerNotice']").validate({
+            rules: {
+               modality: "required",
+                number: "required",
+                object: "required",
+                trading_date: "required",
+                //file: "required",
+            },
+
+            messages: {
+                modality: "Escolha uma modalidade válida",
+                number: "Digite um numero valido",
+                object: "Digite um numero valido",
+                trading_date: "Selecione uma data valida",
+                //file: "Insira um arquivo valido",
+            },
+
+    submitHandler: function(form) {
+        submit();
+    }
+  });
+    function submit(){
+
+        var jsonArray = [];
+        var i=0;
+         var splittedFormData = $("form[name='registerNotice']").serialize().split('&');
+
+                item = {};
+                increment = {};
+            $.each(splittedFormData, function (key, value) {
+                var splittedValue = value.split('=');               
+                item[splittedValue[0]] = splittedValue[1];
+            });
+            jsonArray.push(item);
+
+        console.log(jsonArray);
+        return true;
+        //});
+    }
+}
+
+function Upload()
+{
+    var file = document.getElementById('file');
+
+    if(file.files.length)
+    {
+        var reader = new FileReader();
+
+        reader.onload = function(e)
+        {
+        	var fileContent = e.target.result;
+        	console.log(fileContent);
+            //document.getElementById('outputDiv').innerHTML = e.target.result;
+        };
+
+        reader.readAsBinaryString(file.files[0]);
+    }
+}
+
+</script>
+</body>
+</html>
