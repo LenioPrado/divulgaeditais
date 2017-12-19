@@ -13,4 +13,14 @@ public class BaseService {
 	protected EntityManager closetEM() {
 		return EMFactory.getInstance().getEntityManager();
 	}
+	
+	protected void beginTransaction() {
+		if(!getEM().getTransaction().isActive()) {
+			getEM().getTransaction().begin();
+		}
+	}
+	
+	protected void commitTransaction() {
+		getEM().getTransaction().commit();
+	}
 }
