@@ -16,48 +16,9 @@
     <input type="text" name="acronyms" id="acronyms" /> <br>
     <label> Descrição </label>
     <input type="text" name="description" id="description" /> <br>
-    <input type="submit" value="Cadastrar"> </input>
+    <input type="submit" value="Cadastrar"/>
 
 </form>
-<script>
-
-function validation() {
-  $("form[name='registerModality']").validate({
-            rules: {
-                acronyms: "required",
-                description: "required",
-            },
-
-            messages: {
-                acronyms: "Digite um acronimo valido",
-                description: "Digite uma Descrição valido",
-            },
-
-    submitHandler: function(form) {
-        alert("Chegou no Submit");
-        submit();
-    }
-  });
-
-    function submit(){
-
-        var jsonArray = [];
-        var i=0;
-         var splittedFormData = $("form[name='registerModality']").serialize().split('&');
-
-                item = {};
-            $.each(splittedFormData, function (key, value) {
-                var splittedValue = value.split('=');               
-                item[splittedValue[0]] = splittedValue[1];
-            });
-            jsonArray.push(item);
-
-        alert("Passou no Submit");
-
-        console.log(jsonArray);
-        return true;
-    }
-}
-</script>
+<script src="js/CadastroModalidade.js"></script>
 </body>
 </html>
