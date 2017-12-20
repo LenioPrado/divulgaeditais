@@ -1,0 +1,16 @@
+[
+		{
+			"modality_id":1,
+			"number": 1020,
+			"object": "comprar pneu",
+			"trading_date": "30/11/2017",
+			"url": "pdfDoPneu.pdf"
+		},
+		{
+			"modality_id":2,
+			"number": 1030,
+			"object": "comprar papel",
+			"trading_date": "20/11/2017",
+			"url": "pdfDoPapel.pdf"
+		}
+]
