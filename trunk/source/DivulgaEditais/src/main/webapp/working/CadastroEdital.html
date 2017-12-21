@@ -2,27 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"/></script>
- 	<script src="modality.json"></script>
 </head>
 
 <body>
 	
 <h1>Cadastro de Edital</h1>
-<script>
-
-$.getJSON('modality.json', function(json) {
-	$select = $('#modality');
-	$.each(json, function(i, value) {
-           $select.append('<option value="' + value.modality_id + '">' + value.acronyms + ' - ' +value.description + '</option>');
-        });
-    console.log(json);
-});
-
-</script>
-
 
 <form name= "registerNotice" method="post" onSubmit="return validation();" action="javascript:alert('success!');" enctype="multipart/form-data">
     <label> Modalidade</label>
@@ -39,6 +23,9 @@ $.getJSON('modality.json', function(json) {
     <input type="submit" value="Cadastrar" onclick="return submitData();"></input>
 
 </form>
-<script src="js/CadastroEdital.js"></script>
+	<script src="js/CadastroEdital.js"></script>
+	<script src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"/></script>
+ 	<script src="modality.json"></script>
 </body>
 </html>
