@@ -1,7 +1,28 @@
+window.onload = function() {
+	loadModalities();
+};
+
+function loadModalities(){
+	
+	var url = window.location.href;
+	var arr = url.split("/");
+	var result = arr[0] + "//" + arr[2];
+	
+	$.getJSON('/DivulgaEditais/rest/modality', function(json) {
+		$select = $('#modality');
+		$.each(json, function(i, value) {
+	           $select.append('<option value="' + value.modality_id + '">' + value.acronyms + ' - ' +value.description + '</option>');
+	    });
+	});
+}
+
 function submitData(){
        
+	modalityId: $('#modality').val();
+	alert('Modalidade: ' + modalityId);
+
 	var notice = {
-			modality: { modalityId: 1 },
+			modality: { modalityId: modalityId },
 			number: $("#number").val(),
 			object: $("#object").val(),
 			tradingDate: '2017-01-3',
@@ -16,7 +37,7 @@ function submitData(){
 	   data: JSON.stringify( notice ),
 	   processData: false,
 	   contentType: 'application/json',
-	   success: function(data){alert('Sucesso:' + data);},
+	   success: function(data){},
 	   failure: function(errMsg) {
 	       alert('Erro:' + errMsg);
 	   }
