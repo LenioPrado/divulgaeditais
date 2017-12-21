@@ -14,8 +14,12 @@ notice_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
 modality_id Integer NOT NULL,
 number varchar (8) NOT NULL,
 object varchar (50) NOT NULL,
+status varchar (20) NOT NULL,
 trading_date date NOT NULL,
+publishing_date date NOT NULL,
+closing_date date NOT NULL,
 url varchar (50) NULL,
+company_type INTEGER NOT NULL,
 FOREIGN KEY(modality_id) REFERENCES modalities (modality_id)
 );
 

@@ -82,21 +82,18 @@
             <form name= "registerNotice" id="registerNotice" method="post" onSubmit="return validation();" action="javascript:console.log('success!');" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
-                  <label type="text" name="labelModality"> Modalidade</label>
+                  <label>Modalidade</label>
                       <select id="modality" name="modality">
                       </select>
                 </div>
                 <div class="form-group">
-                  <label type="text" name="labelNumber"> Numero </label>
-                  <input type="number" name="number" id="number" /> <br>
+                  <label>Numero </label> <input type="number" name="number" id="number" /> <br>
                 </div>
                 <div class="form-group">
-                  <label type="text" name="labelObject"> Objeto </label>
-                        <input type="text" name="object" id="object"/> <br>
+                  <label>Objeto </label> <input type="text" name="object" id="object"/> <br>
                 </div>
                 <div class="form-group">
-                  <label type="text" name="labelDate"> Data do Pregão</label>
-                        <input type="date" name="trading_date" id="trading_date" /> <br>
+                  <label>Data do Pregão</label> <input type="date" name="trading_date" id="trading_date" /> <br>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputFile">File input</label>
@@ -126,7 +123,7 @@
             <div class="box-header">
             </div>
             <div class="box-body">
-              <table name="notices" id="notices" class="table table-bordered table-hover">
+              <table id="notices" class="table table-bordered table-hover">
                 <thead>
                   <tr>
                       <th>Modalidade</th><th>Numero</th><th>Objeto</th><th>Data do Pregao</th> <th>Selecionar</th>
@@ -145,11 +142,10 @@
     </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0
+      <b>Versão</b> 1.0
     </div>
     <strong>Prefeitura Municipal de Poços de Caldas</strong>
   </footer>
-</div>
 	<script src="js/mainUser.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/fastclick.js"></script>

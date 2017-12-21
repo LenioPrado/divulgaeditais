@@ -6,13 +6,13 @@ function loadProperties(){
 	
 	$("#tableNotice").hide();
 	$("#register").hide();
+	
 	$.getJSON('modality.json', function(json) {
 		  $select = $('#modality');
 		  $.each(json, function(i, value) {
-		    //<option value="townhall">Usuário da Prefeitura</option>
 		           $select.append('<option id="' + value.acronyms+ '">' + value.description + '</option>');
 		        });
-		    console.log(json); // this will show the info it in firebug console
+		    console.log(json);
 		});
 }
 
@@ -32,8 +32,12 @@ function fillAllNotice(){
         $.getJSON("notice.json", function(json) {
             $("#notices tbody tr").remove();       
             $.each(json, function(i, value) {
-          $('#notices > tbody:last-child').append('<tr><td>' + value.modality+ '</td><td>' + value.number + '</td><td>' + value.object + '</td><td>' + value.trading_date + '</td><td><a id="open" href="Editais/'+value.number+'.pdf"> Abrir Edital </a></td></tr>');
-           //onClcick="sendNotice('+value.number+')"
+          $('#notices > tbody:last-child').append(
+        		  '<tr><td>' + value.modality+ '</td><td>' + 
+        		  value.number + '</td><td>' + value.object + 
+        		  '</td><td>' + value.trading_date + 
+        		  '</td><td><a id="open" href="Editais/' + 
+        		  value.number +'.pdf"> Abrir Edital </a></td></tr>');
            console.log(value);
         }); 
     }); 
@@ -93,10 +97,13 @@ function fillRegisteredNotice(){
 	  console.log("pegou o json dos editais cadastrados");
 	  $("#notices tbody tr").remove();
 	  $.each(json, function(i, value) {
-	          $('#notices > tbody:last-child').append('<tr><td>' + value.modality+ '</td><td>' + value.number + '</td><td>' + value.object + '</td><td>' + value.trading_date + '</td><td>' + value.url + '</td><td><button id="open" onclick="sendNotice('+value.number+')"> Abrir Edital </button></td></tr>');
-	           // onClcick="sendNotice('+value.number+')"
+	          $('#notices > tbody:last-child').append(
+	        		  '<tr><td>' + value.modality+ '</td><td>' + 
+	        		  value.number + '</td><td>' + value.object + 
+	        		  '</td><td>' + value.trading_date + '</td><td>' + 
+	        		  value.url + '</td><td><button id="open" onclick="sendNotice('+value.number+')">Abrir Edital </button></td></tr>');
 	           console.log(value);
 	        });
-	    console.log(json); // this will show the info it in firebug console
+	    console.log(json);
 	});
 	}
