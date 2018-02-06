@@ -7,10 +7,12 @@ function loadProperties(){
 	$("#tableNotice").hide();
 	$("#register").hide();
 	
-	$.getJSON('modality.json', function(json) {
+	var baseUrl = getServerUrl();
+	
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/modality', function(json) {
 		  $select = $('#modality');
 		  $.each(json, function(i, value) {
-		           $select.append('<option id="' + value.acronyms+ '">' + value.description + '</option>');
+			  $select.append('<option value="' + value.modalityId + '">' + value.acronyms + ' - ' +value.description + '</option>');
 		        });
 		    console.log(json);
 		});
@@ -28,14 +30,21 @@ function sendNotice(number){
       
 function fillAllNotice(){
   console.log("Entrou na funcao");
-
-        $.getJSON("notice.json", function(json) {
-            $("#notices tbody tr").remove();       
-            $.each(json, function(i, value) {
+  
+	var baseUrl = getServerUrl();
+	
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/notice', function(json) {  
+        $("#notices tbody tr").remove();       
+        $.each(json, function(i, value) {
+        	
+        	var date = new Date(value.tradingDate);
+        	date.setTime(date.getTime() + date.getTimezoneOffset()*60*1000);
+        	var formattedDate = date.toLocaleDateString("pt-BR");
+        	
           $('#notices > tbody:last-child').append(
-        		  '<tr><td>' + value.modality+ '</td><td>' + 
+        		  '<tr><td>' + value.modality.acronyms + '-' + value.modality.description + '</td><td>' + 
         		  value.number + '</td><td>' + value.object + 
-        		  '</td><td>' + value.trading_date + 
+        		  '</td><td>' + formattedDate + 
         		  '</td><td><a id="open" href="Editais/' + 
         		  value.number +'.pdf"> Abrir Edital </a></td></tr>');
            console.log(value);
@@ -77,18 +86,43 @@ function validation() {
 	            validClass: "registerSuccess",
 
 	    submitHandler: function(form) {
-	        saveFile();
-	        alert("Edital cadastrado com sucesso!");
+	    	submitData();    	
+	    	//saveFile();
 	        location.reload(this);
 	    }
 	  });
-	      function saveFile()
-	      {
-	         $('#registerNotice').ajaxSubmit({
-	            url  : 'writeNotice.php',
-	            type : 'POST'
-	         });
-	      }
+}
+
+function submitData(){
+	
+	var modalityId = $('#modality').val();
+	alert('Modalidade: ' + modalityId);
+
+	var notice = {
+			modality: { modalityId: modalityId },
+			number: $("#number").val(),
+			object: $("#object").val(),
+			tradingDate: $("#trading_date").val(),
+			url: $("#file").val()
+	}
+	
+	var baseUrl = getServerUrl();
+	
+	$.ajax({
+	   type: "post",
+	   dataType: "json",
+	   url: getServerUrl() + "/DivulgaEditais/rest/notice/create",
+	   // The key needs to match your method's input parameter (case-sensitive).
+	   data: JSON.stringify( notice ),
+	   processData: false,
+	   contentType: 'application/json',
+	   success: function(data){
+		   alert("Edital cadastrado com sucesso!");
+	   },
+	   failure: function(errMsg) {
+	       alert('Erro:' + errMsg);
+	   }
+	});
 }
 
 function fillRegisteredNotice(){
