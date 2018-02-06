@@ -33,7 +33,7 @@
 
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="assets/images/usuario-160x160.png" class="user-image" alt="User Image">
+              <img src="assets/images/usuario-160x160.png" class="user-image" alt="User Image"/>
               <a class="hidden-xs" href="index.php">Sign out</a>
             </a>
           </li>
@@ -79,7 +79,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
-            <form name= "registerNotice" id="registerNotice" method="post" onSubmit="return validation();" action="javascript:console.log('success!');" enctype="multipart/form-data">
+            <form name="registerNotice" id="registerNotice" method="post" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
                   <label>Modalidade</label>
@@ -101,7 +101,7 @@
                 </div>
               </div>
               <div class="box-footer">
-                    <input type="submit" value="Cadastrar" class="btn btn-primary">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validation();">
                   </div>
             </form>
             </div>
@@ -146,12 +146,12 @@
     </div>
     <strong>Prefeitura Municipal de Poços de Caldas</strong>
   </footer>
+	<script src="js/utils.js"></script>
 	<script src="js/mainUser.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/fastclick.js"></script>
-	<script src="assets/js/adminlte.min.js"></script>
-	<script src="assets/js/demo.js"></script>
 	<script src="assets/js/jquery-3.2.1.min.js"></script>
+	<script src="assets/js/adminlte.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>	
 	<!-- <script src="modality.json"></script>  -->
 	<script src="assets/js/jquery.form.js"></script>
 	<script src="assets/js/jquery.validate.min.js"> </script>

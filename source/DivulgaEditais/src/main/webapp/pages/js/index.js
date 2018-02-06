@@ -14,84 +14,92 @@ function show(selected){
 }
 
 function validation() {
-  $("form[name='registerForm']").validate({
-            rules: {
-                name: "required",
-                email: {
-                    required: true,
-                    email: true
-                },
-                password: {
-                    required: true,
-                    minlength: 5
-                },
-                identification: "required",
-                zipcode: "required",
-                street: "required",
-                number: "required",
-                city: "required",
-                state: "required",
-                primaryPhoneNumber: "required",
-                mainPerson: "required",
-            },
-
-            messages: {
-                name: "Digite um nome válido",
-                password: {
-                    required: "Digite uma senha válida",
-                    minlength: "Sua senha deve ter no mínimo 5 caracteres"
-                },
-                email:  "Digite um email válido",
-                identification: "Selecione um tipo válido",
-                zipcode: "Digite um CEP válido",
-                street: "Digite uma rua válida",
-                number: "Digite um numero válido",
-                city: "Digite uma cidade válida",
-                state: "Digite um estado válido",
-                primaryPhoneNumber: "Digite um telefone válido",
-                mainPerson: "Digite um nome válido",
-            },
-            errorClass: "registerError",
-            validClass: "registerSuccess",
-
-       submitHandler: function(form) {
-        saveUser();
-    }
-  });
+//  $("form[name='registerForm']").validate({
+//            rules: {
+//                name: "required",
+//                email: {
+//                    required: true,
+//                    email: true
+//                },
+//                password: {
+//                    required: true,
+//                    minlength: 5
+//                },
+//                identification: "required",
+//                zipcode: "required",
+//                street: "required",
+//                number: "required",
+//                city: "required",
+//                state: "required",
+//                primaryPhoneNumber: "required",
+//                mainPerson: "required",
+//            },
+//
+//            messages: {
+//                name: "Digite um nome válido",
+//                password: {
+//                    required: "Digite uma senha válida",
+//                    minlength: "Sua senha deve ter no mínimo 5 caracteres"
+//                },
+//                email:  "Digite um email válido",
+//                identification: "Selecione um tipo válido",
+//                zipcode: "Digite um CEP válido",
+//                street: "Digite uma rua válida",
+//                number: "Digite um numero válido",
+//                city: "Digite uma cidade válida",
+//                state: "Digite um estado válido",
+//                primaryPhoneNumber: "Digite um telefone válido",
+//                mainPerson: "Digite um nome válido",
+//            },
+//            errorClass: "registerError",
+//            validClass: "registerSuccess",
+//
+//       submitHandler: function(form) {
+//        saveUser();
+//    }
+//  });
+  saveUser();
 }
+
 function saveUser()
       {
-        console.log("chegou no post");
-         $('#registerForm').ajaxSubmit({
-            url  : 'writeUser.php',
-            type : 'POST'
-         });
         var jsonArray = [];
         var i=0;
-         var splittedFormData = $("form[name='registerForm']").serialize().split('&');
+        var splittedFormData = $("form[name='registerForm']").serialize().split('&');
 
-                item = {};
-                increment = {};
-            $.each(splittedFormData, function (key, value) {
-                var splittedValue = value.split('=');               
-                item[splittedValue[0]] = splittedValue[1];
-                });
-            jsonArray.push(item);
-          
-           $.ajax({
-                url : 'userSession.php',
-                type : 'POST',
-                data: jsonArray
-            });
-                        
-            var myType = item['identification'];
-          
-            if(myType == "branch"){
-                window.location.replace("mainUser.php");
-            }
-            if(myType == "cnae"){
-                window.location.replace("companyUser.php");
-            }
+        item = {};
+        increment = {};
+        $.each(splittedFormData, function (key, value) {
+            var splittedValue = value.split('=');               
+            item[splittedValue[0]] = splittedValue[1];
+        });
+        
+        jsonArray.push(item);
+        
+    	var modality = {
+    			name: "PRExy",
+    			email: "Tomada de Preço"
+    	}
+    	
+    	console.log(jsonArray);
+            
+        var baseUrl = getServerUrl();
+    	
+    	$.ajax({
+    	   type: "post",
+    	   dataType: "json",
+    	   url: baseUrl + "/DivulgaEditais/rest/user/create",
+    	   data: jsonArray, //JSON.stringify( jsonArray )
+    	   processData: true,
+    	   contentType: 'application/json',
+    	   success: function(data){
+    		   alert('Salvo com sucesso!');
+    	   },
+    	   failure: function(errMsg) {
+    	       alert('Erro:' + errMsg);
+    	   }
+    	});
+
       }
     
 

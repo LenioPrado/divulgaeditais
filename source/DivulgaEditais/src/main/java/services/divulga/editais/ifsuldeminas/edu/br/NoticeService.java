@@ -18,10 +18,10 @@ public class NoticeService extends BaseService {
 
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Notice> findAll() {
+    public List<Notice> listAll() {
 		TypedQuery<Notice> query = getEM().createQuery("select t from Notice t", Notice.class);
-        List<Notice> todoList = query.getResultList();
-        return todoList;
+        List<Notice> list = query.getResultList();
+        return list;
     }
 		
     @POST

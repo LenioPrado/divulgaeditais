@@ -39,14 +39,4 @@ public class ModalityService extends BaseService {
 		} 
 		return modality;
     }
-		
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/login")
-    public Modality login(Modality modality) {
-    	TypedQuery<Modality> query = getEM().createQuery("SELECT t FROM Modality t", Modality.class);
-    	List<Modality> modalityList = query.getResultList();
-        return modalityList.get(0);
-    }
 }
