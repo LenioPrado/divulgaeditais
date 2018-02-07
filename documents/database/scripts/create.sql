@@ -18,7 +18,6 @@ status varchar (20) NOT NULL,
 trading_date date NOT NULL,
 publishing_date date NOT NULL,
 closing_date date NOT NULL,
-url varchar (50) NULL,
 company_type INTEGER NOT NULL,
 FOREIGN KEY(modality_id) REFERENCES modalities (modality_id)
 );
@@ -37,7 +36,8 @@ observation varchar(200)NOT NULL
 
 CREATE TABLE users (
 user_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
-name varchar(80) NOT NULL,
+name varchar(100) NOT NULL,
+fantasy_name varchar(100) NOT NULL,
 email varchar(50) NOT NULL UNIQUE,
 password varchar (50) NOT NULL,
 identification varchar (14) NOT NULL UNIQUE,
