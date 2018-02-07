@@ -1,7 +1,7 @@
 function show(selected){
     var branch = document.getElementById("branch");
     var cnae = document.getElementById("cnae");
-    var option = document.getElementById("identification").value;
+    var option = document.getElementById("type").value;
     var show = document.getElementById(option);
 
     if(show == branch){
@@ -25,7 +25,8 @@ function validation() {
                     required: true,
                     minlength: 5
                 },
-                identification: "required",
+                cpf: "required",
+                type: "required",
                 zipCode: "required",
                 address: "required",
                 number: "required",
@@ -42,7 +43,8 @@ function validation() {
                     minlength: "Sua senha deve ter no mínimo 5 caracteres"
                 },
                 email:  "Digite um email válido",
-                identification: "Selecione um tipo válido",
+                cpf: "Digite um CPF válido",
+                type: "Selecione um tipo válido",
                 zipCode: "Digite um CEP válido",
                 address: "Digite uma rua válida",
                 number: "Digite um numero válido",
