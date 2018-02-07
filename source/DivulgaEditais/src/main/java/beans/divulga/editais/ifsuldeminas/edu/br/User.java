@@ -28,16 +28,25 @@ public class User implements Serializable {
 
 	private String email;
 
-	private String identification;
+	private String cpf;
 
 	private String name;
 
 	private String neighborhood;
 
 	private String number;
+	
+	private String type;
+	
+	private String branch;
+	
+	private String cnae;
 
 	private String password;
 
+	@Column(name="company_type")
+	private String companyType;
+	
 	@Column(name="phone_primary")
 	private String phonePrimary;
 
@@ -98,12 +107,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getIdentification() {
-		return this.identification;
+	public String getCpf() {
+		return this.cpf;
 	}
 
-	public void setIdentification(String identification) {
-		this.identification = identification;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getName() {
@@ -200,4 +209,35 @@ public class User implements Serializable {
 		return usersRole;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
+	public String getCnae() {
+		return cnae;
+	}
+
+	public void setCnae(String cnae) {
+		this.cnae = cnae;
+	}
+
+	public String getCompanySize() {
+		return companyType;
+	}
+
+	public void setCompanyType(String companyType) {
+		this.companyType = companyType;
+	}
 }
