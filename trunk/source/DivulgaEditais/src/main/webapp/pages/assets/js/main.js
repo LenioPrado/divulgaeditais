@@ -95,7 +95,7 @@
 						})
 						.trigger('resize.overflow_fsh');
 
-					$window.load(function() {
+					$window.on('load', function() {
 						$window.trigger('resize.overflow_fsh');
 					});
 

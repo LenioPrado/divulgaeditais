@@ -11,14 +11,14 @@ function loadModalities(){
 	$.getJSON('/DivulgaEditais/rest/modality', function(json) {
 		$select = $('#modality');
 		$.each(json, function(i, value) {
-	           $select.append('<option value="' + value.modality_id + '">' + value.acronyms + ' - ' +value.description + '</option>');
+	           $select.append('<option value="' + value.modalityId + '">' + value.acronyms + ' - ' +value.description + '</option>');
 	    });
 	});
 }
 
 function submitData(){
        
-	modalityId: $('#modality').val();
+	modalityId =  $('#modality').val();
 	alert('Modalidade: ' + modalityId);
 
 	var notice = {
@@ -35,13 +35,17 @@ function submitData(){
 	   url: "http://localhost:8080/DivulgaEditais/rest/notice/create",
 	   // The key needs to match your method's input parameter (case-sensitive).
 	   data: JSON.stringify( notice ),
-	   processData: false,
+	   processData: true,
 	   contentType: 'application/json',
-	   success: function(data){},
+	   success: function(data){
+		   alert('Enviado:' + data);
+	   },
 	   failure: function(errMsg) {
 	       alert('Erro:' + errMsg);
 	   }
 	});
+	
+}
 
 function validation() {
   $("form[name='registerNotice']").validate({
@@ -53,7 +57,7 @@ function validation() {
         //file: "required",
     }})
   }
-}
+
 
 function Upload()
 {

@@ -31,8 +31,8 @@ public class UserService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/create")
     public User create(User user) {
-    	EntityManager em = getEM();     	
     	try {
+    		EntityManager em = getEM();
     		beginTransaction();    		
 			em.persist(user);
 			commitTransaction();
