@@ -18,14 +18,14 @@ function loadProperties(){
 		});
 	
 	$.getJSON(baseUrl + '/DivulgaEditais/rest/companyTypes', function(json) {
-		  $select = $('#company_type');
+		  $select = $('#companyType');
 		  $.each(json, function(i, value) {
 			  $select.append('<option value="' + value.companyTypeId + '">' + value.acronyms + ' - ' + value.description + '</option>');
 		        });
 		    console.log(json);
 		});
 	
-	$.getJSON(baseUrl + '/DivulgaEditais/rest/categories', function(json) {
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/category', function(json) {
 		  $select = $('#categories');
 		  $.each(json, function(i, value) {
 			  $select.append('<option value="' + value.categoryId + '">' + value.description + '</option>');
@@ -75,7 +75,7 @@ function fillAllNotice(){
         		  publishingDate + '</td><td>' +
         		  tradingDate + '</td><td>' +
         		  closingDate + '</td><td>' +
-        		  '</td><td><a id="open" href="Editais/' + 
+        		  '<a id="open" href="Editais/' + 
         		  value.fileName +'"> Abrir Edital </a></td></tr>'
         		  );
         }); 
@@ -84,55 +84,104 @@ function fillAllNotice(){
   }
 
 function loadRegister(){
-    $("#tableNotice").hide();
-    $("#register").show();
+	
+	$("registerNotice").show();
+	$("tableNotice").hide();
+	$("tableModality").hide();
+	$("registerModality").hide();
+	$("tableCategory").hide();
+	$("registerCategory").hide();
+	$("tableCompanyType").hide();
+	$("registerCompanyType").hide();
   }
 
 function loadTable(){
-    $("#register").hide();
-    $("#tableNotice").show();
+	$("registerNotice").hide();
+	$("tableNotice").show();
+	$("tableModality").hide();
+	$("registerModality").hide();
+	$("tableCategory").hide();
+	$("registerCategory").hide();
+	$("tableCompanyType").hide();
+	$("registerCompanyType").hide();
     fillAllNotice();
 
   }
 
 function fillRegisteredCategories(){
-    $("#register").hide();
-    $("#tableNotice").show();
+	$("registerNotice").hide();
+	$("tableNotice").hide();
+	$("tableModality").hide();
+	$("registerModality").hide();
+	$("tableCategory").hide();
+	$("registerCategory").show();
+	$("tableCompanyType").hide();
+	$("registerCompanyType").hide();
     fillAllNotice();
 
   }
 
 function loadCategories(){
-    $("#register").hide();
-    $("#tableNotice").show();
+	$("registerNotice").hide();
+	$("tableNotice").hide();
+	$("tableModality").hide();
+	$("registerModality").hide();
+	$("tableCategory").show();
+	$("registerCategory").hide();
+	$("tableCompanyType").hide();
+	$("registerCompanyType").hide();
     fillAllNotice();
 
   }
 
 function fillRegisteredModalities(){
-    $("#register").hide();
-    $("#tableNotice").show();
+	$("registerNotice").hide();
+	$("tableNotice").hide();
+	$("tableModality").show();
+	$("registerModality").hide();
+	$("tableCategory").hide();
+	$("registerCategory").hide();
+	$("tableCompanyType").hide();
+	$("registerCompanyType").hide();
     fillAllNotice();
 
   }
 
 function loadModalities(){
-    $("#register").hide();
-    $("#tableNotice").show();
+	$("registerNotice").hide();
+	$("tableNotice").hide();
+	$("tableModality").hide();
+	$("registerModality").show();
+	$("tableCategory").hide();
+	$("registerCategory").hide();
+	$("tableCompanyType").hide();
+	$("registerCompanyType").hide();
     fillAllNotice();
 
   }
 
 function fillRegisteredCompanyTypes(){
-    $("#register").hide();
-    $("#tableNotice").show();
+	$("registerNotice").hide();
+	$("tableNotice").hide();
+	$("tableModality").hide();
+	$("registerModality").hide();
+	$("tableCategory").hide();
+	$("registerCategory").hide();
+	$("tableCompanyType").show();
+	$("registerCompanyType").hide();
     fillAllNotice();
 
   }
 
 function loadCompanyTypes(){
-    $("#register").hide();
-    $("#tableNotice").show();
+	$("registerNotice").hide();
+	$("tableNotice").hide();
+	$("tableModality").hide();
+	$("registerModality").hide();
+	$("tableCategory").hide();
+	$("registerCategory").hide();
+	$("tableCompanyType").hide();
+	$("registerCompanyType").show();
     fillAllNotice();
 
   }
