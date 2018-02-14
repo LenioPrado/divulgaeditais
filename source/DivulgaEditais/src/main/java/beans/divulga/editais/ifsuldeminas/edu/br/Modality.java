@@ -1,6 +1,7 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 /**
  * The persistent class for the modalities database table.
@@ -30,9 +31,9 @@ public class Modality implements Serializable {
 
 	private String description;
 
-//	//bi-directional many-to-one association to Notice
-//	@OneToMany(mappedBy="modality", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-//	private Set<Notice> notices;
+	//bi-directional many-to-one association to Notice
+	@OneToMany(mappedBy="modality")
+	private List<Notice> notices;
 
 	public Modality() {
 	}
@@ -61,27 +62,27 @@ public class Modality implements Serializable {
 		this.description = description;
 	}
 
-//	public Set<Notice> getNotices() {
-//		return this.notices;
-//	}
-//
-//	public void setNotices(Set<Notice> notices) {
-//		this.notices = notices;
-//	}
-//
-//	public Notice addNotice(Notice notice) {
-//		getNotices().add(notice);
-//		notice.setModality(this);
-//
-//		return notice;
-//	}
+	public List<Notice> getNotices() {
+		return this.notices;
+	}
 
-//	public Notice removeNotice(Notice notice) {
-//		getNotices().remove(notice);
-//		notice.setModality(null);
-//
-//		return notice;
-//	}
+	public void setNotices(List<Notice> notices) {
+		this.notices = notices;
+	}
+	
+	public Notice addNotice(Notice notice) {
+		getNotices().add(notice);
+		notice.setModality(this);
+
+		return notice;
+	}
+
+	public Notice removeNotice(Notice notice) {
+		getNotices().remove(notice);
+		notice.setModality(null);
+
+		return notice;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
