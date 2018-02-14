@@ -11,38 +11,39 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import beans.divulga.editais.ifsuldeminas.edu.br.Modality;
+import beans.divulga.editais.ifsuldeminas.edu.br.CompanyType;
 
-@Path("/modality")
-public class ModalityService extends BaseService {
+@Path("/companyTypes")
+public class CompanyTypesService extends BaseService {
 
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Modality> listAll() {
-		List<Modality> modalityList = null;
+    public List<CompanyType> listAll() {
+		List<CompanyType> companyTypeList = null;
 		try {
-			TypedQuery<Modality> q = getEM().createQuery("select t from Modality t", Modality.class);
-			modalityList = q.getResultList();
-			return modalityList;
+			TypedQuery<CompanyType> q = getEM().createQuery("select t from CompanyType t", CompanyType.class);
+			companyTypeList = q.getResultList();
+			return companyTypeList;
 		} catch (Exception e) {
 			System.out.println(e);
+			e.printStackTrace();
 		}
-		return modalityList;
+		return companyTypeList;
     }
 	
 	@POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/create")
-    public Modality create(Modality modality) {
+    public CompanyType create(CompanyType companyType) {
     	EntityManager em = getEM();     	
     	try {
     		beginTransaction();    		
-			em.persist(modality);
+			em.persist(companyType);
 			commitTransaction();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} 
-		return modality;
+		return companyType;
     }
 }
