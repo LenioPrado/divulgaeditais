@@ -41,11 +41,12 @@
             <h2>Cadastrar</h2>
             <p>Cadastre-se e fique por dentro de todos os editais da prefeitura.</p>
         </header> 
-	    <form name= "registerForm" id="registerForm" method="post" onSubmit="return validation();" action="javascript:alert('success!');" enctype="multipart/form-data">
-	        <label>Nome</label> <input type="text" name="name" id="name" /> <br>
+	    <form name= "registerForm" id="registerForm" method="post" enctype="multipart/form-data">
+	        <label>Razão Social</label> <input type="text" name="socialName" id="socialName" /> <br>
+	       	<label>Nome Fantasia</label> <input type="text" name="fantasyName" id="fantasyName" /> <br>
 	        <label>Email </label> <input type="text" name="email" id="email"/> <br>
 	        <label>Senha</label> <input type="password" name="password" id="password"/> <br>
-	        <label>CPF</label> <input type="text" name="cpf" id="cpf"/> <br>
+	        <label>CNPJ</label> <input type="text" name="cnpj" id="cnpj"/> <br>
 	        <label>Tipo</label>
 	        <select id="type" name="type" onchange="show(this);">
 	                <option value="none" selected="selected">(Selecione uma opção)</option>
@@ -77,8 +78,9 @@
 	        <label>Estado</label> <input type="text" name="state" id="state"/> <br>
 	        <label>Telefone Principal</label> <input type="text" name="phonePrimary" id="phonePrimary"/> <br>
 	        <label>Celular</label> <input type="text" name="phoneSecondary" id="phoneSecondary"/> <br>
-	        <label>Responsável</label> <input type="text" name="responsible" id="responsible"/> <br>
-	        <input type="submit" value="Cadastrar">
+	        <label>Nome do Responsável</label> <input type="text" name="responsibleName" id="responsibleName"/> <br>
+	        <label>CPF do Responsável</label> <input type="text" name="responsibleCpf" id="responsibleCpf"/> <br>
+	        <input type="submit" value="Cadastrar" onClick="return validation();">
 	    </form>
     </article>
 </section>

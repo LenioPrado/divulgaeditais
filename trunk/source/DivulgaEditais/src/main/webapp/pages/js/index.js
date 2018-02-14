@@ -14,9 +14,33 @@ function show(selected){
 }
 
 function validation() {
+	var option = $("#type").val();
+	if(option == "branch"){
+		$("form[name='registerForm']").validate({
+            rules: {
+            	branch: "required"
+            },
+            messages: {
+            	branch: "Digite um setor válido"
+            }
+		});
+	}else{
+		$("form[name='registerForm']").validate({
+            rules: {
+            	cnae: "required",
+            	companyType: "required"
+            },
+            messages: {
+            	cnae: "Digite um CNAE válido",
+            	companyType: "Selecione uma categoria válida"
+            }
+		});
+	}
+	
   $("form[name='registerForm']").validate({
             rules: {
-                name: "required",
+            	socialName: "required",
+            	fantasyName: "required",
                 email: {
                     required: true,
                     email: true
@@ -25,7 +49,7 @@ function validation() {
                     required: true,
                     minlength: 5
                 },
-                cpf: "required",
+                cnpj: "required",
                 type: "required",
                 zipCode: "required",
                 address: "required",
@@ -33,17 +57,19 @@ function validation() {
                 city: "required",
                 state: "required",
                 phonePrimary: "required",
-                responsible: "required",
+                responsibleName: "required",
+                responsibleCpf: "required"
             },
 
             messages: {
-                name: "Digite um nome válido",
+            	socialName: "Digite uma razão social válida",
+            	fantasyName: "Digite um nome fantasia válida",
                 password: {
                     required: "Digite uma senha válida",
                     minlength: "Sua senha deve ter no mínimo 5 caracteres"
                 },
                 email:  "Digite um email válido",
-                cpf: "Digite um CPF válido",
+                cnpj: "Digite um CPF válido",
                 type: "Selecione um tipo válido",
                 zipCode: "Digite um CEP válido",
                 address: "Digite uma rua válida",
@@ -51,7 +77,8 @@ function validation() {
                 city: "Digite uma cidade válida",
                 state: "Digite um estado válido",
                 phonePrimary: "Digite um telefone válido",
-                responsible: "Digite um nome válido",
+                responsibleName: "Digite um nome válido",
+                responsibleCpf: "Digite um CPF válido"
             },
             errorClass: "registerError",
             validClass: "registerSuccess",
