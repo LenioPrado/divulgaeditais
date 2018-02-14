@@ -9,16 +9,27 @@ acronyms varchar(10) NOT NULL UNIQUE,
 description varchar(50)NOT NULL
 );
 
+CREATE TABLE company_types (
+company_type_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
+acronyms varchar(10) NOT NULL UNIQUE,
+description varchar(50)NOT NULL
+);
+
+
 CREATE TABLE notices (
 notice_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
 modality_id Integer NOT NULL,
+inserted_by varchar (20) NOT NULL,
+company_type_id INTEGER NOT NULL,
 number varchar (8) NOT NULL,
 object varchar (50) NOT NULL,
 status varchar (20) NOT NULL,
 trading_date date NOT NULL,
 publishing_date date NOT NULL,
 closing_date date NOT NULL,
-company_type INTEGER NOT NULL,
+file_name varchar (100) NOT NULL,
+FOREIGN KEY(user_id) REFERENCES users (user_id)
+FOREIGN KEY(company_type_id) REFERENCES company_types (company_type_id)
 FOREIGN KEY(modality_id) REFERENCES modalities (modality_id)
 );
 
@@ -36,15 +47,15 @@ observation varchar(200)NOT NULL
 
 CREATE TABLE users (
 user_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
-name varchar(100) NOT NULL,
+social_name varchar(100) NOT NULL,
 fantasy_name varchar(100) NOT NULL,
 email varchar(50) NOT NULL UNIQUE,
 password varchar (50) NOT NULL,
-cpf varchar (14) NOT NULL UNIQUE,
+cnpj varchar (14) NOT NULL UNIQUE,
 type varchar (10) NOT NULL,
 company_type varchar (10) NOT NULL,
-branch varchar (50) NOT NULL,
-cnae varchar (10) NOT NULL,
+branch varchar (50),
+cnae varchar (10),
 zip_code varchar(50) NOT NULL,
 address varchar(50) NOT NULL,
 number varchar(5) NOT NULL,
@@ -54,7 +65,8 @@ city varchar(50) NOT NULL,
 state varchar(2) NOT NULL,
 phone_primary varchar(14) NOT NULL,
 phone_secondary varchar(14),
-responsible varchar(50)
+responsible_name varchar(50) NOT NULL,
+responsible_cpf varchar (14) NOT NULL,
 );
 
 CREATE TABLE users_roles (

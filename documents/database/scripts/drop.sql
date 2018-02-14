@@ -4,5 +4,6 @@ drop table roles;
 drop table providers;
 drop table notices;
 drop table modalities;
+drop table company_types;
 
 DROP DATABASE IF EXISTS divulgaeditais;

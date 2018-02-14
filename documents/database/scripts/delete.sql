@@ -6,3 +6,4 @@ delete from roles;
 delete from providers;
 delete from notices;
 delete from modalities;
+delete from company_types;
