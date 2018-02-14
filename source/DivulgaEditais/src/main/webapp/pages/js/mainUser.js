@@ -67,15 +67,16 @@ function fillAllNotice(){
         	
           $('#notices > tbody:last-child').append(
         		  '<tr><td>' + 
-        		  value.companyType + '</td><td>' + 
+        		  value.user.fantasyName + '</td><td>' + 
         		  value.modality.acronyms + '-' + value.modality.description + '</td><td>' + 
+        		  value.companyType.description + '</td><td>' + 
         		  value.number + '</td><td>' + 
         		  value.object + '</td><td>' + 
         		  publishingDate + '</td><td>' +
         		  tradingDate + '</td><td>' +
         		  closingDate + '</td><td>' +
         		  '</td><td><a id="open" href="Editais/' + 
-        		  value.fileName +'.pdf"> Abrir Edital </a></td></tr>'
+        		  value.fileName +'"> Abrir Edital </a></td></tr>'
         		  );
         }); 
     }); 
