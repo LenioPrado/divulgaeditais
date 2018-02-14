@@ -20,15 +20,36 @@ public class Notice implements Serializable {
 	@Column(name="notice_id")
 	private int noticeId;
 
+	@Temporal(TemporalType.DATE)
+	@Column(name="closing_date")
+	private Date closingDate;
+
+	@Column(name="file_name")
+	private String fileName;
+
 	private String number;
 
 	private String object;
 
 	@Temporal(TemporalType.DATE)
+	@Column(name="publishing_date")
+	private Date publishingDate;
+
+	private String status;
+
+	@Temporal(TemporalType.DATE)
 	@Column(name="trading_date")
 	private Date tradingDate;
 
-	private String url;
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="inserted_by")
+	private User user;
+
+	//bi-directional many-to-one association to CompanyType
+	@ManyToOne
+	@JoinColumn(name="company_type_id")
+	private CompanyType companyType;
 
 	//bi-directional many-to-one association to Modality
 	@ManyToOne
@@ -44,6 +65,22 @@ public class Notice implements Serializable {
 
 	public void setNoticeId(int noticeId) {
 		this.noticeId = noticeId;
+	}
+
+	public Date getClosingDate() {
+		return this.closingDate;
+	}
+
+	public void setClosingDate(Date closingDate) {
+		this.closingDate = closingDate;
+	}
+
+	public String getFileName() {
+		return this.fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public String getNumber() {
@@ -62,6 +99,22 @@ public class Notice implements Serializable {
 		this.object = object;
 	}
 
+	public Date getPublishingDate() {
+		return this.publishingDate;
+	}
+
+	public void setPublishingDate(Date publishingDate) {
+		this.publishingDate = publishingDate;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Date getTradingDate() {
 		return this.tradingDate;
 	}
@@ -70,12 +123,20 @@ public class Notice implements Serializable {
 		this.tradingDate = tradingDate;
 	}
 
-	public String getUrl() {
-		return this.url;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public CompanyType getCompanyType() {
+		return this.companyType;
+	}
+
+	public void setCompanyType(CompanyType companyType) {
+		this.companyType = companyType;
 	}
 
 	public Modality getModality() {
@@ -85,33 +146,5 @@ public class Notice implements Serializable {
 	public void setModality(Modality modality) {
 		this.modality = modality;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + noticeId;
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Notice other = (Notice) obj;
-		if (noticeId != other.noticeId)
-			return false;
-		return true;
-	}	
 
 }

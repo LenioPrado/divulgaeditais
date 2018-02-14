@@ -1,8 +1,16 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -22,47 +30,59 @@ public class User implements Serializable {
 
 	private String address;
 
+	private String branch;
+
 	private String city;
+
+	private String cnae;
+
+	private String cnpj;
+
+	@Column(name="company_type")
+	private String companyType;
 
 	private String complement;
 
 	private String email;
 
-	private String cpf;
-
-	private String name;
+	@Column(name="fantasy_name")
+	private String fantasyName;
 
 	private String neighborhood;
 
 	private String number;
-	
-	private String type;
-	
-	private String branch;
-	
-	private String cnae;
 
 	private String password;
 
-	@Column(name="company_type")
-	private String companyType;
-	
 	@Column(name="phone_primary")
 	private String phonePrimary;
 
 	@Column(name="phone_secondary")
 	private String phoneSecondary;
 
-	private String responsible;
+	@Column(name="responsible_cpf")
+	private String responsibleCpf;
+
+	@Column(name="responsible_name")
+	private String responsibleName;
+
+	@Column(name="social_name")
+	private String socialName;
 
 	private String state;
+
+	private String type;
 
 	@Column(name="zip_code")
 	private String zipCode;
 
+	//bi-directional many-to-one association to Notice
+	@OneToMany(mappedBy="user")
+	private List<Notice> notices;
+
 	//bi-directional many-to-one association to UsersRole
 	@OneToMany(mappedBy="user")
-	private Set<UsersRole> usersRoles;
+	private List<UsersRole> usersRoles;
 
 	public User() {
 	}
@@ -83,12 +103,44 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
+	public String getBranch() {
+		return this.branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
 	public String getCity() {
 		return this.city;
 	}
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getCnae() {
+		return this.cnae;
+	}
+
+	public void setCnae(String cnae) {
+		this.cnae = cnae;
+	}
+
+	public String getCnpj() {
+		return this.cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getCompanyType() {
+		return this.companyType;
+	}
+
+	public void setCompanyType(String companyType) {
+		this.companyType = companyType;
 	}
 
 	public String getComplement() {
@@ -107,20 +159,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getCpf() {
-		return this.cpf;
+	public String getFantasyName() {
+		return this.fantasyName;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setFantasyName(String fantasyName) {
+		this.fantasyName = fantasyName;
 	}
 
 	public String getNeighborhood() {
@@ -163,12 +207,28 @@ public class User implements Serializable {
 		this.phoneSecondary = phoneSecondary;
 	}
 
-	public String getResponsible() {
-		return this.responsible;
+	public String getResponsibleCpf() {
+		return this.responsibleCpf;
 	}
 
-	public void setResponsible(String responsible) {
-		this.responsible = responsible;
+	public void setResponsibleCpf(String responsibleCpf) {
+		this.responsibleCpf = responsibleCpf;
+	}
+
+	public String getResponsibleName() {
+		return this.responsibleName;
+	}
+
+	public void setResponsibleName(String responsibleName) {
+		this.responsibleName = responsibleName;
+	}
+
+	public String getSocialName() {
+		return this.socialName;
+	}
+
+	public void setSocialName(String socialName) {
+		this.socialName = socialName;
 	}
 
 	public String getState() {
@@ -179,6 +239,14 @@ public class User implements Serializable {
 		this.state = state;
 	}
 
+	public String getType() {
+		return this.type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getZipCode() {
 		return this.zipCode;
 	}
@@ -187,11 +255,33 @@ public class User implements Serializable {
 		this.zipCode = zipCode;
 	}
 
-	public Set<UsersRole> getUsersRoles() {
+	public List<Notice> getNotices() {
+		return this.notices;
+	}
+
+	public void setNotices(List<Notice> notices) {
+		this.notices = notices;
+	}
+
+	public Notice addNotice(Notice notice) {
+		getNotices().add(notice);
+		notice.setUser(this);
+
+		return notice;
+	}
+
+	public Notice removeNotice(Notice notice) {
+		getNotices().remove(notice);
+		notice.setUser(null);
+
+		return notice;
+	}
+
+	public List<UsersRole> getUsersRoles() {
 		return this.usersRoles;
 	}
 
-	public void setUsersRoles(Set<UsersRole> usersRoles) {
+	public void setUsersRoles(List<UsersRole> usersRoles) {
 		this.usersRoles = usersRoles;
 	}
 
@@ -207,37 +297,5 @@ public class User implements Serializable {
 		usersRole.setUser(null);
 
 		return usersRole;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getBranch() {
-		return branch;
-	}
-
-	public void setBranch(String branch) {
-		this.branch = branch;
-	}
-
-	public String getCnae() {
-		return cnae;
-	}
-
-	public void setCnae(String cnae) {
-		this.cnae = cnae;
-	}
-
-	public String getCompanySize() {
-		return companyType;
-	}
-
-	public void setCompanyType(String companyType) {
-		this.companyType = companyType;
 	}
 }

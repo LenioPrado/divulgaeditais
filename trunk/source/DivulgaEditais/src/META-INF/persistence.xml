@@ -7,6 +7,7 @@
 
     <persistence-unit name="divulgaEditais" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>beans.divulga.editais.ifsuldeminas.edu.br.CompanyType</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.Modality</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.Notice</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.Provider</class>
@@ -14,7 +15,7 @@
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.User</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.UsersRole</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.UsersRolePK</class>
-		
+	
 		<properties>
 		
 		 <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
