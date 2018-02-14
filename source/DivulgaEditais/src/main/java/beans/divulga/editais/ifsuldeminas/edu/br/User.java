@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 
 /**
  * The persistent class for the users database table.
@@ -78,6 +80,7 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Notice
 	@OneToMany(mappedBy="user")
+	@JsonManagedReference
 	private List<Notice> notices;
 
 	//bi-directional many-to-one association to UsersRole

@@ -1,8 +1,22 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 
 /**
@@ -44,16 +58,19 @@ public class Notice implements Serializable {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="inserted_by")
+	@JsonBackReference
 	private User user;
 
 	//bi-directional many-to-one association to CompanyType
 	@ManyToOne
 	@JoinColumn(name="company_type_id")
+	@JsonManagedReference
 	private CompanyType companyType;
 
 	//bi-directional many-to-one association to Modality
 	@ManyToOne
 	@JoinColumn(name="modality_id")
+	@JsonManagedReference
 	private Modality modality;
 
 	public Notice() {

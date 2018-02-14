@@ -10,11 +10,13 @@
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.CompanyType</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.Modality</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.Notice</class>
-		<class>beans.divulga.editais.ifsuldeminas.edu.br.Provider</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.Role</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.User</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.UsersRole</class>
 		<class>beans.divulga.editais.ifsuldeminas.edu.br.UsersRolePK</class>
+		<class>beans.divulga.editais.ifsuldeminas.edu.br.Category</class>
+		<class>beans.divulga.editais.ifsuldeminas.edu.br.NoticesCategory</class>
+		<class>beans.divulga.editais.ifsuldeminas.edu.br.UsersCategory</class>
 	
 		<properties>
 		

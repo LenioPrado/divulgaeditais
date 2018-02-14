@@ -1,8 +1,18 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 
 /**
@@ -26,6 +36,7 @@ public class CompanyType implements Serializable {
 
 	//bi-directional many-to-one association to Notice
 	@OneToMany(mappedBy="companyType")
+	@JsonBackReference
 	private List<Notice> notices;
 
 	public CompanyType() {
