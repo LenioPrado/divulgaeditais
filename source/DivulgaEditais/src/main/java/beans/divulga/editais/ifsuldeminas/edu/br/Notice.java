@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 
@@ -58,7 +57,7 @@ public class Notice implements Serializable {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="inserted_by")
-	@JsonBackReference
+	@JsonManagedReference
 	private User user;
 
 	//bi-directional many-to-one association to CompanyType

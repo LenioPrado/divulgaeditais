@@ -1,8 +1,18 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
@@ -23,10 +33,12 @@ public class Category implements Serializable {
 	private String description;
 
 	//bi-directional many-to-one association to NoticesCategory
-	@OneToMany(mappedBy="category")
+	@JsonIgnore
+	@OneToMany(mappedBy="category")	
 	private List<NoticesCategory> noticesCategories;
 
 	//bi-directional many-to-one association to UsersCategory
+	@JsonIgnore
 	@OneToMany(mappedBy="category")
 	private List<UsersCategory> usersCategories;
 
