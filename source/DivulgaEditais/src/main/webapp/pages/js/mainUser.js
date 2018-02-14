@@ -54,6 +54,7 @@ function fillAllNotice(){
   }
 
 function loadRegister(){
+	loadProperties();
     $("#tableNotice").hide();
     $("#register").show();
   }
@@ -98,13 +99,7 @@ function submitData(){
 	var modalityId = $('#modality').val();
 	alert('Modalidade: ' + modalityId);
 
-	var notice = {
-			modality: { modalityId: modalityId },
-			number: $("#number").val(),
-			object: $("#object").val(),
-			tradingDate: $("#trading_date").val(),
-			url: $("#file").val()
-	}
+	var notice = getFormData('#registerNotice');
 	
 	var baseUrl = getServerUrl();
 	
