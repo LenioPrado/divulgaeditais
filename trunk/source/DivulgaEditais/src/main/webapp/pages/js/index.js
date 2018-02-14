@@ -64,14 +64,7 @@ function validation() {
 
 function saveUser()
   {
-    var splittedFormData = $("form[name='registerForm']").serialize().split('&');
-
-    var user = {};
-    $.each(splittedFormData, function (key, value) {
-        var splittedValue = value.split('=');
-        user[splittedValue[0]] = splittedValue[1];
-    });
-       
+	var user = getFormData('registerForm');
     var baseUrl = getServerUrl();
 
 	$.ajax({
@@ -86,6 +79,13 @@ function saveUser()
 	   },
 	   failure: function(errMsg) {
 	       alert('Erro:' + errMsg);
+	   },
+	   error: function(jqXHR, status, error) {
+		   if(jqXHR.responseText !== ''){
+		        alert(status+": "+jqXHR.responseText);
+		    }else{
+		        alert(status+": "+error);
+		    }  
 	   }
 	});    	
 };

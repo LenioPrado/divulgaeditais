@@ -10,8 +10,8 @@ public class BaseService {
 		return EMFactory.getInstance().getEntityManager();
 	}
 	
-	protected EntityManager closetEM() {
-		return EMFactory.getInstance().getEntityManager();
+	protected void closeEM() {
+		getEM().close();
 	}
 	
 	protected void beginTransaction() {
