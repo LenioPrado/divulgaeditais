@@ -17,7 +17,7 @@ function loadProperties(){
 		    console.log(json);
 		});
 	
-	$.getJSON(baseUrl + '/DivulgaEditais/rest/company_type', function(json) {
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/companyTypes', function(json) {
 		  $select = $('#company_type');
 		  $.each(json, function(i, value) {
 			  $select.append('<option value="' + value.companyTypeId + '">' + value.acronyms + ' - ' + value.description + '</option>');
