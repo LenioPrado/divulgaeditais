@@ -21,7 +21,7 @@ social_name varchar(100) NOT NULL,
 fantasy_name varchar(100) NOT NULL,
 email varchar(50) NOT NULL UNIQUE,
 password varchar (50) NOT NULL,
-cnpj varchar (14) NOT NULL UNIQUE,
+cnpj varchar (20) NOT NULL UNIQUE,
 type varchar (10) NOT NULL,
 company_type varchar (10) NOT NULL,
 branch varchar (50),
@@ -46,7 +46,7 @@ inserted_by Integer NOT NULL,
 company_type_id INTEGER NOT NULL,
 number varchar (8) NOT NULL,
 object varchar (50) NOT NULL,
-status varchar (20) NOT NULL,
+status varchar (20),
 trading_date date NOT NULL,
 publishing_date date NOT NULL,
 closing_date date NOT NULL,
@@ -56,10 +56,25 @@ FOREIGN KEY(company_type_id) REFERENCES company_types (company_type_id),
 FOREIGN KEY(modality_id) REFERENCES modalities (modality_id)
 );
 
-CREATE TABLE providers (
-provider_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
-name varchar (50) NOT NULL,
-url varchar (50) NULL
+CREATE TABLE categories (
+category_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
+description varchar(50) NOT NULL
+);
+
+CREATE TABLE notices_categories (
+notice_category_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
+notice_id Integer NOT NULL,
+category_id Integer NOT NULL,
+FOREIGN KEY(notice_id) REFERENCES notices (notice_id),
+FOREIGN KEY(category_id) REFERENCES categories (category_id)
+);
+
+CREATE TABLE users_categories (
+user_category_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
+user_id Integer NOT NULL,
+category_id Integer NOT NULL,
+FOREIGN KEY(user_id) REFERENCES users (user_id),
+FOREIGN KEY(category_id) REFERENCES categories (category_id)
 );
 
 CREATE TABLE roles (
