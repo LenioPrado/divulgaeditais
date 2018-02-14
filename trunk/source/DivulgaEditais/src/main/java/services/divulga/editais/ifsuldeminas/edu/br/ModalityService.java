@@ -19,9 +19,16 @@ public class ModalityService extends BaseService {
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Modality> listAll() {
-		TypedQuery<Modality> q = getEM().createQuery("select t from Modality t", Modality.class);
-        List<Modality> modalityList = q.getResultList();
-        return modalityList;
+		List<Modality> modalityList = null;
+		try {
+			TypedQuery<Modality> q = getEM().createQuery("select t from Modality t", Modality.class);
+			modalityList = q.getResultList();
+			return modalityList;
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		return modalityList;
     }
 	
 	@POST
