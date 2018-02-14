@@ -12,7 +12,7 @@ function loadProperties(){
 	$.getJSON(baseUrl + '/DivulgaEditais/rest/modality', function(json) {
 		  $select = $('#modality');
 		  $.each(json, function(i, value) {
-			  $select.append('<option value="' + value.modalityId + '">' + value.acronyms + ' - ' +value.description + '</option>');
+			  $select.append('<option value="' + value.modalityId + '">' + value.acronyms + ' - ' + value.description + '</option>');
 		        });
 		    console.log(json);
 		});
@@ -20,7 +20,15 @@ function loadProperties(){
 	$.getJSON(baseUrl + '/DivulgaEditais/rest/company_type', function(json) {
 		  $select = $('#company_type');
 		  $.each(json, function(i, value) {
-			  $select.append('<option value="' + value.modalityId + '">' + value.acronyms + ' - ' +value.description + '</option>');
+			  $select.append('<option value="' + value.companyTypeId + '">' + value.acronyms + ' - ' + value.description + '</option>');
+		        });
+		    console.log(json);
+		});
+	
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/categories', function(json) {
+		  $select = $('#categories');
+		  $.each(json, function(i, value) {
+			  $select.append('<option value="' + value.categoryId + '">' + value.description + '</option>');
 		        });
 		    console.log(json);
 		});
@@ -75,7 +83,6 @@ function fillAllNotice(){
   }
 
 function loadRegister(){
-	loadProperties();
     $("#tableNotice").hide();
     $("#register").show();
   }
@@ -86,6 +93,50 @@ function loadTable(){
     fillAllNotice();
 
   }
+
+function fillRegisteredCategories(){
+    $("#register").hide();
+    $("#tableNotice").show();
+    fillAllNotice();
+
+  }
+
+function loadCategories(){
+    $("#register").hide();
+    $("#tableNotice").show();
+    fillAllNotice();
+
+  }
+
+function fillRegisteredModalities(){
+    $("#register").hide();
+    $("#tableNotice").show();
+    fillAllNotice();
+
+  }
+
+function loadModalities(){
+    $("#register").hide();
+    $("#tableNotice").show();
+    fillAllNotice();
+
+  }
+
+function fillRegisteredCompanyTypes(){
+    $("#register").hide();
+    $("#tableNotice").show();
+    fillAllNotice();
+
+  }
+
+function loadCompanyTypes(){
+    $("#register").hide();
+    $("#tableNotice").show();
+    fillAllNotice();
+
+  }
+
+
 
 function validation() {
 	  $("form[name='registerNotice']").validate({
