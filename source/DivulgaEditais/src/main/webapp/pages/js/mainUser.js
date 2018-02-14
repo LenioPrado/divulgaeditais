@@ -16,6 +16,14 @@ function loadProperties(){
 		        });
 		    console.log(json);
 		});
+	
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/company_type', function(json) {
+		  $select = $('#company_type');
+		  $.each(json, function(i, value) {
+			  $select.append('<option value="' + value.modalityId + '">' + value.acronyms + ' - ' +value.description + '</option>');
+		        });
+		    console.log(json);
+		});
 }
 
 function sendNotice(number){
@@ -39,15 +47,28 @@ function fillAllNotice(){
         	
         	var date = new Date(value.tradingDate);
         	date.setTime(date.getTime() + date.getTimezoneOffset()*60*1000);
-        	var formattedDate = date.toLocaleDateString("pt-BR");
+        	var tradingDate = date.toLocaleDateString("pt-BR");
+        	
+        	var date = new Date(value.publishingDate);
+        	date.setTime(date.getTime() + date.getTimezoneOffset()*60*1000);
+        	var publishingDate = date.toLocaleDateString("pt-BR");
+        	
+        	var date = new Date(value.closingDate);
+        	date.setTime(date.getTime() + date.getTimezoneOffset()*60*1000);
+        	var closingDate = date.toLocaleDateString("pt-BR");
         	
           $('#notices > tbody:last-child').append(
-        		  '<tr><td>' + value.modality.acronyms + '-' + value.modality.description + '</td><td>' + 
-        		  value.number + '</td><td>' + value.object + 
-        		  '</td><td>' + formattedDate + 
+        		  '<tr><td>' + 
+        		  value.companyType + '</td><td>' + 
+        		  value.modality.acronyms + '-' + value.modality.description + '</td><td>' + 
+        		  value.number + '</td><td>' + 
+        		  value.object + '</td><td>' + 
+        		  publishingDate + '</td><td>' +
+        		  tradingDate + '</td><td>' +
+        		  closingDate + '</td><td>' +
         		  '</td><td><a id="open" href="Editais/' + 
-        		  value.number +'.pdf"> Abrir Edital </a></td></tr>');
-           console.log(value);
+        		  value.fileName +'.pdf"> Abrir Edital </a></td></tr>'
+        		  );
         }); 
     }); 
 
@@ -69,19 +90,26 @@ function loadTable(){
 function validation() {
 	  $("form[name='registerNotice']").validate({
 	            rules: {
-	               modality: "required",
+	            	companyType: "required",
+	            	modality: "required",
 	                number: "required",
 	                object: "required",
 	                trading_date: "required",
+	                closingDate: "required",
+	                categories: "required",
+	                fileName: "required",
 	                //file: "required",
 	            },
 
 	            messages: {
+	            	companyType: "Selecione um tipo válido",
 	                modality: "Escolha uma modalidade válida",
 	                number: "Digite um número válido",
 	                object: "Digite uma descrição válida",
 	                trading_date: "Selecione uma data válida",
-	                //file: "Insira um arquivo valido",
+	                closingDate: "Selecione uma data válida",
+	                categories: "Selecione uma categoria válida",
+	                fileName: "Insira um arquivo válido",
 	            },
 	            errorClass: "registerError",
 	            validClass: "registerSuccess",
