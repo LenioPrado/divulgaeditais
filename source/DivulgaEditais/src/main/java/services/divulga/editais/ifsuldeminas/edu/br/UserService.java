@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import beans.divulga.editais.ifsuldeminas.edu.br.User;
+import utils.divulga.editais.ifsuldeminas.edu.br.ProjectLogger;
 
 @Path("/user")
 public class UserService extends BaseService {
@@ -21,7 +22,28 @@ public class UserService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/login")
     public User login(User user) {
-    	TypedQuery<User> query = getEM().createQuery("SELECT t FROM User t", User.class);
+		ProjectLogger.log.info("login ");
+		String pageNav = "";
+//		User user = null;
+//		try {
+//			user = _userDelegate.login(_email, _pwd);
+//		} catch (UserException e) {
+//			BeanUtil.setMessageGeneral(MsgConstants.MSG_ERROR_LOGIN, "msg",FacesMessage.SEVERITY_ERROR);
+//			e.printStackTrace();
+//		}
+//		if (user != null) {
+//			UserAccessUtils.getInstance().removeUserRolePagesFromSession();
+//			BeanUtil.invalidateSession();
+//			UserAccessUtils.getInstance().putUserInSession(user);
+//			pageNav = MsgConstants.SELECT_ROLE_PAGE;
+//		} else {
+//			BeanUtil.setMessageGeneral(MsgConstants.MSG_ERROR_LOGIN, "msg",FacesMessage.SEVERITY_ERROR);
+//		}
+		ProjectLogger.log.info("validateLogin " + pageNav);
+		//return pageNav;    	
+    	
+    	String sql = "SELECT t FROM User t WHERE t.email = " + user.getEmail();
+    	TypedQuery<User> query = getEM().createQuery(sql, User.class);
     	List<User> list = query.getResultList();
         return list.get(0);
     }
@@ -38,6 +60,7 @@ public class UserService extends BaseService {
 			commitTransaction();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			throw e;
 		} 
 		return user;
     }    
