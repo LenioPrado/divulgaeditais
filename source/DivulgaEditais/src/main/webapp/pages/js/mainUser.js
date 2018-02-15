@@ -38,11 +38,14 @@ function loadProperties(){
 		});
 	
 	$.getJSON(baseUrl + '/DivulgaEditais/rest/category', function(json) {
-		  $select = $('#categories');
+		  var select = $('<select>');
+	  
 		  $.each(json, function(i, value) {
-			  $select.append('<option value="' + value.categoryId + '">' + value.description + '</option>');
-		        });
-		    console.log(json);
+			  select.append($("<option>").attr('value',value.categoryId).text(value.description));
+          });
+		  
+		  $('#categories').append(select);
+	      console.log(json);
 		});
 }
 
@@ -104,7 +107,7 @@ function sendNotice(number){
       }
       
 function fillAllNotice(){
-  console.log("Entrou na funcao");
+	console.log("Entrou na funcao");
   
 	var baseUrl = getServerUrl();
 	
@@ -260,19 +263,19 @@ function validation() {
 	    submitHandler: function(form) {
 	    	submitData();    	
 	    	//saveFile();
-	        location.reload(this);
+	        //location.reload(this);
 	    }
 	  });
 }
 
 function submitData(){
 	
-	var modalityId = $('#modality').val();
-	alert('Modalidade: ' + modalityId);
-
-	var notice = getFormData('#registerNotice');
-	
+	var notice = getFormData('registerNotice');
 	var baseUrl = getServerUrl();
+
+	//modality : { modalityId : 1 },
+	
+	console.log(notice);
 	
 	$.ajax({
 	   type: "post",
@@ -280,7 +283,7 @@ function submitData(){
 	   url: getServerUrl() + "/DivulgaEditais/rest/notice/create",
 	   // The key needs to match your method's input parameter (case-sensitive).
 	   data: JSON.stringify( notice ),
-	   processData: false,
+	   processData: true,
 	   contentType: 'application/json',
 	   success: function(data){
 		   alert("Edital cadastrado com sucesso!");
@@ -427,6 +430,3 @@ function validationCompanyType(){
         }
 	  });
 }
-
-
-

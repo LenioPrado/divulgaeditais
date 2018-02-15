@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonManagedReference;
-
 
 /**
  * The persistent class for the notices database table.
@@ -57,19 +55,16 @@ public class Notice implements Serializable {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="inserted_by")
-	@JsonManagedReference
 	private User user;
 
 	//bi-directional many-to-one association to CompanyType
 	@ManyToOne
 	@JoinColumn(name="company_type_id")
-	@JsonManagedReference
 	private CompanyType companyType;
 
 	//bi-directional many-to-one association to Modality
 	@ManyToOne
 	@JoinColumn(name="modality_id")
-	@JsonManagedReference
 	private Modality modality;
 
 	public Notice() {

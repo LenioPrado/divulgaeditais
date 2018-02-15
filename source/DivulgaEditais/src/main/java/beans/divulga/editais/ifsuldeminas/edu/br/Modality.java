@@ -12,7 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * The persistent class for the modalities database table.
@@ -35,7 +35,7 @@ public class Modality implements Serializable {
 
 	//bi-directional many-to-one association to Notice
 	@OneToMany(mappedBy="modality")
-	@JsonBackReference
+	@JsonIgnore
 	private List<Notice> notices;
 
 	public Modality() {
