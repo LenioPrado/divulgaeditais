@@ -23,10 +23,9 @@ public class CategoryService extends BaseService {
 		try {
 			TypedQuery<Category> q = getEM().createQuery("select t from Category t", Category.class);
 			categoryList = q.getResultList();
-			return categoryList;
 		} catch (Exception e) {
 			System.out.println(e);
-			e.printStackTrace();
+			throw e;
 		}
 		return categoryList;
     }
@@ -43,6 +42,7 @@ public class CategoryService extends BaseService {
 			commitTransaction();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			throw e;
 		} 
 		return category;
     }

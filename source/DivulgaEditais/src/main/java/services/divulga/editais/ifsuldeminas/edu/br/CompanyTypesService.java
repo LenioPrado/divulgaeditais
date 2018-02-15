@@ -23,10 +23,9 @@ public class CompanyTypesService extends BaseService {
 		try {
 			TypedQuery<CompanyType> q = getEM().createQuery("select t from CompanyType t", CompanyType.class);
 			companyTypeList = q.getResultList();
-			return companyTypeList;
 		} catch (Exception e) {
 			System.out.println(e);
-			e.printStackTrace();
+			throw e;
 		}
 		return companyTypeList;
     }
