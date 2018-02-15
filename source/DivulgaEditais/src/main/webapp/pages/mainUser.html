@@ -57,10 +57,10 @@
       </div>
            <ul class="sidebar-menu" data-widget="tree">
         <li class="treeview">
-          <a onclick="javascript:loadRegister();">
+          <a onclick="javascript:register();">
             <i class="fa fa-dashboard"></i> <span>Cadastrar Edital</span>
           </a>
-          <a onclick="javascript:loadTable();">
+          <a onclick="javascript:loadTableNotices();">
             <i class="fa fa-dashboard"></i> <span>Todos os Editais</span>
           </a>
           <a onclick="javascript:fillRegisteredNotice();">
@@ -89,7 +89,9 @@
     </section>
   </aside> 
       <div class="content-wrapper">
-<section id="register" style="display:none">
+      
+      <!--Cadastrar Edital  -->
+<section id="registerSection" name="registerSection" style="display:none">
     <section class="content-header">
       <h1>
         Cadastrar Edital
@@ -143,6 +145,7 @@
     </section>
 </section>
 
+      <!--Editais Cadastrados  -->
 <section id="tableNotice" style="display:none">
     <section class="content-header">
       <h1>
@@ -181,7 +184,8 @@
     </section>
 </section>
     
-    <section id="tableModality" style="display:none">
+    <!--Modalidades Cadastradas  -->
+<section id="tableModality" style="display:none">
     <section class="content-header">
       <h1>
         Modalidades Cadastradass
@@ -194,18 +198,11 @@
             <div class="box-header">
             </div>
             <div class="box-body">
-              <table id="notices" class="table table-bordered table-hover">
+              <table id="modality" class="table table-bordered table-hover">
                 <thead>
                   <tr>
-                      <th>Órgão</th>
-                      <th>Modalidade</th>
-                      <th>Direcionado a</th>
-                      <th>Numero</th>
-                      <th>Objeto</th>
-                      <th>Data de Publicação</th>
-                      <th>Data do Pregao</th>
-                      <th>Data de Fechamento</th>
-                      <th>Selecionar</th>
+                      <th>Acrônimo</th>
+                      <th>Descrição</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -219,6 +216,159 @@
     </section>
 </section>
     
+ <!--Cadastrar Modalidade  -->
+<section id="registerModality" style="display:none">
+    <section class="content-header">
+      <h1>
+        Cadastrar Modalidade
+      </h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <form name="registerModality" id="registerModality" method="post" enctype="multipart/form-data">
+              <div class="box-body">
+                <div class="form-group">
+                  <label>Acronimo </label> <input type="text" name="acronyms" id="acronyms" /> <br>
+                </div>
+                <div class="form-group">
+                  <label>Descrição </label> <input type="text" name="description" id="description"/> <br>
+                </div>
+               </div>
+              <div class="box-footer">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validationModality();">
+                  </div>
+            </form>
+            </div>
+        </div>
+      </div>
+    </section>
+</section>
+
+    <!--Categorias Cadastradas  -->
+<section id="tableCategory" style="display:none">
+    <section class="content-header">
+      <h1>
+        Categorias Cadastradas
+      </h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+            </div>
+            <div class="box-body">
+              <table id="category" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                      <th>Categoria</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</section>
+    
+ <!--Cadastrar Categorias  -->
+<section id="registerCategory" style="display:none">
+    <section class="content-header">
+      <h1>
+        Cadastrar Categorias
+      </h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <form name="registerCategory" id="registerCategory" method="post" enctype="multipart/form-data">
+              <div class="box-body">
+                <div class="form-group">
+                  <label>Nome </label> <input type="text" name="description" id="description" /> <br>
+                </div>
+               </div>
+              <div class="box-footer">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validationCategory();">
+                  </div>
+            </form>
+            </div>
+        </div>
+      </div>
+    </section>
+</section>
+   
+    <!--Tipos de Empresas Cadastradas  -->
+<section id="tableCompanyType" style="display:none">
+    <section class="content-header">
+      <h1>
+        Tipos de Empresas Cadastradass
+      </h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+            </div>
+            <div class="box-body">
+              <table id="company" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                      <th>Acrônimo</th>
+                      <th>Descrição</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</section>
+    
+ <!--Cadastrar Tipos de Empresas  -->
+<section id="registerCompanyType" style="display:none">
+    <section class="content-header">
+      <h1>
+        Cadastrar Tipos de Empresas
+      </h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <form name="registerCompanyType" id="registerCompanyType" method="post" enctype="multipart/form-data">
+              <div class="box-body">
+                <div class="form-group">
+                  <label>Acronimo </label> <input type="text" name="acronyms" id="acronyms" /> <br>
+                </div>
+                <div class="form-group">
+                  <label>Descrição </label> <input type="text" name="description" id="description"/> <br>
+                </div>
+               </div>
+              <div class="box-footer">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validationCompanyType();">
+                  </div>
+            </form>
+            </div>
+        </div>
+      </div>
+    </section>
+</section>
+
+     
+   
+   
     </div>
   <footer class="main-footer">
     <div class="pull-right hidden-xs">

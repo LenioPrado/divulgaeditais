@@ -2,10 +2,22 @@ window.onload = function() {
 	loadProperties();
 };  
 
+function register(){
+	
+	$('#registerSection').show();
+	$('#tableNotice').hide();
+	$('#tableModality').hide();
+	$('#registerModality').hide();
+	$('#tableCategory').hide();
+	$('#registerCategory').hide();
+	$('#tableCompanyType').hide();
+	$('#registerCompanyType').hide();
+ }
+
 function loadProperties(){
 	
-	$("#tableNotice").hide();
-	$("#register").hide();
+	$('#tableNotice').hide();
+	$('#registerSection').hide();
 	
 	var baseUrl = getServerUrl();
 	
@@ -32,6 +44,53 @@ function loadProperties(){
 		        });
 		    console.log(json);
 		});
+}
+
+
+
+
+function fillCategoryTable(){
+	var baseUrl = getServerUrl();
+	$("#category tbody tr").remove();  
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/category', function(json) {
+		  $.each(json, function(i, value) {
+	          $('#category > tbody:last-child').append(
+	        		  '<tr><td>' + 
+	        		   value.description + '</td></tr>'
+	        		  );
+		    console.log(json);
+		});
+	});
+}
+
+function fillModalityTable(){
+	var baseUrl = getServerUrl();
+    $("#modality tbody tr").remove();     
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/modality', function(json) {
+		  $.each(json, function(i, value) {
+	          $('#modality > tbody:last-child').append(
+	        		  '<tr><td>' + 
+	        		  value.acronyms + '</td><td>' + 
+	        		   value.description + '</td></tr>'
+	        		  );
+		    console.log(json);
+		});
+	});
+}
+
+function fillCompanyTypeTable(){
+	var baseUrl = getServerUrl();
+	 $("#company tbody tr").remove();  
+	$.getJSON(baseUrl + '/DivulgaEditais/rest/companyTypes', function(json) {
+		  $.each(json, function(i, value) {
+	          $('#company > tbody:last-child').append(
+	        		  '<tr><td>' + 
+	        		  value.acronyms + '</td><td>' + 
+	        		   value.description + '</td></tr>'
+	        		  );
+		    console.log(json);
+		});
+	});
 }
 
 function sendNotice(number){
@@ -83,110 +142,93 @@ function fillAllNotice(){
 
   }
 
-function loadRegister(){
-	
-	$("registerNotice").show();
-	$("tableNotice").hide();
-	$("tableModality").hide();
-	$("registerModality").hide();
-	$("tableCategory").hide();
-	$("registerCategory").hide();
-	$("tableCompanyType").hide();
-	$("registerCompanyType").hide();
-  }
-
-function loadTable(){
-	$("registerNotice").hide();
-	$("tableNotice").show();
-	$("tableModality").hide();
-	$("registerModality").hide();
-	$("tableCategory").hide();
-	$("registerCategory").hide();
-	$("tableCompanyType").hide();
-	$("registerCompanyType").hide();
+function loadTableNotices(){
+	$('#registerSection').hide();
+	$('#tableNotice').show();
+	$('#tableModality').hide();
+	$('#registerModality').hide();
+	$('#tableCategory').hide();
+	$('#registerCategory').hide();
+	$('#tableCompanyType').hide();
+	$('#registerCompanyType').hide();
     fillAllNotice();
 
   }
 
 function fillRegisteredCategories(){
-	$("registerNotice").hide();
-	$("tableNotice").hide();
-	$("tableModality").hide();
-	$("registerModality").hide();
-	$("tableCategory").hide();
-	$("registerCategory").show();
-	$("tableCompanyType").hide();
-	$("registerCompanyType").hide();
-    fillAllNotice();
+	$('#registerSection').hide();
+	$('#tableNotice').hide();
+	$('#tableModality').hide();
+	$('#registerModality').hide();
+	$('#tableCategory').show();
+	$('#registerCategory').hide();
+	$('#tableCompanyType').hide();
+	$('#registerCompanyType').hide();
+	fillCategoryTable();
 
   }
 
 function loadCategories(){
-	$("registerNotice").hide();
-	$("tableNotice").hide();
-	$("tableModality").hide();
-	$("registerModality").hide();
-	$("tableCategory").show();
-	$("registerCategory").hide();
-	$("tableCompanyType").hide();
-	$("registerCompanyType").hide();
-    fillAllNotice();
-
+	$('#registerSection').hide();
+	$('#tableNotice').hide();
+	$('#tableModality').hide();
+	$('#registerModality').hide();
+	$('#tableCategory').hide();
+	$('#registerCategory').show();
+	$('#tableCompanyType').hide();
+	$('#registerCompanyType').hide();
   }
 
 function fillRegisteredModalities(){
-	$("registerNotice").hide();
-	$("tableNotice").hide();
-	$("tableModality").show();
-	$("registerModality").hide();
-	$("tableCategory").hide();
-	$("registerCategory").hide();
-	$("tableCompanyType").hide();
-	$("registerCompanyType").hide();
-    fillAllNotice();
+	$('#registerSection').hide();
+	$('#tableNotice').hide();
+	$('#tableModality').show();
+	$('#registerModality').hide();
+	$('#tableCategory').hide();
+	$('#registerCategory').hide();
+	$('#tableCompanyType').hide();
+	$('#registerCompanyType').hide();
+	fillModalityTable();
 
   }
 
 function loadModalities(){
-	$("registerNotice").hide();
-	$("tableNotice").hide();
-	$("tableModality").hide();
-	$("registerModality").show();
-	$("tableCategory").hide();
-	$("registerCategory").hide();
-	$("tableCompanyType").hide();
-	$("registerCompanyType").hide();
-    fillAllNotice();
+	$('#registerSection').hide();
+	$('#tableNotice').hide();
+	$('#tableModality').hide();
+	$('#registerModality').show();
+	$('#tableCategory').hide();
+	$('#registerCategory').hide();
+	$('#tableCompanyType').hide();
+	$('#registerCompanyType').hide();
 
   }
 
 function fillRegisteredCompanyTypes(){
-	$("registerNotice").hide();
-	$("tableNotice").hide();
-	$("tableModality").hide();
-	$("registerModality").hide();
-	$("tableCategory").hide();
-	$("registerCategory").hide();
-	$("tableCompanyType").show();
-	$("registerCompanyType").hide();
-    fillAllNotice();
+	$('#registerSection').hide();
+	$('#tableNotice').hide();
+	$('#tableModality').hide();
+	$('#registerModality').hide();
+	$('#tableCategory').hide();
+	$('#registerCategory').hide();
+	$('#tableCompanyType').show();
+	$('#registerCompanyType').hide();
+	fillCompanyTypeTable();
 
   }
 
 function loadCompanyTypes(){
-	$("registerNotice").hide();
-	$("tableNotice").hide();
-	$("tableModality").hide();
-	$("registerModality").hide();
-	$("tableCategory").hide();
-	$("registerCategory").hide();
-	$("tableCompanyType").hide();
-	$("registerCompanyType").show();
+	$('#registerSection').hide();
+	$('#tableNotice').hide();
+	$('#tableModality').hide();
+	$('#registerModality').hide();
+	$('#tableCategory').hide();
+	$('#registerCategory').hide();
+	$('#tableCompanyType').hide();
+	$('#registerCompanyType').show();
     fillAllNotice();
 
   }
-
-
 
 function validation() {
 	  $("form[name='registerNotice']").validate({
@@ -250,6 +292,7 @@ function submitData(){
 }
 
 function fillRegisteredNotice(){
+
 	  console.log("Entrou na funcao");
 	$.getJSON('registeredNotice.json', function(json) {
 	  console.log("pegou o json dos editais cadastrados");
@@ -265,3 +308,125 @@ function fillRegisteredNotice(){
 	    console.log(json);
 	});
 	}
+
+function validationModality(){
+	  $("form[name='registerModality']").validate({
+          rules: {
+          	acronyms: "required",
+          	description: "required",
+          },
+
+          messages: {
+            	acronyms: "Digite um Acronimo Válido",
+              	description: "Digite uma Descrição Válida",
+          },
+          errorClass: "registerError",
+          validClass: "registerSuccess",
+
+          submitHandler: function(form) {
+
+				var modality = getFormData('registerModality');
+				
+				var baseUrl = getServerUrl();
+				
+				$.ajax({
+				   type: "post",
+				   dataType: "json",
+				   url: getServerUrl() + "/DivulgaEditais/rest/modality/create",
+				   // The key needs to match your method's input parameter (case-sensitive).
+				   data: JSON.stringify( modality ),
+				   processData: false,
+				   contentType: 'application/json',
+				   success: function(data){
+					   alert("Modalidade cadastrado com sucesso!");
+				   },
+				   failure: function(errMsg) {
+				       alert('Erro:' + errMsg);
+				   }
+				});
+			 
+          }
+	  });
+}
+
+function validationCategory(){
+
+	  $("form[name='registerCategory']").validate({
+        rules: {
+        	description: "required",
+        },
+
+        messages: {
+            description: "Digite uma categoria Válida",
+        },
+        errorClass: "registerError",
+        validClass: "registerSuccess",
+
+        submitHandler: function(form) {
+
+				var category = getFormData('registerCategory');
+				
+				var baseUrl = getServerUrl();
+				
+				$.ajax({
+				   type: "post",
+				   dataType: "json",
+				   url: getServerUrl() + "/DivulgaEditais/rest/category/create",
+				   // The key needs to match your method's input parameter (case-sensitive).
+				   data: JSON.stringify( category ),
+				   processData: false,
+				   contentType: 'application/json',
+				   success: function(data){
+					   alert("Categoria cadastrada com sucesso!");
+				   },
+				   failure: function(errMsg) {
+				       alert('Erro:' + errMsg);
+				   }
+				});
+        }
+	  });
+}
+
+function validationCompanyType(){
+	  $("form[name='registerCompanyType']").validate({
+        rules: {
+        	acronyms: "required",
+        	description: "required",
+        },
+
+        messages: {
+          	acronyms: "Digite um Acronimo Válido",
+            	description: "Digite uma Descrição Válida",
+        },
+        errorClass: "registerError",
+        validClass: "registerSuccess",
+
+        submitHandler: function(form) {
+
+				var companyType = getFormData('registerCompanyType');
+				
+				var baseUrl = getServerUrl();
+				
+				$.ajax({
+				   type: "post",
+				   dataType: "json",
+				   url: getServerUrl() + "/DivulgaEditais/rest/companyTypes/create",
+				   // The key needs to match your method's input parameter (case-sensitive).
+				   data: JSON.stringify( companyType ),
+				   processData: false,
+				   contentType: 'application/json',
+				   success: function(data){
+					   alert("Tipo de Empresa cadastrado com sucesso!");
+				   },
+				   failure: function(errMsg) {
+				       alert('Erro:' + errMsg);
+				   }
+				});
+			  
+		      location.reload(this);
+        }
+	  });
+}
+
+
+
