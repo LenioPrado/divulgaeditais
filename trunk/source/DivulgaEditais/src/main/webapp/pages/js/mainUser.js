@@ -233,18 +233,17 @@ function loadCompanyTypes(){
 
   }
 
-function validation() {
+function validationNotice() {
 	  $("form[name='registerNotice']").validate({
 	            rules: {
 	            	companyType: "required",
 	            	modality: "required",
 	                number: "required",
 	                object: "required",
-	                trading_date: "required",
+	                tradingDate: "required",
 	                closingDate: "required",
 	                categories: "required",
-	                fileName: "required",
-	                //file: "required",
+	                fileName: "required"
 	            },
 
 	            messages: {
@@ -252,7 +251,7 @@ function validation() {
 	                modality: "Escolha uma modalidade válida",
 	                number: "Digite um número válido",
 	                object: "Digite uma descrição válida",
-	                trading_date: "Selecione uma data válida",
+	                tradingDate: "Selecione uma data válida",
 	                closingDate: "Selecione uma data válida",
 	                categories: "Selecione uma categoria válida",
 	                fileName: "Insira um arquivo válido",
@@ -273,7 +272,9 @@ function submitData(){
 	var notice = getFormData('registerNotice');
 	var baseUrl = getServerUrl();
 
-	//modality : { modalityId : 1 },
+	notice['companyType'] = { 'companyTypeId' : notice['companyType'] };
+	notice['modality'] = { 'modalityId' : notice['modality'] };
+	notice['user'] = { 'userId' : notice['user'] };	
 	
 	console.log(notice);
 	

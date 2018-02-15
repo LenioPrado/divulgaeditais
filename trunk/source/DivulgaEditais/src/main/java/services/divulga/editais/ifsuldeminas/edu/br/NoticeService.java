@@ -1,5 +1,6 @@
 package services.divulga.editais.ifsuldeminas.edu.br;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import beans.divulga.editais.ifsuldeminas.edu.br.Notice;
+import beans.divulga.editais.ifsuldeminas.edu.br.User;
 
 @Path("/notice")
 public class NoticeService extends BaseService {
@@ -29,6 +31,12 @@ public class NoticeService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/create")
     public Notice create(Notice notice) {
+    	notice.setPublishingDate(new Date());
+    	notice.setFileName("arquivo.txt");
+    	//TODO: Pegar usuário logado!!!
+    	User user = new User();
+    	user.setUserId(1);
+    	notice.setUser(user);
     	EntityManager em = getEM();   
     	
     	try {
@@ -37,6 +45,7 @@ public class NoticeService extends BaseService {
 			commitTransaction();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			throw e;
 		}
 		return notice;
     }
