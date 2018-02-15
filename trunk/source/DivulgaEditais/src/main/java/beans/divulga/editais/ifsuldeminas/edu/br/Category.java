@@ -1,6 +1,7 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -43,6 +44,8 @@ public class Category implements Serializable {
 	private List<UsersCategory> usersCategories;
 
 	public Category() {
+		noticesCategories = new ArrayList<NoticesCategory>();
+		usersCategories = new ArrayList<UsersCategory>();
 	}
 
 	public int getCategoryId() {
