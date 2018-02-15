@@ -101,7 +101,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
-            <form name="registerNotice" id="registerNotice" method="post" enctype="multipart/form-data">
+            <form name="registerNotice" id="registerNotice" method="post" action="javascript:alert('ok');" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
                   <label>Modalidade</label>
@@ -125,10 +125,8 @@
                 <div class="form-group">
                   <label>Data de Fechamento</label> <input type="date" name="closingDate" id="closing_date" /> <br>
                 </div>                
-                <div class="form-group">
-                  <label>Categoria</label>
-                      <select id="categories" name="categories">
-                      </select>
+                <div id="categories" class="form-group">
+                  <label>Categoria</label>                      
                 </div>
                 <div class="form-group">
                   <label for="exampleInputFile">File input</label>

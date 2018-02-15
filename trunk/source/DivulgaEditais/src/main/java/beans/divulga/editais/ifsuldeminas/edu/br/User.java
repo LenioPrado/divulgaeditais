@@ -12,8 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
@@ -81,12 +80,12 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Notice
 	@OneToMany(mappedBy="user")	
-	@JsonBackReference
+	@JsonIgnore
 	private List<Notice> notices;
 
 	//bi-directional many-to-one association to UsersRole
 	@OneToMany(mappedBy="user")
-	@JsonManagedReference
+	@JsonIgnore
 	private List<UsersRole> usersRoles;
 
 	public User() {
