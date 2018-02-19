@@ -40,10 +40,11 @@ public class NoticeService extends BaseService {
     	EntityManager em = getEM();   
     	
     	try {
-    		beginTransaction();
+    		em.getTransaction().begin();    		
 			em.persist(notice);
-			commitTransaction();
+			em.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw e;
 		}

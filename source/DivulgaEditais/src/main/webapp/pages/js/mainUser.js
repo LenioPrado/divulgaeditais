@@ -96,16 +96,6 @@ function fillCompanyTypeTable(){
 	});
 }
 
-function sendNotice(number){
-          console.log(number);
-          
-          $.ajax({
-                    url  : 'teste.php',
-                    type : 'POST',
-                    data: number
-         });
-      }
-      
 function fillAllNotice(){
 	console.log("Entrou na funcao");
   
@@ -260,9 +250,7 @@ function validationNotice() {
 	            validClass: "registerSuccess",
 
 	    submitHandler: function(form) {
-	    	submitData();    	
-	    	//saveFile();
-	        //location.reload(this);
+	    	submitData(); 
 	    }
 	  });
 }
@@ -287,12 +275,66 @@ function submitData(){
 	   processData: true,
 	   contentType: 'application/json',
 	   success: function(data){
-		   alert("Edital cadastrado com sucesso!");
+		   sendFile(data.noticeId);		   
 	   },
 	   failure: function(errMsg) {
 	       alert('Erro:' + errMsg);
 	   }
 	});
+}
+
+function sendFile(noticeId){
+	
+	var input = $('#fileName');
+	var file = input.get(0).files[0];
+	var baseUrl = getServerUrl();
+	var url = "/DivulgaEditais/rest/file";
+	var formData = new FormData();
+	formData.append('uploadfile', file);
+	formData.append('noticeId', noticeId);
+ 
+  $.ajax({
+      url: url,
+      type: 'POST',
+	  xhr: function() {
+        var myXhr = $.ajaxSettings.xhr();
+        if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+            myXhr.upload.addEventListener('progress', function () {
+                /* faz alguma coisa durante o progresso do upload */
+            }, false);
+        }
+        return myXhr;
+	  },
+	  // beforeSend: beforeSendHandler,
+	  success: function(data) {
+		  alert('Arquivo enviado com sucesso com '+data+' KB.');
+	  },
+	  data: formData,
+	  cache: false,
+	  contentType: false,
+	  processData: false
+});	
+	
+	
+	var formData = new FormData(this);
+	
+	var baseUrl = getServerUrl();
+	var url = "/DivulgaEditais/rest/notice/upload";
+	
+	$.ajax({
+        url: baseUrl + url,
+        type: "post",
+        data: formData,
+        success: function (data) {
+            alert(data)
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        xhr: function() {  // Custom XMLHttpRequest
+
+        }
+    });
 }
 
 function fillRegisteredNotice(){

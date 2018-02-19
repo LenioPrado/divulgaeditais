@@ -37,9 +37,9 @@ public class CategoryService extends BaseService {
     public Category create(Category category) {
     	EntityManager em = getEM();     	
     	try {
-    		beginTransaction();    		
+    		em.getTransaction().begin();    		
 			em.persist(category);
-			commitTransaction();
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw e;

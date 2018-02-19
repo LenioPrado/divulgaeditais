@@ -37,9 +37,9 @@ public class ModalityService extends BaseService {
     public Modality create(Modality modality) {
     	EntityManager em = getEM();     	
     	try {
-    		beginTransaction();    		
+    		em.getTransaction().begin();    		
 			em.persist(modality);
-			commitTransaction();
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} 
