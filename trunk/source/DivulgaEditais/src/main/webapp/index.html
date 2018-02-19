@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="demo">
+<html data-ng-app="demo">
 	<head>
 		<title>Hello AngularJS</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
@@ -13,12 +13,12 @@
 		<input type="text" class="form-control" id="txtEmail" placeholder="Email">
 		<input type="text" class="form-control" id="txtCPF" placeholder="CPF">
 		
-		<div ng-controller="validatePassword">
-			<input class="btn btn-primary" type="submit" ng-click="enviar()" value="Enviar">
+		<div data-ng-controller="validatePassword">
+			<input class="btn btn-primary" type="submit" data-ng-click="enviar()" value="Enviar">
 		</div>
 	
-		<div ng-controller="Hello">
-			<div ng-repeat="(key, value) in greeting">
+		<div data-ng-controller="Hello">
+			<div data-ng-repeat="(key, value) in greeting">
 				<p>Modalidade: {{value.modalityId}}, Sigla: {{value.acronyms}}, Descrição: {{value.description}}</p>
 			</div>
 		</div>

@@ -8,13 +8,11 @@ public class EMFactory {
 
     private static final String PERSISTENCE_UNIT_NAME = "divulgaEditais";
     private static EntityManagerFactory factory;
-    private static EntityManager entityManager;
     
     private static EMFactory _instance;
     
     private EMFactory() {
     	factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-    	entityManager = factory.createEntityManager();
     }
     
     public static EMFactory getInstance() {
@@ -25,6 +23,6 @@ public class EMFactory {
     }
     
     public EntityManager getEntityManager() {
-    	return entityManager;
+    	return factory.createEntityManager();
     }
 }

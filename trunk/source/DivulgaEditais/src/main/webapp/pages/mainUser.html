@@ -35,9 +35,9 @@
 
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="assets/images/usuario-160x160.png" class="user-image" alt="User Image"/>
-              <a class="hidden-xs" href="index.php">Sign out</a>
+              <img src="assets/images/usuario-160x160.png" class="user-image" alt="User Image"/>              
             </a>
+            <a class="hidden-xs" href="index.html">Sign out</a>
           </li>
         </ul>
       </div>
@@ -91,7 +91,7 @@
       <div class="content-wrapper">
       
       <!--Cadastrar Edital  -->
-<section id="registerSection" name="registerSection" style="display:none">
+<section id="registerSection" style="display:none">
     <section class="content-header">
       <h1>
         Cadastrar Edital
@@ -101,7 +101,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
-            <form name="registerNotice" id="registerNotice" method="post" action="javascript:alert('ok');" enctype="multipart/form-data">
+            <form name="registerNotice" id="registerNotice" method="post" action="" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
                   <label>Modalidade</label>
@@ -129,13 +129,13 @@
                   <label>Categoria</label>                      
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
+                  <label for="fileName">File input</label>
                   <input type="file" name="fileName" id="fileName" accept=".pdf"/>
                 </div>
               </div>
               <div class="box-footer">
-                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validationNotice();">
-                  </div>
+                 <input type="submit" value="Cadastrar" id="submit" class="btn btn-primary" onClick="validationNotice();">
+              </div>
             </form>
             </div>
         </div>

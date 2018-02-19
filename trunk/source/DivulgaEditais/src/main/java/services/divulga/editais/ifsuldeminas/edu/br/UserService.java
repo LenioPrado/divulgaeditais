@@ -55,9 +55,9 @@ public class UserService extends BaseService {
     public User create(User user) {
     	try {
     		EntityManager em = getEM();
-    		beginTransaction();    		
+    		em.getTransaction().begin();    		
 			em.persist(user);
-			commitTransaction();
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw e;

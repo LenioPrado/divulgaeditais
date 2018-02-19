@@ -37,9 +37,9 @@ public class CompanyTypesService extends BaseService {
     public CompanyType create(CompanyType companyType) {
     	EntityManager em = getEM();     	
     	try {
-    		beginTransaction();    		
+    		em.getTransaction().begin();    		
 			em.persist(companyType);
-			commitTransaction();
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} 
