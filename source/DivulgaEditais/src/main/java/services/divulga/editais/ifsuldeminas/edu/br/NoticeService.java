@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -32,7 +33,6 @@ public class NoticeService extends BaseService {
     @Path("/create")
     public Notice create(Notice notice) {
     	notice.setPublishingDate(new Date());
-    	notice.setFileName("arquivo.txt");
     	//TODO: Pegar usuário logado!!!
     	User user = new User();
     	user.setUserId(1);
@@ -50,4 +50,14 @@ public class NoticeService extends BaseService {
 		}
 		return notice;
     }
+    
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+	@Path("/userRegisteredNotices/{userId}")
+    public List<Notice> listUserRegisteredNotices(@PathParam("userId") int userId) {
+		//TODO: Criar tabela para relacionar os editais ao usuário!
+		TypedQuery<Notice> query = getEM().createQuery("select t from Notice t where t.user = " + userId, Notice.class);
+        List<Notice> list = query.getResultList();
+        return list;
+    }    
 }
