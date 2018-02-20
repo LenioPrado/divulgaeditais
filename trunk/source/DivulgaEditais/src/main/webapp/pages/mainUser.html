@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Prefeitura Municipal de Poços de Caldas</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -10,377 +10,33 @@
   <link rel="stylesheet" href="assets/css/ionicons.min.css">
   <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
   <link rel="stylesheet" href="assets/css/all-skins.min.css">
-  
-	<script src="assets/js/jquery-3.3.1.min.js"></script>
- 
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 
-  <header class="main-header">
-    <a class="logo">
-      <span class="logo-mini"><b>SE</b></span>
-      <span class="logo-lg"><b>Sistema de Editais</b></span>
-    </a>
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Sistema de Editais</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+	<header id="header" class="main-header">
+	</header>
+  
+	<div id="sidebarDiv">
+	</div> 	
+  		
+	<div id="contentDiv" class="content-wrapper">
+	</div>   
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="assets/images/usuario-160x160.png" class="user-image" alt="User Image"/>              
-            </a>
-            <a class="hidden-xs" href="index.html">Sign out</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-      <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="assets/images/usuario-160x160.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Bem-vindo</p>
-        </div>
-      </div>
-           <ul class="sidebar-menu" data-widget="tree">
-        <li class="treeview">
-          <a onclick="javascript:register();">
-            <i class="fa fa-dashboard"></i> <span>Cadastrar Edital</span>
-          </a>
-          <a onclick="javascript:loadTableNotices();">
-            <i class="fa fa-dashboard"></i> <span>Todos os Editais</span>
-          </a>
-          <a onclick="javascript:fillRegisteredNotice();">
-            <i class="fa fa-dashboard"></i> <span>Editais Inscritos</span>
-          </a>
-          <a onclick="javascript:fillRegisteredCategories();">
-            <i class="fa fa-dashboard"></i> <span>Todas as Categorias</span>
-          </a>
-          <a onclick="javascript:loadCategories();">
-            <i class="fa fa-dashboard"></i> <span>Cadastrar Categoria</span>
-          </a>
-          <a onclick="javascript:fillRegisteredModalities();">
-            <i class="fa fa-dashboard"></i> <span>Todas as Modalidades</span>
-          </a>
-          <a onclick="javascript:loadModalities();">
-            <i class="fa fa-dashboard"></i> <span>Cadastrar Modalidade</span>
-          </a>
-          <a onclick="javascript:fillRegisteredCompanyTypes();">
-            <i class="fa fa-dashboard"></i> <span>Todos os tipos de Empresas</span>
-          </a>
-           <a onclick="javascript:loadCompanyTypes();">
-            <i class="fa fa-dashboard"></i> <span>Cadastrar tipo de Empresa</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-  </aside> 
-      <div class="content-wrapper">
-      
-      <!--Cadastrar Edital  -->
-<section id="registerSection" style="display:none">
-    <section class="content-header">
-      <h1>
-        Cadastrar Edital
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <form name="registerNotice" id="registerNotice" method="post" action="" enctype="multipart/form-data">
-              <div class="box-body">
-                <div class="form-group">
-                  <label>Modalidade</label>
-                      <select id="modality" name="modality">
-                      </select>
-                </div>
-                <div class="form-group">
-                  <label>Direcionado a</label>
-                      <select id="companyType" name="companyType">
-                      </select>
-                </div>
-                <div class="form-group">
-                  <label>Numero </label> <input type="number" name="number" id="number" /> <br>
-                </div>
-                <div class="form-group">
-                  <label>Objeto </label> <input type="text" name="object" id="object"/> <br>
-                </div>
-                <div class="form-group">
-                  <label>Data do Pregão</label> <input type="date" name="tradingDate" id="tradingDate" /> <br>
-                </div>
-                <div class="form-group">
-                  <label>Data de Fechamento</label> <input type="date" name="closingDate" id="closingDate" /> <br>
-                </div>                
-                <div id="categories" class="form-group">
-                  <label>Categoria</label>                      
-                </div>
-                <div class="form-group">
-                  <label for="fileName">File input</label>
-                  <input type="file" name="fileName" id="fileName" accept=".pdf"/>
-                </div>
-              </div>
-              <div class="box-footer">
-                 <input type="submit" value="Cadastrar" id="submit" class="btn btn-primary" onClick="validationNotice();">
-              </div>
-            </form>
-            </div>
-        </div>
-      </div>
-    </section>
-</section>
-
-      <!--Editais Cadastrados  -->
-<section id="tableNotice" style="display:none">
-    <section class="content-header">
-      <h1>
-        Editais Cadastrados
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-            </div>
-            <div class="box-body">
-              <table id="notices" class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                      <th>Órgão</th>
-                      <th>Modalidade</th>
-                      <th>Direcionado a</th>
-                      <th>Numero</th>
-                      <th>Objeto</th>
-                      <th>Data de Publicação</th>
-                      <th>Data do Pregao</th>
-                      <th>Data de Fechamento</th>
-                      <th>Selecionar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-</section>
-    
-    <!--Modalidades Cadastradas  -->
-<section id="tableModality" style="display:none">
-    <section class="content-header">
-      <h1>
-        Modalidades Cadastradass
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-            </div>
-            <div class="box-body">
-              <table id="modality" class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                      <th>Acrônimo</th>
-                      <th>Descrição</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-</section>
-    
- <!--Cadastrar Modalidade  -->
-<section id="registerModality" style="display:none">
-    <section class="content-header">
-      <h1>
-        Cadastrar Modalidade
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <form name="registerModality" id="registerModality" method="post" enctype="multipart/form-data">
-              <div class="box-body">
-                <div class="form-group">
-                  <label>Acronimo </label> <input type="text" name="acronyms" id="acronyms" /> <br>
-                </div>
-                <div class="form-group">
-                  <label>Descrição </label> <input type="text" name="description" id="description"/> <br>
-                </div>
-               </div>
-              <div class="box-footer">
-                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validationModality();">
-                  </div>
-            </form>
-            </div>
-        </div>
-      </div>
-    </section>
-</section>
-
-    <!--Categorias Cadastradas  -->
-<section id="tableCategory" style="display:none">
-    <section class="content-header">
-      <h1>
-        Categorias Cadastradas
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-            </div>
-            <div class="box-body">
-              <table id="category" class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                      <th>Categoria</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-</section>
-    
- <!--Cadastrar Categorias  -->
-<section id="registerCategory" style="display:none">
-    <section class="content-header">
-      <h1>
-        Cadastrar Categorias
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <form name="registerCategory" id="registerCategory" method="post" enctype="multipart/form-data">
-              <div class="box-body">
-                <div class="form-group">
-                  <label>Nome </label> <input type="text" name="description" id="description" /> <br>
-                </div>
-               </div>
-              <div class="box-footer">
-                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validationCategory();">
-                  </div>
-            </form>
-            </div>
-        </div>
-      </div>
-    </section>
-</section>
-   
-    <!--Tipos de Empresas Cadastradas  -->
-<section id="tableCompanyType" style="display:none">
-    <section class="content-header">
-      <h1>
-        Tipos de Empresas Cadastradass
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-            </div>
-            <div class="box-body">
-              <table id="company" class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                      <th>Acrônimo</th>
-                      <th>Descrição</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-</section>
-    
- <!--Cadastrar Tipos de Empresas  -->
-<section id="registerCompanyType" style="display:none">
-    <section class="content-header">
-      <h1>
-        Cadastrar Tipos de Empresas
-      </h1>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <form name="registerCompanyType" id="registerCompanyType" method="post" enctype="multipart/form-data">
-              <div class="box-body">
-                <div class="form-group">
-                  <label>Acronimo </label> <input type="text" name="acronyms" id="acronyms" /> <br>
-                </div>
-                <div class="form-group">
-                  <label>Descrição </label> <input type="text" name="description" id="description"/> <br>
-                </div>
-               </div>
-              <div class="box-footer">
-                    <input type="submit" value="Cadastrar" class="btn btn-primary" onClick="validationCompanyType();">
-                  </div>
-            </form>
-            </div>
-        </div>
-      </div>
-    </section>
-</section>
-
-     
-   
-   
-    </div>
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Versão</b> 1.0
-    </div>
-    <strong>Prefeitura Municipal de Poços de Caldas</strong>
-  </footer>
+	<footer id="footer" class="main-footer">
+	</footer>
+  
+  	<script src="assets/js/jquery-3.3.1.min.js"></script>
 	<script src="js/utils.js"></script>
 	<script src="js/mainUser.js"></script>
+	<script src="js/register.js"></script>
+	<script src="js/load.js"></script>
+	<script src="js/list.js"></script>
+	<script src="js/validation.js"></script>
 	<script src="assets/js/fastclick.js"></script>
 	<script src="assets/js/adminlte.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>	
-<!-- 	<script src="modality.json"></script> -->
 	<script src="assets/js/jquery.form.js"></script>
-	<script src="assets/js/jquery.validate.min.js"> </script>
+	<script src="assets/js/jquery.validate.min.js"></script>
 </body>
 </html>
