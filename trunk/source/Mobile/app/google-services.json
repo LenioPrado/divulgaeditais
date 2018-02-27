@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "54227022149",
+    "firebase_url": "https://prefeitura-5a018.firebaseio.com",
+    "project_id": "prefeitura-5a018",
+    "storage_bucket": "prefeitura-5a018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54227022149:android:6d45c4cedb9d2f98",
+        "android_client_info": {
+          "package_name": "com.example.vanessafurtado.prefeitura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54227022149-v68k3e50vnmsqmj4lgag3ikq5o12ipru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6ElaffDFqU5Ek2vr_J18aS9htKGDxzeY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
