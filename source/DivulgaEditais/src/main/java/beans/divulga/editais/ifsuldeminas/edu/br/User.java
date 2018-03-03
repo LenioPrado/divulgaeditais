@@ -1,18 +1,11 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+
+import java.util.List;
 
 
 /**
@@ -79,13 +72,21 @@ public class User implements Serializable {
 	private String zipCode;
 
 	//bi-directional many-to-one association to Notice
-	@OneToMany(mappedBy="user")	
+	@OneToMany(mappedBy="user")
 	@JsonIgnore
 	private List<Notice> notices;
 
-	//bi-directional many-to-one association to UsersRole
+	//bi-directional many-to-one association to UsersCategory
+	@OneToMany(mappedBy="user")
+	private List<UsersCategory> usersCategories;
+
+	//bi-directional many-to-one association to UsersNotice
 	@OneToMany(mappedBy="user")
 	@JsonIgnore
+	private List<UsersNotice> usersNotices;
+
+	//bi-directional many-to-one association to UsersRole
+	@OneToMany(mappedBy="user")
 	private List<UsersRole> usersRoles;
 
 	public User() {
@@ -281,6 +282,50 @@ public class User implements Serializable {
 		return notice;
 	}
 
+	public List<UsersCategory> getUsersCategories() {
+		return this.usersCategories;
+	}
+
+	public void setUsersCategories(List<UsersCategory> usersCategories) {
+		this.usersCategories = usersCategories;
+	}
+
+	public UsersCategory addUsersCategory(UsersCategory usersCategory) {
+		getUsersCategories().add(usersCategory);
+		usersCategory.setUser(this);
+
+		return usersCategory;
+	}
+
+	public UsersCategory removeUsersCategory(UsersCategory usersCategory) {
+		getUsersCategories().remove(usersCategory);
+		usersCategory.setUser(null);
+
+		return usersCategory;
+	}
+
+	public List<UsersNotice> getUsersNotices() {
+		return this.usersNotices;
+	}
+
+	public void setUsersNotices(List<UsersNotice> usersNotices) {
+		this.usersNotices = usersNotices;
+	}
+
+	public UsersNotice addUsersNotice(UsersNotice usersNotice) {
+		getUsersNotices().add(usersNotice);
+		usersNotice.setUser(this);
+
+		return usersNotice;
+	}
+
+	public UsersNotice removeUsersNotice(UsersNotice usersNotice) {
+		getUsersNotices().remove(usersNotice);
+		usersNotice.setUser(null);
+
+		return usersNotice;
+	}
+
 	public List<UsersRole> getUsersRoles() {
 		return this.usersRoles;
 	}
@@ -302,4 +347,5 @@ public class User implements Serializable {
 
 		return usersRole;
 	}
+
 }

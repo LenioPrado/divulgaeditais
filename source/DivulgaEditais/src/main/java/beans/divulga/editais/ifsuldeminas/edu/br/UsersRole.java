@@ -3,7 +3,7 @@ package beans.divulga.editais.ifsuldeminas.edu.br;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
@@ -21,14 +21,14 @@ public class UsersRole implements Serializable {
 
 	//bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name="role_id", insertable = false, updatable = false)
-	@JsonBackReference
+	@JoinColumn(name="role_id", insertable=false, updatable=false)
+	@JsonIgnore
 	private Role role;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="user_id", insertable = false, updatable = false)
-	@JsonBackReference
+	@JoinColumn(name="user_id", insertable=false, updatable=false)
+	@JsonIgnore
 	private User user;
 
 	public UsersRole() {

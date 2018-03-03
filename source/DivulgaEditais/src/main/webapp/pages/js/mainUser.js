@@ -19,8 +19,11 @@ function assignEvents(){
 	$('#listModalitiesLink').click(function(){listModalities();});
 	$('#listCompanyTypesLink').click(function(){listCompanyTypes();});
 
-	$('#registerNoticeLink').click(function(){loadNotice();});
-	$('#registerCategoriesLink').click(function(){loadCategory();});	
-	$('#registerModalityLink').click(function(){loadModality();});
-	$('#registerCompanyTypeLink').click(function(){loadCompanyType();});	
+	$('#registerNoticeLink').click(function(){loadNotice(registerNotice);});
+	$('#registerCategoriesLink').click(function(){loadCategory(registerCategory);});	
+	$('#registerModalityLink').click(function(){loadModality(registerModality);});
+	$('#registerCompanyTypeLink').click(function(){loadCompanyType(registerCompanyType);});	
+	
+	$('#registerNoticesByUserLink').click(function(){listNoticesToSubscribe();});
+	$('#registerCategoriesByUserLink').click(function(){listCategoriesToSubscribe();});	
 }

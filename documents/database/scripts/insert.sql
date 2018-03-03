@@ -57,6 +57,12 @@ INSERT INTO users_categories (user_category_id,user_id,category_id) VALUES (2,2,
 INSERT INTO users_categories (user_category_id,user_id,category_id) VALUES (3,3,3);
 INSERT INTO users_categories (user_category_id,user_id,category_id) VALUES (4,4,4);
 
+## Users Notices ##
+INSERT INTO users_notices (user_notice_id,user_id,notice_id) VALUES (1,1,1);
+INSERT INTO users_notices (user_notice_id,user_id,notice_id) VALUES (2,2,2);
+INSERT INTO users_notices (user_notice_id,user_id,notice_id) VALUES (3,3,3);
+INSERT INTO users_notices (user_notice_id,user_id,notice_id) VALUES (4,4,4);
+
 /* Fim */
 
 /*

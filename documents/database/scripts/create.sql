@@ -61,6 +61,14 @@ category_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
 description varchar(50) NOT NULL
 );
 
+CREATE TABLE users_notices (
+user_notice_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
+user_id Integer NOT NULL,
+notice_id Integer NOT NULL,
+FOREIGN KEY(user_id) REFERENCES users (user_id),
+FOREIGN KEY(notice_id) REFERENCES notices (notice_id)
+);
+
 CREATE TABLE notices_categories (
 notice_category_id Integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
 notice_id Integer NOT NULL,

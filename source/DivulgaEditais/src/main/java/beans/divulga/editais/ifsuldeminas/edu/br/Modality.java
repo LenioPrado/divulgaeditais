@@ -1,18 +1,12 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+
+import java.util.List;
+
 
 /**
  * The persistent class for the modalities database table.
@@ -72,7 +66,7 @@ public class Modality implements Serializable {
 	public void setNotices(List<Notice> notices) {
 		this.notices = notices;
 	}
-	
+
 	public Notice addNotice(Notice notice) {
 		getNotices().add(notice);
 		notice.setModality(this);
@@ -86,33 +80,5 @@ public class Modality implements Serializable {
 
 		return notice;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + modalityId;
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Modality other = (Modality) obj;
-		if (modalityId != other.modalityId)
-			return false;
-		return true;
-	}	
 
 }

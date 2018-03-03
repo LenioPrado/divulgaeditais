@@ -1,3 +1,4 @@
+drop table users_notices;
 drop table users_roles;
 drop table notices_categories;
 drop table users_categories;

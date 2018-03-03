@@ -1,19 +1,9 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.List;
 
 
 /**
@@ -52,11 +42,6 @@ public class Notice implements Serializable {
 	@Column(name="trading_date")
 	private Date tradingDate;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="inserted_by")
-	private User user;
-
 	//bi-directional many-to-one association to CompanyType
 	@ManyToOne
 	@JoinColumn(name="company_type_id")
@@ -66,6 +51,19 @@ public class Notice implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="modality_id")
 	private Modality modality;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="inserted_by")
+	private User user;
+
+	//bi-directional many-to-one association to NoticesCategory
+	@OneToMany(mappedBy="notice", cascade = CascadeType.ALL, orphanRemoval=true)
+	private List<NoticesCategory> noticesCategories;
+
+	//bi-directional many-to-one association to UsersNotice
+	@OneToMany(mappedBy="notice")
+	private List<UsersNotice> usersNotices;
 
 	public Notice() {
 	}
@@ -134,14 +132,6 @@ public class Notice implements Serializable {
 		this.tradingDate = tradingDate;
 	}
 
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public CompanyType getCompanyType() {
 		return this.companyType;
 	}
@@ -158,4 +148,55 @@ public class Notice implements Serializable {
 		this.modality = modality;
 	}
 
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<NoticesCategory> getNoticesCategories() {
+		return this.noticesCategories;
+	}
+
+	public void setNoticesCategories(List<NoticesCategory> noticesCategories) {
+		this.noticesCategories = noticesCategories;
+	}
+
+	public NoticesCategory addNoticesCategory(NoticesCategory noticesCategory) {
+		getNoticesCategories().add(noticesCategory);
+		noticesCategory.setNotice(this);
+
+		return noticesCategory;
+	}
+
+	public NoticesCategory removeNoticesCategory(NoticesCategory noticesCategory) {
+		getNoticesCategories().remove(noticesCategory);
+		noticesCategory.setNotice(null);
+
+		return noticesCategory;
+	}
+
+	public List<UsersNotice> getUsersNotices() {
+		return this.usersNotices;
+	}
+
+	public void setUsersNotices(List<UsersNotice> usersNotices) {
+		this.usersNotices = usersNotices;
+	}
+
+	public UsersNotice addUsersNotice(UsersNotice usersNotice) {
+		getUsersNotices().add(usersNotice);
+		usersNotice.setNotice(this);
+
+		return usersNotice;
+	}
+
+	public UsersNotice removeUsersNotice(UsersNotice usersNotice) {
+		getUsersNotices().remove(usersNotice);
+		usersNotice.setNotice(null);
+
+		return usersNotice;
+	}
 }
