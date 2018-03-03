@@ -4,92 +4,84 @@ function registerNotice(){
 	notice['companyType'] = { 'companyTypeId' : notice['companyType'] };
 	notice['modality'] = { 'modalityId' : notice['modality'] };
 	notice['user'] = { 'userId' : notice['user'] };
-	notice['fileName'] = $('#fileName').val().split('\\').pop();
+	notice['fileName'] = cleanString(notice['fileName'].split('\\').pop());
 	
-	console.log(notice);
+	var noticesCategories = notice['noticesCategories'];
+	notice['noticesCategories'] = [];
+	$.each(noticesCategories, function(i, value){
+		notice['noticesCategories'].push({'category': {'categoryId' : value}});		
+	});
+	
+	var file = $('#fileName').get(0).files[0];
+	var cleanFileName = cleanString(file.name);
+	
+	var formData = new FormData();
+	formData.append('uploadfile', file, cleanFileName);
+	formData.append('notice', JSON.stringify( notice ));
+	 
+	var bar = $('.bar');
+	var percent = $('.percent');
+	var status = $('#status');
 	
 	$.ajax({
-	   type: "post",
-	   dataType: "json",
-	   url: getServerUrl() + "/DivulgaEditais/rest/notice/create",
-	   data: JSON.stringify( notice ),
-	   processData: true,
-	   contentType: 'application/json',
-	   success: function(data){
-		   sendFile(data.noticeId);		   
-	   },
-	   failure: function(errMsg) {
-	       alert('Erro:' + errMsg);
-	   }
+		url: getServerUrl() + "/DivulgaEditais/rest/file",
+		type: 'POST',
+		xhr: function() {
+			var myXhr = $.ajaxSettings.xhr();
+		    if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+		        myXhr.upload.addEventListener('progress', function (evt) {
+		        	var percentComplete = Math.ceil((evt.loaded / evt.total) * 100);
+			        var percentVal = percentComplete + '%';
+			        bar.width(percentVal)
+			        percent.html(percentVal);
+		            
+		        }, false);
+		    }
+		    return myXhr;
+		},
+		// beforeSend: beforeSendHandler,
+		success: function(data) {
+			showMessage('Edital cadastrado com sucesso.','success');
+		},
+		error: function(jqXHR, exception) {
+			var msg = jqXHR.responseText;
+			showMessage(msg,'error');
+		},
+		data: formData,
+		cache: false,
+		contentType: false,
+		processData: false
 	});
+}
+
+function registerCategory(){
+	registerEntity('registerCategory', '/DivulgaEditais/rest/category/create', 'Categoria cadastrada com sucesso.');	
 }
 
 function registerModality(){
-	var modality = getFormData('registerModality');	
-	
-	$.ajax({
-	   type: "post",
-	   dataType: "json",
-	   url: getServerUrl() + "/DivulgaEditais/rest/modality/create",
-	   data: JSON.stringify( modality ),
-	   processData: false,
-	   contentType: 'application/json',
-	   success: function(data){
-		   alert("Modalidade cadastrado com sucesso!");
-	   },
-	   failure: function(errMsg) {
-	       alert('Erro:' + errMsg);
-	   }
-	});
+	registerEntity('registerModality', '/DivulgaEditais/rest/modality/create', 'Modalidade cadastrada com sucesso.');
 }
 
 function registerCompanyType(){
-	var companyType = getFormData('registerCompanyType');
+	registerEntity('registerCompanyType', '/DivulgaEditais/rest/companyTypes/create', 'Tipo de Empresa cadastrado com sucesso.');
+}
+
+function registerEntity(formName, urlToRegister, successMessage){
+	var entity = getFormData(formName);
 	
 	$.ajax({
 	   type: "post",
 	   dataType: "json",
-	   url: getServerUrl() + "/DivulgaEditais/rest/companyTypes/create",
-	   data: JSON.stringify( companyType ),
+	   url: getServerUrl() + urlToRegister,
+	   data: JSON.stringify( entity ),
 	   processData: false,
 	   contentType: 'application/json',
 	   success: function(data){
-		   alert("Tipo de Empresa cadastrado com sucesso!");
+		   showMessage(successMessage,'success');
 	   },
-	   failure: function(errMsg) {
-	       alert('Erro:' + errMsg);
+	   error: function(jqXHR, exception) {
+			var msg = jqXHR.responseText;
+			showMessage(msg,'error');
 	   }
-	});
-  
-  location.reload(this);	
-}
-
-function sendFile(noticeId){
-	
-	var file = $('#fileName').get(0).files[0];
-	var formData = new FormData();
-	formData.append('uploadfile', file);
-	formData.append('noticeId', noticeId);
- 
-  $.ajax({
-      url: getServerUrl() + "/DivulgaEditais/rest/file",
-      type: 'POST',
-	  xhr: function() {
-        var myXhr = $.ajaxSettings.xhr();
-        if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-            myXhr.upload.addEventListener('progress', function () {
-                /* faz alguma coisa durante o progresso do upload */
-            }, false);
-        }
-        return myXhr;
-	  },
-	  // beforeSend: beforeSendHandler,
-	  success: function(data) {
-		  alert('Arquivo enviado com sucesso com '+data+' KB.');
-	  },
-	  data: formData,
-	  cache: false,
-	  contentType: false,
-	  processData: false
-  });		
+	});	
 }

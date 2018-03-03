@@ -2,10 +2,7 @@ package services.divulga.editais.ifsuldeminas.edu.br;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -15,7 +12,11 @@ import beans.divulga.editais.ifsuldeminas.edu.br.User;
 import utils.divulga.editais.ifsuldeminas.edu.br.ProjectLogger;
 
 @Path("/user")
-public class UserService extends BaseService {
+public class UserService extends BaseService<User> {
+	
+	public UserService() {
+		super(User.class);
+	}
 	
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -42,34 +43,8 @@ public class UserService extends BaseService {
 		ProjectLogger.log.info("validateLogin " + pageNav);
 		//return pageNav;    	
     	
-    	String sql = "SELECT t FROM User t WHERE t.email = " + user.getEmail();
-    	TypedQuery<User> query = getEM().createQuery(sql, User.class);
-    	List<User> list = query.getResultList();
+    	String query = "SELECT t FROM User t WHERE t.email = " + user.getEmail();
+    	List<User> list = listFiltering(query);
         return list.get(0);
-    }
-    
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/create")
-    public User create(User user) {
-    	try {
-    		EntityManager em = getEM();
-    		em.getTransaction().begin();    		
-			em.persist(user);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			throw e;
-		} 
-		return user;
-    }    
-    
-	@GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<User> listAll() {
-		TypedQuery<User> query = getEM().createQuery("select t from User t", User.class);
-        List<User> list = query.getResultList();
-        return list;
     }
 }

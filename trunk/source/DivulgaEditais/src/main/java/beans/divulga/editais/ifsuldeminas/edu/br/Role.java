@@ -1,18 +1,8 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.codehaus.jackson.annotate.JsonManagedReference;
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -36,8 +26,7 @@ public class Role implements Serializable {
 
 	//bi-directional many-to-one association to UsersRole
 	@OneToMany(mappedBy="role")
-	@JsonManagedReference
-	private Set<UsersRole> usersRoles;
+	private List<UsersRole> usersRoles;
 
 	public Role() {
 	}
@@ -66,11 +55,11 @@ public class Role implements Serializable {
 		this.observation = observation;
 	}
 
-	public Set<UsersRole> getUsersRoles() {
+	public List<UsersRole> getUsersRoles() {
 		return this.usersRoles;
 	}
 
-	public void setUsersRoles(Set<UsersRole> usersRoles) {
+	public void setUsersRoles(List<UsersRole> usersRoles) {
 		this.usersRoles = usersRoles;
 	}
 

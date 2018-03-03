@@ -1,16 +1,9 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
@@ -28,13 +21,16 @@ public class NoticesCategory implements Serializable {
 	@Column(name="notice_category_id")
 	private int noticeCategoryId;
 
-	@Column(name="notice_id")
-	private int noticeId;
-
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
+
+	//bi-directional many-to-one association to Notice
+	@ManyToOne
+	@JoinColumn(name="notice_id")
+	@JsonIgnore
+	private Notice notice;
 
 	public NoticesCategory() {
 	}
@@ -47,20 +43,20 @@ public class NoticesCategory implements Serializable {
 		this.noticeCategoryId = noticeCategoryId;
 	}
 
-	public int getNoticeId() {
-		return this.noticeId;
-	}
-
-	public void setNoticeId(int noticeId) {
-		this.noticeId = noticeId;
-	}
-
 	public Category getCategory() {
 		return this.category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Notice getNotice() {
+		return this.notice;
+	}
+
+	public void setNotice(Notice notice) {
+		this.notice = notice;
 	}
 
 }

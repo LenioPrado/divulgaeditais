@@ -1,11 +1,15 @@
 <!-- Cadastrar Edital -->
 <section>
     <section class="content-header">
-      <h1>
+      <h1 id="pageTitle">
         Cadastrar Edital
       </h1>
     </section>
     <section class="content">
+	<div id="messages" style="display:none" class="alert alert-dismissible">
+	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	  <strong></strong>
+	</div> 		
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
@@ -21,13 +25,13 @@
                       <select name="companyType" id="companyType">
                       </select>
                 </div>
-<!--                 <div class="form-group"> -->
-<!--                   <label>Categoria</label>  -->
-<!--                       <select name="categories" id="categories"> -->
-<!--                       </select>                                        -->
-<!--                 </div>                 -->
                 <div class="form-group">
-                  <label>Numero </label> <input type="number" name="number" id="number" /> <br>
+                  <label>Categoria</label> 
+                      <select multiple name="noticesCategories" id="noticesCategories">
+                      </select>                                       
+                </div>                
+                <div class="form-group">
+                  <label>Numero </label> <input type="text" name="number" id="number" /> <br>
                 </div>
                 <div class="form-group">
                   <label>Objeto </label> <input type="text" name="object" id="object"/> <br>
@@ -38,10 +42,14 @@
                 <div class="form-group">
                   <label>Data de Fechamento</label> <input type="date" name="closingDate" id="closingDate" /> <br>
                 </div>
-                <div class="form-group">
+                <div class="form-group notEditable">
                   <label for="fileName">File input</label>
                   <input type="file" name="fileName" id="fileName" accept=".pdf"/>
                 </div>
+			    <div class="progress notEditable">
+			        <div class="bar"></div >
+			        <div class="percent">0%</div >
+			    </div>                
               </div>
               <div class="box-footer">
                  <input type="submit" value="Cadastrar" id="submitNotice" class="btn btn-primary">

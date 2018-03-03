@@ -3,6 +3,8 @@ package beans.divulga.editais.ifsuldeminas.edu.br;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 /**
  * The persistent class for the users_categories database table.
@@ -19,13 +21,17 @@ public class UsersCategory implements Serializable {
 	@Column(name="user_category_id")
 	private int userCategoryId;
 
-	@Column(name="user_id")
-	private int userId;
-
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="category_id")
+	@JsonIgnore
 	private Category category;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	@JsonIgnore
+	private User user;
 
 	public UsersCategory() {
 	}
@@ -38,20 +44,20 @@ public class UsersCategory implements Serializable {
 		this.userCategoryId = userCategoryId;
 	}
 
-	public int getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
 	public Category getCategory() {
 		return this.category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

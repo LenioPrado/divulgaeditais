@@ -1,5 +1,6 @@
 use divulgaeditais;
 
+delete from users_notices;
 delete from users_categories;
 delete from notices_categories;
 delete from users_roles;
