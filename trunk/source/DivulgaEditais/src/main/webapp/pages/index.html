@@ -4,6 +4,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <meta charset="utf-8">
     
      <title>Prefeitura Municipal de Poços de Caldas</title>
@@ -27,11 +28,16 @@
             <h2>Entrar</h2>
             <p>Confira todos os editais da prefeitura.</p>
         </header>
-         <form name="login" method="post" onSubmit="return validationLogin();">
-            <label>Email</label> <input type="text" name="userEmail"/><br>
-            <label>Senha</label> <input type="password" name="userPassword"/><br>
-            <input type="submit" value="Entrar"/>
+	   	<div id="messages" style="display:none" class="alert alert-dismissible">
+		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  <strong></strong>
+		</div>        
+         <form name="loginForm" id="loginForm" method="post">
+            <label>Email</label> <input type="text" id="userEmail" name="userEmail"/><br>
+            <label>Senha</label> <input type="password" id="userPassword" name="userPassword"/><br>
+            <input id="loginSubmit" type="submit" value="Entrar"/>
         </form>
+         
     </article>
 </section>
     
@@ -41,7 +47,7 @@
             <h2>Cadastrar</h2>
             <p>Cadastre-se e fique por dentro de todos os editais da prefeitura.</p>
         </header> 
-	    <form name="registerForm" id="registerForm" method="post" action="javascript:alert('Ok');" enctype="multipart/form-data">
+	    <form name="registerForm" id="registerForm" method="post">
 	        <label>Razão Social</label> <input type="text" name="socialName" id="socialName" /> <br>
 	       	<label>Nome Fantasia</label> <input type="text" name="fantasyName" id="fantasyName" /> <br>
 	        <label>Email </label> <input type="text" name="email" id="email"/> <br>
@@ -80,8 +86,12 @@
 	        <label>Celular</label> <input type="text" name="phoneSecondary" id="phoneSecondary"/> <br>
 	        <label>Nome do Responsável</label> <input type="text" name="responsibleName" id="responsibleName"/> <br>
 	        <label>CPF do Responsável</label> <input type="text" name="responsibleCpf" id="responsibleCpf"/> <br>
-	        <input type="submit" value="Cadastrar" onClick="return validation();">
+	        <input type="submit" value="Cadastrar" id="registerUser">
 	    </form>
+	   	<div id="messages" style="display:none" class="alert alert-dismissible">
+		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  <strong></strong>
+		</div>  	    
     </article>
 </section>
     

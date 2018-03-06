@@ -77,7 +77,7 @@ function registerEntity(formName, urlToRegister, successMessage){
 	   processData: false,
 	   contentType: 'application/json',
 	   success: function(data){
-		   showMessage(successMessage,'success');
+		   showMessage(data,'success');
 	   },
 	   error: function(jqXHR, exception) {
 			var msg = jqXHR.responseText;

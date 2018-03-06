@@ -3,8 +3,10 @@
     xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     
     <init-param>
-	    <param-name>jersey.config.server.provider.classnames</param-name>
-	    <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+		<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+	    <param-value>com.sun.jersey.api.container.filter.LoggingFilter;authentication.utils.divulga.editais.ifsuldeminas.edu.br.Authentication</param-value>    
+<!-- 	    <param-name>jersey.config.server.provider.classnames</param-name> -->
+<!-- 	    <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value> -->
 	</init-param>
     <servlet>
         <servlet-name>Divulga Editais</servlet-name>
