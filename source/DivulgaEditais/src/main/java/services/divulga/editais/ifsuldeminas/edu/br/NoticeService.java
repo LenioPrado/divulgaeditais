@@ -3,7 +3,6 @@ package services.divulga.editais.ifsuldeminas.edu.br;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -78,8 +77,7 @@ public class NoticeService extends BaseService<Notice> {
     @Path("/subscribe")
 	public Response subscribe(Notice notice) {
 		String query = "delete from UsersNotice t WHERE t.notice == " + notice.getNoticeId();
-		TypedQuery<Notice> q = getEM().createQuery(query, classType);
-		int result = q.executeUpdate();
+		createQuery(query).executeUpdate();
 		
 		return Response.ok("{\"message\": \"Inscrição Excluída com Sucesso!\"}", MediaType.TEXT_PLAIN).build();
 	}	
@@ -90,8 +88,7 @@ public class NoticeService extends BaseService<Notice> {
     @Path("/deleteSubscribed")
 	public Response deleteSubscribed(Notice notice) {
 		String query = "delete from UsersNotice t WHERE t.notice == " + notice.getNoticeId();
-		TypedQuery<Notice> q = getEM().createQuery(query, classType);
-		int result = q.executeUpdate();
+		createQuery(query).executeUpdate();
 		
 		return Response.ok("{\"message\": \"Inscrição Excluída com Sucesso!\"}", MediaType.TEXT_PLAIN).build();
 	}

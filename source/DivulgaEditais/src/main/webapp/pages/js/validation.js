@@ -87,3 +87,108 @@ function validateCompanyType(callback){
 	      }
 	  });
 }
+
+function validateLogin(callback){
+    console.log("entrou no validationLogin");
+	$("form[name='loginForm']").validate({
+	    rules: {
+	        userEmail: {
+	            required: true,
+	            email: true
+	            },
+	        userPassword: {
+	            required: true,
+	            minlength: 5
+	        },
+	    },
+	    messages: {
+	        userPassword: {
+	            required: "Digite uma senha válida",
+	            minlength: "Sua senha deve ter no mínimo 5 caracteres"
+	        },
+	        userEmail:  "Digite um email válido",
+	    },
+	    submitHandler: function(form) {
+	    	callback(form);
+	    },
+	        errorClass: "registerError",
+	        validClass: "registerSuccess"
+	
+	  });
+}
+
+function validateUserRegister(callback) {
+	var option = $("#type").val();
+	if(option == "branch"){
+		$("form[name='registerForm']").validate({
+            rules: {
+            	branch: "required"
+            },
+            messages: {
+            	branch: "Digite um setor válido"
+            }
+		});
+	}else{
+		$("form[name='registerForm']").validate({
+            rules: {
+            	cnae: "required",
+            	companyType: "required"
+            },
+            messages: {
+            	cnae: "Digite um CNAE válido",
+            	companyType: "Selecione uma categoria válida"
+            }
+		});
+	}
+	
+  $("form[name='registerForm']").validate({
+            rules: {
+            	socialName: "required",
+            	fantasyName: "required",
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                cnpj: "required",
+                type: "required",
+                zipCode: "required",
+                address: "required",
+                number: "required",
+                city: "required",
+                state: "required",
+                phonePrimary: "required",
+                responsibleName: "required",
+                responsibleCpf: "required"
+            },
+
+            messages: {
+            	socialName: "Digite uma razão social válida",
+            	fantasyName: "Digite um nome fantasia válida",
+                password: {
+                    required: "Digite uma senha válida",
+                    minlength: "Sua senha deve ter no mínimo 5 caracteres"
+                },
+                email:  "Digite um email válido",
+                cnpj: "Digite um CPF válido",
+                type: "Selecione um tipo válido",
+                zipCode: "Digite um CEP válido",
+                address: "Digite uma rua válida",
+                number: "Digite um numero válido",
+                city: "Digite uma cidade válida",
+                state: "Digite um estado válido",
+                phonePrimary: "Digite um telefone válido",
+                responsibleName: "Digite um nome válido",
+                responsibleCpf: "Digite um CPF válido"
+            },
+            errorClass: "registerError",
+            validClass: "registerSuccess",
+
+       submitHandler: function(form) {
+    	   callback(form);
+    }
+  });
+};
