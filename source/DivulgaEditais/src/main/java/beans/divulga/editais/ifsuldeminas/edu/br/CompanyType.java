@@ -1,12 +1,18 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the company_types database table.
@@ -16,8 +22,9 @@ import java.util.List;
 @Table(name="company_types")
 @NamedQuery(name="CompanyType.findAll", query="SELECT c FROM CompanyType c")
 public class CompanyType implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="company_type_id")

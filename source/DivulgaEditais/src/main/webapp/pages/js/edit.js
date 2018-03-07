@@ -3,7 +3,7 @@ function editnotice(input){
 			'formId':'registerNotice', 
 			'loadFunction': loadNotice,
 			'submitInputId':'submitNotice',
-			'url':'/DivulgaEditais/rest/notice/edit',
+			'url':'notice/edit',
 			'pageTitle':'Edição de Edital',
 			'successMessage':'Edital alterado com sucesso!',
 			'select-multiple-id':'noticesCategories', 
@@ -31,7 +31,7 @@ function editcategory(input){
 			'formId':'registerCategory',
 			'loadFunction': loadCategory,
 			'submitInputId':'submitCategory',
-			'url':'/DivulgaEditais/rest/category/edit',
+			'url':'category/edit',
 			'pageTitle':'Edição de Categoria',
 			'successMessage':'Categoria alterada com sucesso!'
 		};
@@ -43,7 +43,7 @@ function editmodality(input){
 			'formId':'registerModality',
 			'loadFunction': loadModality,
 			'submitInputId':'submitModality',
-			'url':'/DivulgaEditais/rest/modality/edit',
+			'url':'modality/edit',
 			'pageTitle':'Edição de Modalidade',
 			'successMessage':'Modalidade alterada com sucesso!'
 		};
@@ -55,7 +55,7 @@ function editcompanyType(input){
 			'formId':'registerCompanyType',
 			'loadFunction': loadCompanyType,
 			'submitInputId':'submitCompanyType',
-			'url':'/DivulgaEditais/rest/companyType/edit',
+			'url':'companyType/edit',
 			'pageTitle':'Edição de Tipo de Companhia',
 			'successMessage':'Tipo de Companhia alterada com sucesso!'
 		};

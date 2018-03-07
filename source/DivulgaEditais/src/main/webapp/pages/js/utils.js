@@ -3,7 +3,7 @@ var separator = ' - ';
 function getServerUrl(){
 	var url = window.location.href;
 	var arr = url.split("/");
-	var result = arr[0] + "//" + arr[2];
+	var result = arr[0] + "//" + arr[2] + "/DivulgaEditais/rest/";
 	
 	return result;
 }
@@ -101,6 +101,12 @@ function getEntity(methodUrl, callback){
 	$.getJSON(getServerUrl() + methodUrl, function(json){
 		console.log(json);
 		callback(json);
+	}).fail(function(jqXHR, textStatus, errorThrown) { 
+		if(jqXHR.status === 401){
+			showMessage('Você não possui acesso a esta página','error');
+		} else {
+			showMessage('Ocorreu um erro!','error');
+		}		
 	});
 }
 

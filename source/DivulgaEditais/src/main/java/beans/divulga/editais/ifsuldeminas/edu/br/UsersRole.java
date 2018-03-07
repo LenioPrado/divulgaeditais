@@ -1,9 +1,15 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**

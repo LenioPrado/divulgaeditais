@@ -1,7 +1,7 @@
 function listNoticesToSubscribe(){
 	var urlToLoad = "subscribeNotices.html";
-	var urlToGetData = "/DivulgaEditais/rest/notice/listNotSubscribed";
-	var urlToDeleteSubscribe = "/DivulgaEditais/rest/notice/subscribe/";	
+	var urlToGetData = "notice/listNotSubscribed";
+	var urlToDeleteSubscribe = "notice/subscribe/";	
 	
 	var fieldsArray = ['user.fantasyName', ['modality.acronyms','modality.description'], 
 		'companyType.description','number', 'object', 

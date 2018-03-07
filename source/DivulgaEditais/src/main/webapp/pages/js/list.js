@@ -5,7 +5,7 @@ function listNoticesRegisteredByUser(){
 function listNotices(userId){
 	
 	var urlToLoad = "listNotices.html";
-	var urlToGetData = "/DivulgaEditais/rest/notice/";
+	var urlToGetData = "notice/";
 
 	if(userId){
 		urlToGetData+='userRegisteredNotices/'+userId;
@@ -32,14 +32,14 @@ function downloadNotice(input){
 	var noticeId = $(input).attr('entity-data');
 	var notice = $('#tr'+noticeId).data('key');
 	var fileName = notice.fileName;
-	var urlToGetData = "/DivulgaEditais/rest/file/download/" + noticeId + "/" + fileName;
+	var urlToGetData = "file/download/" + noticeId + "/" + fileName;
 
 	downloadFile(urlToGetData);
 }
 
 function listCategories(){	
 	var urlToLoad = "listCategories.html";
-	var urlToGetData = "/DivulgaEditais/rest/category/";	
+	var urlToGetData = "category/";	
 	loadPage(urlToLoad, function(){
 		loadConfirmModal(urlToGetData+'delete', deleteCategory);
 		genericList(urlToGetData, "category", "categoryId", ['description', 'edit', 'delete'], editDeleteButton);
@@ -48,7 +48,7 @@ function listCategories(){
 
 function listModalities(){
 	var urlToLoad = "listModalities.html";
-	var urlToGetData = "/DivulgaEditais/rest/modality/";	
+	var urlToGetData = "modality/";	
 	loadPage(urlToLoad, function(){
 		loadConfirmModal(urlToGetData+'delete', deleteModality);
 		genericList(urlToGetData, "modality", "modalityId", ['acronyms', 'description', 'edit', 'delete'], editDeleteButton);
@@ -57,7 +57,7 @@ function listModalities(){
 
 function listCompanyTypes(){
 	var urlToLoad = "listCompanyTypes.html";
-	var urlToGetData = "/DivulgaEditais/rest/companyType/";
+	var urlToGetData = "companyType/";
 	loadPage(urlToLoad, function(){
 		loadConfirmModal(urlToGetData+'delete', deleteCompanyType);
 		genericList(urlToGetData, "companyType", "companyTypeId", ['acronyms', 'description', 'edit', 'delete'], editDeleteButton);

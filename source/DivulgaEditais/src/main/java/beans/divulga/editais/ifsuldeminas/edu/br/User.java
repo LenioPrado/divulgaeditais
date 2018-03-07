@@ -1,11 +1,18 @@
 package beans.divulga.editais.ifsuldeminas.edu.br;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -72,7 +79,7 @@ public class User implements Serializable {
 	private String zipCode;
 
 	//bi-directional many-to-one association to Notice
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user")	
 	@JsonIgnore
 	private List<Notice> notices;
 
@@ -82,7 +89,6 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to UsersNotice
 	@OneToMany(mappedBy="user")
-	@JsonIgnore
 	private List<UsersNotice> usersNotices;
 
 	//bi-directional many-to-one association to UsersRole
