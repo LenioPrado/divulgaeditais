@@ -203,6 +203,33 @@ function cleanString(input) {
     return output;
 }
 
+function isLogged(){
+	$.getJSON(getServerUrl() + 'test', function(json){
+
+	}).fail(function(jqXHR, textStatus, errorThrown) { 
+		if(jqXHR.status === 401){
+			window.location.replace("index.html");
+		} 		
+	});	
+}
+
+function logout(){
+	$.ajax({
+		   type: "post",
+		   dataType: "text",
+		   url: getServerUrl() + "user/logout",
+		   processData: false,
+		   success: function(){
+			   window.location.replace("index.html");
+		   },
+		   error: function(jqXHR, exception) {
+				var msg = jqXHR.responseText;
+				showMessage(msg,'error');
+				window.scrollTo(0, 0);
+		   }
+		});
+}
+
 function downloadFile(url, params){
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', getServerUrl() + url, true);

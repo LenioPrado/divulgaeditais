@@ -68,6 +68,12 @@
 	    <artifactId>jersey-media-multipart</artifactId>
 	    <version>${jersey.dependencies}</version> 
 	</dependency>
+
+	<dependency>
+	    <groupId>org.jvnet.mimepull</groupId>
+	    <artifactId>mimepull</artifactId>
+	    <version>1.9.7</version>
+	</dependency>
 	
 <dependency>
     <groupId>org.jbundle.util.osgi.wrapped</groupId>

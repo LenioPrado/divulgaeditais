@@ -8,8 +8,6 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 
-import beans.divulga.editais.ifsuldeminas.edu.br.User;
-
 public class PasswordUtils {
 		
 	private PasswordUtils() {}
@@ -31,24 +29,11 @@ public class PasswordUtils {
         return newPassword;
 	}
 
-	private static boolean passwordMatchTest(String providedValue, String correctValue) throws NoSuchAlgorithmException{
+	public static boolean passwordMatchTest(String providedValue, String correctValue) throws NoSuchAlgorithmException{
 		providedValue = encriptyPassword(providedValue);
 		return providedValue.equalsIgnoreCase(correctValue);
 	}
 
-	public static User authenticateUser(User user, String password){
-		try{
-			if(user == null || !passwordMatchTest(password, user.getPassword())){
-				return null;			
-			}
-		} catch (NoSuchAlgorithmException e) {
-			ProjectLogger.log.error(e.getMessage());
-			e.printStackTrace();
-		} 
-		
-		return user;
-	}
-	
 	public static String[] decode(String auth) {
         //Replacing "Basic THE_BASE_64" to "THE_BASE_64" directly
         auth = auth.replaceFirst("[B|b]asic ", "");

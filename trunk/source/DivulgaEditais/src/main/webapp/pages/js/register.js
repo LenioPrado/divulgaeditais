@@ -24,7 +24,7 @@ function registerNotice(){
 	var status = $('#status');
 	
 	$.ajax({
-		url: getServerUrl() + "file",
+		url: getServerUrl() + "file/upload",
 		type: 'POST',
 		xhr: function() {
 			var myXhr = $.ajaxSettings.xhr();

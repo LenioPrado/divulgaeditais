@@ -1,10 +1,13 @@
 window.onload = function() {
 	$('#sidebarDiv').load("sidebar.html", function(){
+		// Sidebar Load Event
 		assignEvents();
+		isLogged();
 	});	
 	
 	$('#header').load("header.html", function(){
 		// Header Load Event
+		$('#logout').click(function(){logout();});		
 	});	
 	
 	$('#footer').load("footer.html", function(){

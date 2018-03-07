@@ -1,18 +1,24 @@
 package services.divulga.editais.ifsuldeminas.edu.br;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
 import beans.divulga.editais.ifsuldeminas.edu.br.User;
-import utils.divulga.editais.ifsuldeminas.edu.br.PasswordUtils;
+import utils.divulga.editais.ifsuldeminas.edu.br.UserUtils;
 
 @Provider
 @PreMatching
 public class Authentication implements ContainerRequestFilter {
+	
+	@Context
+    private HttpServletRequest servletRequest;
 	
 	private boolean isPathOrMethodAllowed(String path, String method) {
 		boolean allowed = false;
@@ -34,44 +40,24 @@ public class Authentication implements ContainerRequestFilter {
 		//
 		System.out.println("ENTROU NO MÉTODO FILTER");
 		
-		//GET, POST, PUT, DELETE, ...
         String method = containerRequest.getMethod();
-        // myresource/get/56bCA for example
         String path = containerRequest.getUriInfo().getPath(true);
- 
+        
         System.out.println(String.format("Path: %s -- Method: %s ", path, method));
         
-        //We do allow wadl to be retrieve
         if(isPathOrMethodAllowed(path, method)){
             return;
+        } 
+		
+		HttpSession session = servletRequest.getSession(false);
+		 
+        if (session == null) {
+        		throw new WebApplicationException(Status.UNAUTHORIZED);
+        } else {
+        	User user = UserUtils.getUserInSession(session);
+        	if(user == null) {
+        		throw new WebApplicationException(Status.UNAUTHORIZED);
+        	}
         }
- 
-        //Get the authentification passed in HTTP headers parameters
-        String auth = containerRequest.getHeaderString("authorization");
- 
-        //If the user does not have the right (does not provide any HTTP Basic Auth)
-        if(auth == null){
-            throw new WebApplicationException(Status.UNAUTHORIZED);
-        }
- 
-        //lap : loginAndPassword
-        String[] lap = PasswordUtils.decode(auth);
- 
-        //If login or password fail
-        if(lap == null || lap.length != 2){
-            throw new WebApplicationException(Status.UNAUTHORIZED);
-        }
- 
-        //DO YOUR DATABASE CHECK HERE (replace that line behind)...
-        User authentificationResult =  new UserService().getUserByEmailAndPassword(lap[0], lap[1]);
- 
-        //Our system refuse login and password
-        if(authentificationResult == null){
-            throw new WebApplicationException(Status.UNAUTHORIZED);
-        }
- 
-        //TODO : HERE YOU SHOULD ADD PARAMETER TO REQUEST, TO REMEMBER USER ON YOUR REST SERVICE...
- 
-//        return;		
 	}
 }
