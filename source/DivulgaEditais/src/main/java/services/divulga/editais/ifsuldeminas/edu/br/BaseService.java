@@ -7,11 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,10 +28,17 @@ import utils.divulga.editais.ifsuldeminas.edu.br.EMFactory;
 
 public class BaseService<T> {
 
+	@Context
+    private HttpServletRequest request;	
+	
 	private final Class<T> classType;
 	
 	public BaseService(Class<T> classType){
 		this.classType = classType;
+	}
+	
+	protected HttpSession getSession() {
+		return request.getSession();
 	}
 	
 	protected EntityManager getEM() {

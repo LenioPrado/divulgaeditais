@@ -25,7 +25,7 @@ public class FileUploaderClient {
 	public static void main(String[] args) {
 		
 		// the file we want to upload
-		File inFile = new File("D:\\file.pdf");
+		File inFile = new File("D:\\Develop\\FileRepository\\60\\Como_Aprender_Ingles_O+guia+definitivo_1_6_2.pdf");
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(inFile);
@@ -34,9 +34,11 @@ public class FileUploaderClient {
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 			
 			// server back-end URL
-			HttpPost httppost = new HttpPost("http://localhost:8080/DivulgaEditais/rest/file");
+			HttpPost httppost = new HttpPost("http://localhost:8080/DivulgaEditais/rest/file/upload");
 			// set the file input stream and file name as arguments
-			builder.addPart("file", new InputStreamBody(fis, inFile.getName()));
+			
+			builder.addPart("uploadfile", new InputStreamBody(fis, inFile.getName()));
+
 			HttpEntity entity = builder.build();
 			httppost.setEntity(entity);
 			// execute the request
@@ -60,5 +62,4 @@ public class FileUploaderClient {
 			} catch (IOException e) {}
 		}
 	}
-	
 }
