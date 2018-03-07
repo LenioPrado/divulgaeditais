@@ -38,7 +38,7 @@ function registerUser()
 	$.ajax({
 	   type: "post",
 	   dataType: "json",
-	   url: getServerUrl() + "/DivulgaEditais/rest/user/create",
+	   url: getServerUrl() + "user/create",
 	   data: JSON.stringify( user ),
 	   processData: true,
 	   contentType: 'application/json',
@@ -54,7 +54,7 @@ function registerUser()
   
 function checkUser(){
 	var data = getFormData('loginForm');
-	var url = "/DivulgaEditais/rest/user/login" + "/" + data['userEmail'] + "/" + data['userPassword'] 
+	var url = "user/login" + "/" + data['userEmail'] + "/" + data['userPassword'] 
 	$.ajax({
 		   type: "post",
 		   dataType: "json",

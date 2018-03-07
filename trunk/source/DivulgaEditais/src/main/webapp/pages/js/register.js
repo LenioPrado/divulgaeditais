@@ -24,11 +24,11 @@ function registerNotice(){
 	var status = $('#status');
 	
 	$.ajax({
-		url: getServerUrl() + "/DivulgaEditais/rest/file",
+		url: getServerUrl() + "file",
 		type: 'POST',
 		xhr: function() {
 			var myXhr = $.ajaxSettings.xhr();
-		    if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+		    if (myXhr.upload) {
 		        myXhr.upload.addEventListener('progress', function (evt) {
 		        	var percentComplete = Math.ceil((evt.loaded / evt.total) * 100);
 			        var percentVal = percentComplete + '%';
@@ -39,7 +39,6 @@ function registerNotice(){
 		    }
 		    return myXhr;
 		},
-		// beforeSend: beforeSendHandler,
 		success: function(data) {
 			showMessage('Edital cadastrado com sucesso.','success');
 		},
@@ -55,15 +54,15 @@ function registerNotice(){
 }
 
 function registerCategory(){
-	registerEntity('registerCategory', '/DivulgaEditais/rest/category/create', 'Categoria cadastrada com sucesso.');	
+	registerEntity('registerCategory', 'category/create', 'Categoria cadastrada com sucesso.');	
 }
 
 function registerModality(){
-	registerEntity('registerModality', '/DivulgaEditais/rest/modality/create', 'Modalidade cadastrada com sucesso.');
+	registerEntity('registerModality', 'modality/create', 'Modalidade cadastrada com sucesso.');
 }
 
 function registerCompanyType(){
-	registerEntity('registerCompanyType', '/DivulgaEditais/rest/companyTypes/create', 'Tipo de Empresa cadastrado com sucesso.');
+	registerEntity('registerCompanyType', 'companyType/create', 'Tipo de Empresa cadastrado com sucesso.');
 }
 
 function registerEntity(formName, urlToRegister, successMessage){
@@ -77,7 +76,7 @@ function registerEntity(formName, urlToRegister, successMessage){
 	   processData: false,
 	   contentType: 'application/json',
 	   success: function(data){
-		   showMessage(data,'success');
+		   showMessage('Registro criado com sucesso!','success');
 	   },
 	   error: function(jqXHR, exception) {
 			var msg = jqXHR.responseText;

@@ -10,7 +10,7 @@ function loadNotice(actionToExecute, loadedCallback){
 			});
 		});
 		
-		getEntity('/DivulgaEditais/rest/modality', function(json)
+		getEntity('modality', function(json)
 		{		
 			fillSelect(json, 'modality', 'modalityId',['acronyms','description']);
 			hasToLoad--;
@@ -19,7 +19,7 @@ function loadNotice(actionToExecute, loadedCallback){
 			}
 		});	
 		
-		getEntity('/DivulgaEditais/rest/companyType', function(json)
+		getEntity('companyType', function(json)
 		{		
 			fillSelect(json, 'companyType', 'companyTypeId',['acronyms','description']);
 			hasToLoad--;
@@ -28,7 +28,7 @@ function loadNotice(actionToExecute, loadedCallback){
 			}
 		});	
 
-		getEntity('/DivulgaEditais/rest/category', function(json)
+		getEntity('category', function(json)
 		{		
 			fillSelect(json, 'noticesCategories', 'categoryId','description');
 			hasToLoad--;

@@ -20,10 +20,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataBodyPart;
-import com.sun.jersey.multipart.FormDataParam;
 
 import beans.divulga.editais.ifsuldeminas.edu.br.Notice;
 import services.divulga.editais.ifsuldeminas.edu.br.NoticeService;
@@ -70,6 +70,7 @@ public class FileResource extends HttpServlet {
 			
 			return Response.ok(Integer.toString(fileSize), MediaType.TEXT_PLAIN).build();
 		} catch (final Exception e) {
+			e.printStackTrace();
 			throw new WebApplicationException(e);
 		}
 	}
