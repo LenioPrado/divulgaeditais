@@ -46,16 +46,19 @@ public class Authentication implements ContainerRequestFilter {
         System.out.println(String.format("Path: %s -- Method: %s ", path, method));
         
         if(isPathOrMethodAllowed(path, method)){
+        	System.out.println("Caminho ou método permitido");
             return;
         } 
 		
 		HttpSession session = servletRequest.getSession(false);
 		 
         if (session == null) {
-        		throw new WebApplicationException(Status.UNAUTHORIZED);
+        	System.out.println("Sessão nula");
+        	throw new WebApplicationException(Status.UNAUTHORIZED);
         } else {
         	User user = UserUtils.getUserInSession(session);
         	if(user == null) {
+        		System.out.println("Usuário nulo");
         		throw new WebApplicationException(Status.UNAUTHORIZED);
         	}
         }

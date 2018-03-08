@@ -1,23 +1,15 @@
-function listNoticesRegisteredByUser(){
-	listNotices(4);
-}
-
-function listNotices(userId){
+function listNotices(){
 	
 	var urlToLoad = "listNotices.html";
 	var urlToGetData = "notice/";
 
-	if(userId){
-		urlToGetData+='userRegisteredNotices/'+userId;
-	} 
-	
 	var fieldsArray = ['user.fantasyName', ['modality.acronyms','modality.description'], 
 		'companyType.description','number', 'object', 
-		'publishingDate', 'tradingDate', 'closingDate','edital', 'edit', 'delete'];
+		'publishingDate', 'tradingDate', 'closingDate','edital', 'edit', 'delete'];	
 	
 	loadPage(urlToLoad, function(){
-		loadConfirmModal(urlToGetData+'delete', deleteNotice);
-		genericList(urlToGetData, "notice", "noticeId", fieldsArray, editDeleteButton, userId, eachNoticeRowListing);
+		loadDeleteConfirmModal(urlToGetData+'delete', deleteEntity, beforeDeleteNotice);
+		genericList(urlToGetData, "notice", "noticeId", fieldsArray, editDeleteButton, null, eachNoticeRowListing);
 	});	
 }
 
@@ -39,9 +31,10 @@ function downloadNotice(input){
 
 function listCategories(){	
 	var urlToLoad = "listCategories.html";
-	var urlToGetData = "category/";	
+	var urlToGetData = "category/";
+	
 	loadPage(urlToLoad, function(){
-		loadConfirmModal(urlToGetData+'delete', deleteCategory);
+		loadDeleteConfirmModal(urlToGetData+'delete', deleteEntity, beforeDeleteCategory);
 		genericList(urlToGetData, "category", "categoryId", ['description', 'edit', 'delete'], editDeleteButton);
 	});
 }
@@ -50,7 +43,7 @@ function listModalities(){
 	var urlToLoad = "listModalities.html";
 	var urlToGetData = "modality/";	
 	loadPage(urlToLoad, function(){
-		loadConfirmModal(urlToGetData+'delete', deleteModality);
+		loadDeleteConfirmModal(urlToGetData+'delete', deleteEntity, beforeDeleteModality);
 		genericList(urlToGetData, "modality", "modalityId", ['acronyms', 'description', 'edit', 'delete'], editDeleteButton);
 	});	
 }
@@ -59,14 +52,14 @@ function listCompanyTypes(){
 	var urlToLoad = "listCompanyTypes.html";
 	var urlToGetData = "companyType/";
 	loadPage(urlToLoad, function(){
-		loadConfirmModal(urlToGetData+'delete', deleteCompanyType);
+		loadDeleteConfirmModal(urlToGetData+'delete', deleteEntity, beforeDeleteCompanyType);
 		genericList(urlToGetData, "companyType", "companyTypeId", ['acronyms', 'description', 'edit', 'delete'], editDeleteButton);
 	});	
 }
 
 function editDeleteButton(data, dataTableId, entityId){
 	data['edit'] = '<input type="image" entity-data="'+data[entityId]+'" onclick="edit'+dataTableId+'(this);" src="assets/css/images/bt-editar.png"/>';
-	data['delete'] = '<input type="image" entity-data="'+data[entityId]+'" data-toggle="modal" data-target="#confirmDelete" src="assets/css/images/bt-deletar.png"/>';
+	data['delete'] = '<input type="image" entity-data="'+data[entityId]+'" data-toggle="modal" data-target="#confirmAction" src="assets/css/images/bt-deletar.png"/>';
 }
 
 function loadPage(htmlPageToLoad, loadedCallback){

@@ -1,19 +1,19 @@
-function deleteNotice(notice){
+function beforeDeleteNotice(notice){
 	notice['closingDate'] = convertFormDateToSqlDate(notice['closingDate']);
 	notice['publishingDate'] = convertFormDateToSqlDate(notice['publishingDate']);
 	notice['tradingDate'] = convertFormDateToSqlDate(notice['tradingDate']);
 	delete notice['edital'];
 }
 
-function deleteCategory(category){
+function beforeDeleteCategory(category){
 	// Alterar a entidade, se necessário.
 }
 
-function deleteModality(modality){
+function beforeDeleteModality(modality){
 	// Alterar a entidade, se necessário.
 }
 
-function deleteCompanyType(companyType){
+function beforeDeleteCompanyType(companyType){
 	// Alterar a entidade, se necessário.
 }
 

@@ -179,15 +179,23 @@ function convertFormDateToSqlDate(dateValue){
 	return dateText;	
 }
 
-function loadConfirmModal(urlToGetData, beforeDeleteCallback){
+function loadDeleteConfirmModal(urlToGetData, processCallback, beforeProcessCallback){
+	loadConfirmModal(urlToGetData, processCallback, beforeProcessCallback, 'Excluir Registro', 'Confirma exclusão do registro?');	
+}
+
+function loadConfirmModal(urlToGetData, processCallback, beforeProcessCallback, modalTitle, modalText){
 	$('#confirmModal').load('modal.html', function(){
-		$('#confirmDelete').on('show.bs.modal', function (e) {
+		$('#confirmAction').on('show.bs.modal', function (e) {
+			
+			$('#modalTitle').html(modalTitle);
+			$('#modalText').html(modalText);
+			
 			var entityId = $(e.relatedTarget).attr('entity-data');
 			var entity = $('#tr'+entityId).data('key');		      
 		      
-		      $(this).find('.modal-footer #confirm').off('click').on('click', function(){
-		    	  deleteEntity(urlToGetData, entity, entityId, beforeDeleteCallback);
-		    	  $('#confirmDelete').modal('toggle');
+		      $(this).find('.modal-footer #confirm').off('click').on('click', function(){		    	  
+		    	  processCallback(urlToGetData, entity, entityId, beforeProcessCallback);
+		    	  $('#confirmAction').modal('toggle');
 		      });		      
 		  });			
 	});
@@ -204,7 +212,7 @@ function cleanString(input) {
 }
 
 function isLogged(){
-	$.getJSON(getServerUrl() + 'test', function(json){
+	$.getJSON(getServerUrl() + 'user/roles', function(json){
 
 	}).fail(function(jqXHR, textStatus, errorThrown) { 
 		if(jqXHR.status === 401){

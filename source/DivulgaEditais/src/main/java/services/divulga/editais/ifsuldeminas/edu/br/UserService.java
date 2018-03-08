@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.jws.WebService;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -23,6 +24,27 @@ public class UserService extends BaseService<User> {
 	
 	public UserService() {
 		super(User.class);
+	}
+	
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/roles")
+    public Response getUserRoles() {
+		User user = UserUtils.getUserInSession(getSession());
+		if(user!=null) {
+			String json = "";
+			try {
+				json = getJsonFormattedObject(user.getUsersRoles());
+				return Response.ok().entity(json).build();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return Response.serverError().entity(e.getMessage()).build();	
+			}
+		} else {
+			Response.serverError().entity("Usuário não logado!").build();
+		}
+		return Response.ok().build();
 	}
 	
 	@POST
