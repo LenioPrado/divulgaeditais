@@ -7,7 +7,7 @@ window.onload = function() {
 	
 	$('#header').load("header.html", function(){
 		// Header Load Event
-		$('#logout').click(function(){logout();});		
+		loadConfirmModal(null, logout, null, 'Saída', 'Confirma saída do sistema de editais?');
 	});	
 	
 	$('#footer').load("footer.html", function(){
