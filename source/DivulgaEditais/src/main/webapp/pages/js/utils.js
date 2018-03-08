@@ -175,8 +175,13 @@ function convertSqlDateToFormDate(sqlDateValue){
 
 function convertFormDateToSqlDate(dateValue){
 	var date = dateValue.split('/');
-	var dateText = date[2]+'-'+date[1]+'-'+date[0];
-	return dateText;	
+	
+	if(date.length > 1){
+		var dateText = date[2]+'-'+date[1]+'-'+date[0];
+		return dateText;
+	} else {
+		return dateValue;
+	}
 }
 
 function loadDeleteConfirmModal(urlToGetData, processCallback, beforeProcessCallback){
@@ -222,10 +227,13 @@ function isLogged(){
 }
 
 function logout(){
+
+	var urlToGetData = "user/logout";
+	
 	$.ajax({
 		   type: "post",
 		   dataType: "text",
-		   url: getServerUrl() + "user/logout",
+		   url: getServerUrl() + urlToGetData,
 		   processData: false,
 		   success: function(){
 			   window.location.replace("index.html");
@@ -235,7 +243,7 @@ function logout(){
 				showMessage(msg,'error');
 				window.scrollTo(0, 0);
 		   }
-		});
+	});
 }
 
 function downloadFile(url, params){
