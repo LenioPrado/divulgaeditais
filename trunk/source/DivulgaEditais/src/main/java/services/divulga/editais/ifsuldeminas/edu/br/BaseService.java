@@ -62,6 +62,21 @@ public class BaseService<T> {
 		}
 		return entity;
     }
+
+    protected Response delete(String query) {
+    	EntityManager em = getEM(); 
+    	int count;   	
+		try {
+			em.getTransaction().begin();
+			count = em.createQuery(query).executeUpdate();
+			em.getTransaction().commit();
+			System.out.println(String.format("Registros apagados: %d", count));
+			return Response.ok(getJsonFormattedMessage("Registro Excluído com Sucesso!"), MediaType.APPLICATION_JSON).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+    }
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -92,7 +107,7 @@ public class BaseService<T> {
 		beforeCreate(entity);
 		
     	try {
-    		em.getTransaction().begin();    		
+    		em.getTransaction().begin();
 			em.persist(entity);
 			em.getTransaction().commit();			
 			return Response.ok(getJsonFormattedObject(entity), MediaType.APPLICATION_JSON).build();
@@ -118,7 +133,7 @@ public class BaseService<T> {
     		em.getTransaction().begin();
 			em.remove(em.contains(entity) ? entity : em.merge(entity));
 			em.getTransaction().commit();
-			return Response.ok(getJsonFormattedMessage("Registro Excluído com Sucesso!"), MediaType.APPLICATION_JSON).build();
+			return Response.ok(getJsonFormattedMessage(getDeleteSuccessMessage()), MediaType.APPLICATION_JSON).build();
 		} catch (ConstraintViolationException | PersistenceException e) {
 			String message = getDeleteErrorMessage(getCauseError(e));
 			return Response.serverError().entity(message).build();
@@ -141,7 +156,7 @@ public class BaseService<T> {
     		em.getTransaction().begin();
     		em.merge(entity);
 			em.getTransaction().commit();
-			return Response.ok(getJsonFormattedMessage("Registro Editado com Sucesso!"), MediaType.APPLICATION_JSON).build();
+			return Response.ok(getJsonFormattedMessage(getEditSuccessMessage()), MediaType.APPLICATION_JSON).build();
 		} catch (ConstraintViolationException | PersistenceException e) {
 			String message = getEditErrorMessage(getCauseError(e));
 			return Response.serverError().entity(message).build();
@@ -195,6 +210,14 @@ public class BaseService<T> {
 	
 	protected T beforeDelete(T entity) {
 		return entity;
+	}
+
+	protected String getEditSuccessMessage() {
+		return "Registro Editado com Sucesso!";
+	}
+	
+	protected String getDeleteSuccessMessage() {
+		return "Registro Excluído com Sucesso!";
 	}	
 	
 	protected String getCreateErrorMessage(Exception e) {

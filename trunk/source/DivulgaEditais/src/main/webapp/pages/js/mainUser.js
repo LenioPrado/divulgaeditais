@@ -17,7 +17,6 @@ window.onload = function() {
 
 function assignEvents(){	
 	$('#listNoticesLink').click(function(){listNotices();});
-	$('#listNoticesRegisteredByUserLink').click(function(){listNoticesRegisteredByUser();});
 	$('#listCategoriesLink').click(function(){listCategories();});
 	$('#listModalitiesLink').click(function(){listModalities();});
 	$('#listCompanyTypesLink').click(function(){listCompanyTypes();});
@@ -26,7 +25,9 @@ function assignEvents(){
 	$('#registerCategoriesLink').click(function(){loadCategory(registerCategory);});	
 	$('#registerModalityLink').click(function(){loadModality(registerModality);});
 	$('#registerCompanyTypeLink').click(function(){loadCompanyType(registerCompanyType);});	
-	
-	$('#registerNoticesByUserLink').click(function(){listNoticesToSubscribe();});
-	$('#registerCategoriesByUserLink').click(function(){listCategoriesToSubscribe();});	
+
+	$('#subscribeToNoticesLink').click(function(){listNoticesToSubscribe();});
+	$('#subscribeToCategoriesLink').click(function(){listCategoriesToSubscribe();});		
+	$('#subscribedNoticesLink').click(function(){listNoticesRegisteredByUser();});
+	$('#subscribedCategoriesLink').click(function(){listCategoriesRegisteredByUser();});	
 }

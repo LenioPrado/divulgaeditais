@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the roles database table.
@@ -34,6 +36,7 @@ public class Role implements Serializable {
 
 	//bi-directional many-to-one association to UsersRole
 	@OneToMany(mappedBy="role")
+	@JsonIgnore
 	private List<UsersRole> usersRoles;
 
 	public Role() {

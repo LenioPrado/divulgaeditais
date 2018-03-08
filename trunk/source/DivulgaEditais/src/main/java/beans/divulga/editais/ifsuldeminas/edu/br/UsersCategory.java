@@ -33,7 +33,6 @@ public class UsersCategory implements Serializable {
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="category_id")
-	@JsonIgnore
 	private Category category;
 
 	//bi-directional many-to-one association to User
