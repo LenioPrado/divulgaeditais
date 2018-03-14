@@ -15,7 +15,10 @@ window.onload = function() {
 	});	
 };
 
-function assignEvents(){	
+function assignEvents(){
+
+	$('#userRoleLink').click(function(){listNotices();});
+	
 	$('#listNoticesLink').click(function(){listNotices();});
 	$('#listCategoriesLink').click(function(){listCategories();});
 	$('#listModalitiesLink').click(function(){listModalities();});
@@ -29,5 +32,5 @@ function assignEvents(){
 	$('#subscribeToNoticesLink').click(function(){listNoticesToSubscribe();});
 	$('#subscribeToCategoriesLink').click(function(){listCategoriesToSubscribe();});		
 	$('#subscribedNoticesLink').click(function(){listNoticesRegisteredByUser();});
-	$('#subscribedCategoriesLink').click(function(){listCategoriesRegisteredByUser();});	
+	$('#subscribedCategoriesLink').click(function(){listCategoriesRegisteredByUser();});
 }

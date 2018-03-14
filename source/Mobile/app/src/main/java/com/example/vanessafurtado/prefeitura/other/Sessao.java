@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.example.vanessafurtado.prefeitura.activity.ActivityMenu;
+import com.example.vanessafurtado.prefeitura.activity.ActivityIndex;
 
 public class Sessao {
     // Shared Preferences
@@ -67,7 +67,7 @@ public class Sessao {
         // Check login status
         if (!this.isLoggedIn()) {
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, ActivityMenu.class);
+            Intent i = new Intent(_context, ActivityIndex.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -105,7 +105,7 @@ public class Sessao {
         editor.commit();
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, ActivityMenu.class);
+        Intent i = new Intent(_context, ActivityIndex.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

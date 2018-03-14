@@ -1,4 +1,4 @@
-package com.example.vanessafurtado.prefeitura.other;
+package com.example.vanessafurtado.prefeitura.model;
 
 
 public class EmpresaUser {

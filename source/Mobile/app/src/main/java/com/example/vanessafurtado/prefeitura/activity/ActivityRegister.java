@@ -2,7 +2,6 @@ package com.example.vanessafurtado.prefeitura.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,12 +14,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.vanessafurtado.prefeitura.R;
-import com.example.vanessafurtado.prefeitura.other.Banco;
+import com.example.vanessafurtado.prefeitura.other.RequestMethods;
+import com.example.vanessafurtado.prefeitura.other.WebServiceCaller;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ActivityRegister extends AppCompatActivity implements View.OnClickListener {
+public class ActivityRegister extends AppCompatActivity {
 
     EditText email, password, socialName, fantasyName, cnpj, cnae, zipCode, address, number, complement, neighbourhood, city, phonePrimary, state, phoneSecundary, resposibleName, responsibleCPF;
     Spinner companyType;
@@ -68,11 +68,17 @@ public class ActivityRegister extends AppCompatActivity implements View.OnClickL
         responsibleCPF = findViewById(R.id.responsibleCPF);
 
         cadastrar = findViewById(R.id.cadastrar);
-        cadastrar.setOnClickListener(this);
+        cadastrar.setOnClickListener(new View.OnClickListener(){
 
-        ActivityMenu m = new ActivityMenu();
-        baseURL = m.getBaseURL();
-
+            @Override
+            public void onClick(View v) {
+                if (inputDataIsValid()) {
+                    JSONObject user = getUserData();
+                    WebServiceCaller wsCaller = new WebServiceCaller();
+                    wsCaller.execute("user/create", RequestMethods.POST, user);
+                }
+            }
+        });
 
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, listaEmpresas);
@@ -80,65 +86,35 @@ public class ActivityRegister extends AppCompatActivity implements View.OnClickL
         companyType.setAdapter(adapterTipo);
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == cadastrar) {
-            JSONObject user = new JSONObject();
+    private JSONObject getUserData(){
+        JSONObject user = new JSONObject();
+        try {
+            user.put("socialName", socialName.getText().toString());
+            user.put("fantasyName", fantasyName.getText().toString());
+            user.put("email", email.getText().toString());
+            user.put("password", password.getText().toString());
+            user.put("cnpj", cnpj.getText().toString());
+            user.put("companyType", companyType.getSelectedItem().toString());
+            user.put("cnae", cnae.getText().toString());
+            user.put("zipCode", zipCode.getText().toString());
+            user.put("address", address.getText().toString());
+            user.put("number", number.getText().toString());
+            user.put("complement", complement.getText().toString());
+            user.put("neighbourhood", neighbourhood.getText().toString());
+            user.put("city", city.getText().toString());
+            user.put("phonePrimary", phonePrimary.getText().toString());
+            user.put("phoneSecundary", phoneSecundary.getText().toString());
+            user.put("resposibleName", resposibleName.getText().toString());
+            user.put("responsibleCPF", responsibleCPF.getText().toString());
 
-            try {
-                if(validate()) {
-                    user.put("socialName", socialName.getText().toString());
-                    user.put("fantasyName", fantasyName.getText().toString());
-                    user.put("email", email.getText().toString());
-                    user.put("password", password.getText().toString());
-                    user.put("cnpj", cnpj.getText().toString());
-                    user.put("companyType", companyType.getSelectedItem().toString());
-                    user.put("cnae", cnae.getText().toString());
-                    user.put("zipCode", zipCode.getText().toString());
-                    user.put("address", address.getText().toString());
-                    user.put("number", number.getText().toString());
-                    user.put("complement", complement.getText().toString());
-                    user.put("neighbourhood", neighbourhood.getText().toString());
-                    user.put("city", city.getText().toString());
-                    user.put("phonePrimary", phonePrimary.getText().toString());
-                    user.put("phoneSecundary", phoneSecundary.getText().toString());
-                    user.put("resposibleName", resposibleName.getText().toString());
-                    user.put("responsibleCPF", responsibleCPF.getText().toString());
-
-                    new register().execute(user.toString());
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
             Log.d("######", user.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        return user;
     }
 
-
-    private class register extends AsyncTask<String, Integer, Boolean> {
-
-        @Override
-        protected void onPreExecute(){
-           // load = ProgressDialog.show(ActivityRegister.this, "Por favor Aguarde ...", "Acessando Servidor...");
-        }
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            // TODO Auto-generated method stub
-            Banco.banco(ActivityRegister.this, baseURL+"/rest/user/create", params[0].toString());
-            return null;
-        }
-
-        protected void onPostExecute(Boolean result) {
-            //load.dismiss();
-            Toast.makeText(ActivityRegister.this, "Bem-vindo ao Divulga Editais", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(ActivityRegister.this, MainActivity.class);
-            startActivity(i);
-        }
-    }
-
-    private boolean validate(){
+    private boolean inputDataIsValid(){
         if(socialName.getText().toString().equalsIgnoreCase("")){
             Toast.makeText(this, "Digite um Nome Social", Toast.LENGTH_SHORT).show();
             return false;
@@ -205,7 +181,7 @@ public class ActivityRegister extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed()
     {
-        Intent i  = new Intent(this, ActivityMenu.class);
+        Intent i  = new Intent(this, ActivityIndex.class);
         startActivity(i);
         this.finish();
         super.onBackPressed();  // optional depending on your needs
