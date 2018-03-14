@@ -1,6 +1,5 @@
 package com.example.vanessafurtado.prefeitura.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,11 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vanessafurtado.prefeitura.R;
-import com.example.vanessafurtado.prefeitura.fragment.CadastrarEdital;
 import com.example.vanessafurtado.prefeitura.fragment.Todos;
 import com.example.vanessafurtado.prefeitura.fragment.Cadastrados;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityHome extends AppCompatActivity {
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -61,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         navHeader = navigationView.getHeaderView(0);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
-
-
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -81,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Tentando", "Permissao");
         Log.i("navItem", "Nav item "+String.valueOf(navItemIndex));
         Log.i("navItem", "current tag "+CURRENT_TAG);
-
     }
 
     @Override
@@ -91,13 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (count == 0) {
             super.onBackPressed();
-            Intent i = new Intent(MainActivity.this, ActivityMenu.class);
+            Intent i = new Intent(ActivityHome.this, ActivityIndex.class);
             startActivity(i);
             this.finish();
         } else {
             getFragmentManager().popBackStack();
         }
-
     }
 
     private void loadHomeFragment() {
@@ -119,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.commitAllowingStateLoss();
             }
         };
-
 
         if (mPendingRunnable != null) {
             mHandler.post(mPendingRunnable);
@@ -184,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 

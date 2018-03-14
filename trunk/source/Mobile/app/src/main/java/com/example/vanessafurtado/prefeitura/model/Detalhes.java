@@ -1,4 +1,4 @@
-package com.example.vanessafurtado.prefeitura.other;
+package com.example.vanessafurtado.prefeitura.model;
 
 /**
  * Created by Vanessa Furtado on 05/02/2018.

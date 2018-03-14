@@ -23,7 +23,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.vanessafurtado.prefeitura.R;
-import com.example.vanessafurtado.prefeitura.activity.MainActivity;
+import com.example.vanessafurtado.prefeitura.activity.ActivityHome;
 
 import java.io.File;
 
@@ -163,7 +163,7 @@ public class CadastrarEdital extends Fragment implements View.OnClickListener {
 
             Toast.makeText(getContext(), "Edital cadastrado com sucesso", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(getContext(), MainActivity.class);
+            Intent intent = new Intent(getContext(), ActivityHome.class);
             PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());

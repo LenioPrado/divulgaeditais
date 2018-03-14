@@ -11,7 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.example.vanessafurtado.prefeitura.activity.ActivityMenu;
+import com.example.vanessafurtado.prefeitura.activity.ActivityIndex;
 
 
 public class Permissao {
@@ -34,18 +34,13 @@ public class Permissao {
         Log.i("Permissao ", "Permissao " + permissao);
         Log.i("Permissao ", "Arquivo " + permissaoEscritaDeArquivo);
         if (permissao == 0) {
-
-
-permissoesConcedidas(activity);
+            permissoesConcedidas(activity);
         } else {
             ActivityCompat.requestPermissions(activity,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     permissaoEscritaDeArquivo);
         }
-
-
     }
-
 
     public boolean tentarPermissaoInternet(Activity activity) {
         boolean connected = false;
@@ -61,9 +56,6 @@ permissoesConcedidas(activity);
 
     public void permissoesConcedidas(final Activity activity){
 
-
-
-
         Log.i("Permissao", "Permissao concedida");
 
         if (tentarPermissaoInternet(activity)) {
@@ -77,17 +69,11 @@ permissoesConcedidas(activity);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                final Intent mainIntent = new Intent(activity, ActivityMenu.class);
+                final Intent mainIntent = new Intent(activity, ActivityIndex.class);
 
                 activity.startActivity(mainIntent);
                 activity.finish();
             }
         }, 3000);
-
-
-
     }
-
-
-
 }

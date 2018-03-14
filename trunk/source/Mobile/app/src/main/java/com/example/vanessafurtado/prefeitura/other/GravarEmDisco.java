@@ -50,17 +50,8 @@ public class GravarEmDisco extends AsyncTask {
             e.printStackTrace();
         }
 
-
         Log.i("EscreverArquivo", "finalizou");
-
 
         return null;
     }
-
-
-
-
 }
-
-
-

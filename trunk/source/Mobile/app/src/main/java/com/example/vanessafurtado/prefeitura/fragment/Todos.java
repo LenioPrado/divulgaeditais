@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +17,14 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.example.vanessafurtado.prefeitura.R;
-import com.example.vanessafurtado.prefeitura.activity.ActivityMenu;
+import com.example.vanessafurtado.prefeitura.activity.ActivityIndex;
 import com.example.vanessafurtado.prefeitura.model.Divisoes;
-import com.example.vanessafurtado.prefeitura.other.Banco;
 import com.example.vanessafurtado.prefeitura.model.Edital;
 import com.example.vanessafurtado.prefeitura.other.Import;
-
-import org.json.JSONException;
+import com.example.vanessafurtado.prefeitura.other.WebServiceCaller;
 
 public class Todos extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
@@ -106,8 +102,8 @@ public class Todos extends Fragment implements View.OnClickListener {
         @Override
         protected ArrayList<Edital> doInBackground(Void... params) {
             Import util = new Import();
-            ActivityMenu m = new ActivityMenu();
-            return util.getInformacao(m.getBaseURL()+"/rest/notice");
+            ActivityIndex m = new ActivityIndex();
+            return util.getInformacao(WebServiceCaller.getBaseUrl()+"/rest/notice");
         }
 
         @Override
