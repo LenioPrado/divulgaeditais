@@ -24,7 +24,8 @@ public class Authentication implements ContainerRequestFilter {
 		boolean allowed = false;
 		
 		if(path.equals("pages/index.html") || 
-				path.contains("user/login")) {
+				path.contains("user/login") || 
+				path.contains("user/create")) {
 			allowed = true;
 		}
 		
