@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context="com.example.vanessafurtado.prefeitura.activity.ActivityLogin">
+    tools:context="mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityLogin">
 
 
     <LinearLayout
