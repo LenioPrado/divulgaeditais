@@ -111,14 +111,14 @@ public class UserService extends BaseService<User> {
 				ProjectLogger.log.info("invalid password ");
 				UserUtils.removeUserFromSession(getSession());
 				String json = getJsonFormattedMessage("Os dados de acesso informados estão incorretos!");
-				return Response.ok().entity(json).build();
+				return Response.serverError().entity(json).build();
 			}
 		} else {
 			// Conta inexistente
 			ProjectLogger.log.info("account not found ");
 			UserUtils.removeUserFromSession(getSession());
 			String json = getJsonFormattedMessage("Não há uma conta associada ao e-mail informado!");
-			return Response.ok().entity(json).build();
+			return Response.serverError().entity(json).build();
 		}
     }
 }

@@ -8,10 +8,18 @@ function getServerUrl(){
 	return result;
 }
 
+function showIndexMessage(elementId, message, type){
+	messages(elementId, message, type);
+}
+
 function showMessage(message, type){
+	messages('messages',message, type);
+}
+
+function messages(elementId, message, type){
 	var className = "";
 	var strongMsg = "";
-	var divMessage = $('#messages');
+	var divMessage = $('#'+ elementId);
 	divMessage.show();
 
 	if(type === 'success'){

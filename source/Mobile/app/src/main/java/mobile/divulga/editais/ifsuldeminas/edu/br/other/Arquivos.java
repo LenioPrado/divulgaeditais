@@ -35,8 +35,6 @@ public void downloadDoArquivo(String nome, final ImageView imagem){
     StorageReference arquivo = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/q-braille.appspot.com/o/PDF%2Fimagem.png?alt=media&token=0facc1b2-f2d1-47af-a4eb-4a031a695a88");
     try {
    //     File arquivao = new File("/imagem/");
-
-
         final File localFile = File.createTempFile("images", "png");
 
      //  final  File fileToWrite = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "arquivo.png");
@@ -57,7 +55,6 @@ public void downloadDoArquivo(String nome, final ImageView imagem){
                 Log.i("caminho", fileToWrite.getAbsolutePath());
                 Log.i("caminho", downloads.getAbsolutePath());
 
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -67,17 +64,8 @@ public void downloadDoArquivo(String nome, final ImageView imagem){
             }
         });
 
-
-
-
     } catch (IOException e) {
         e.printStackTrace();
     }
-
-
 }
-
-
-
-
 }

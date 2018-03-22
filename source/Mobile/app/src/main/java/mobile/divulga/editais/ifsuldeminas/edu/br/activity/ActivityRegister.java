@@ -1,6 +1,5 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,13 +8,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.vanessafurtado.prefeitura.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.RequestMethods;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.WebServiceCaller;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.UserServiceCaller;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,20 +23,7 @@ public class ActivityRegister extends AppCompatActivity {
     EditText email, password, socialName, fantasyName, cnpj, cnae, zipCode, address, number, complement, neighbourhood, city, phonePrimary, state, phoneSecundary, resposibleName, responsibleCPF;
     Spinner companyType;
     Button cadastrar;
-    LinearLayout prefeitura, empresa;
-    ProgressDialog load;
     String baseURL;
-
-    String[] listaUsuario = new String[] {
-            "email", "password", "socialName", "fantasyName", "cnpj", "cnae", "zipCode",
-            "address", "number", "complement", "neighbourhood", "city", "phonePrimary",
-            "state", "phoneSecundary", "resposibleName", "responsibleCPF", "companyType"
-    };
-
-    EditText[] listaEditText = new EditText[] {email, password, socialName, fantasyName, cnpj,
-            cnae, zipCode, address, number, complement, neighbourhood, city, phonePrimary,
-            state, phoneSecundary, resposibleName, responsibleCPF
-    };
 
     String[] listaEmpresas = new String[] {
             "Selecione","Micro e Pequeno Porte","Médio Porte", "Grande porte"
@@ -48,6 +33,13 @@ public class ActivityRegister extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        getInputsFromView();
+        setButtonListeners();
+        fillViewSelects();
+    }
+
+    private void getInputsFromView(){
         socialName = findViewById(R.id.socialName);
         fantasyName = findViewById(R.id.fantasyName);
         cnpj = findViewById(R.id.cnpj);
@@ -66,19 +58,24 @@ public class ActivityRegister extends AppCompatActivity {
         phoneSecundary = findViewById(R.id.phoneSecundary);
         resposibleName = findViewById(R.id.resposibleName);
         responsibleCPF = findViewById(R.id.responsibleCPF);
-
         cadastrar = findViewById(R.id.cadastrar);
+    }
+
+    private void setButtonListeners(){
+
         cadastrar.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 if (inputDataIsValid()) {
                     JSONObject user = getUserData();
-                    new WebServiceCaller("user/create", RequestMethods.POST, user).execute();
+                    new UserServiceCaller(v.getContext(), "user/create", RequestMethods.POST, user).execute();
                 }
             }
         });
+    }
 
+    private void fillViewSelects(){
         ArrayAdapter<String> adapterTipo = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, listaEmpresas);
         adapterTipo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -91,15 +88,17 @@ public class ActivityRegister extends AppCompatActivity {
             user.put("socialName", socialName.getText().toString());
             user.put("fantasyName", fantasyName.getText().toString());
 
+            //user.put("companyType", companyType.getSelectedItem().toString());
+
             //TODO: Corrigir pois está hardcoded
-            user.put("branch", "MyBranch");
-            user.put("type", "MyType");
 
+            user.put("companyType", "PE");
 
+            user.put("type", "empresa");
             user.put("email", email.getText().toString());
             user.put("password", password.getText().toString());
             user.put("cnpj", cnpj.getText().toString());
-            user.put("companyType", companyType.getSelectedItem().toString());
+            user.put("state", state.getText().toString());
             user.put("cnae", cnae.getText().toString());
             user.put("zipCode", zipCode.getText().toString());
             user.put("address", address.getText().toString());
@@ -108,9 +107,9 @@ public class ActivityRegister extends AppCompatActivity {
             user.put("neighborhood", neighbourhood.getText().toString());
             user.put("city", city.getText().toString());
             user.put("phonePrimary", phonePrimary.getText().toString());
-            user.put("phoneSecundary", phoneSecundary.getText().toString());
+            user.put("phoneSecondary", phoneSecundary.getText().toString());
             user.put("responsibleName", resposibleName.getText().toString());
-            user.put("responsibleCPF", responsibleCPF.getText().toString());
+            user.put("responsibleCpf", responsibleCPF.getText().toString());
 
             Log.d("######", user.toString());
         } catch (JSONException e) {

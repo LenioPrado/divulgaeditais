@@ -34,6 +34,8 @@ function show(selected){
 function registerUser()
 {
 	var user = getFormData('registerForm');
+	
+	console.log(user);
 
 	$.ajax({
 	   type: "post",
@@ -43,11 +45,11 @@ function registerUser()
 	   processData: true,
 	   contentType: 'application/json',
 	   success: function(data){
-		   showMessage(successMessage,'success');
+		   showIndexMessage('messagesRegister', 'Usuário cadastrado com sucesso!','success');
 	   },
 	   error: function(jqXHR, status, error) {
-		   var msg = jqXHR.responseText;
-			showMessage(msg,'error');
+		   var msg = jqXHR.responseText;	
+		   showIndexMessage('messagesRegister', msg,'error');
 	   }
 	});    	
 };
@@ -63,7 +65,7 @@ function checkUser(){
 		   contentType: 'application/json',
 		   success: function(data){
 			   if(data['message']){
-				   showMessage(data['message'],'error');
+				   showIndexMessage('messagesLogin', data['message'],'error');
 			   } else{
 				   // Fazer algo com o nome do usuário!
 				   hideMessage();

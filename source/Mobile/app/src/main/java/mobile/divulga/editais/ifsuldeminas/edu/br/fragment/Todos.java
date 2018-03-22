@@ -4,10 +4,10 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +18,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-import com.example.vanessafurtado.prefeitura.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityIndex;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Divisoes;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Edital;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.Import;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.WebServiceCaller;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.AsyncTaskResult;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.RequestMethods;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.NoticeServiceCaller;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.UnusedWebServiceCaller;
 
 public class Todos extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
@@ -76,10 +84,25 @@ public class Todos extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        ActivityIndex m = new ActivityIndex();
 
-        GetJson json = new GetJson();
-        json.execute();
+        UnusedWebServiceCaller caller = new NoticeServiceCaller(this.getContext(), "/rest/notice", RequestMethods.GET);
+        AsyncTaskResult<Object> result = null;
+        try {
+            result = caller.execute().get();
+            if(result != null){
+                ArrayList<Edital> editais = new ArrayList<>();
+                String json = String.valueOf(result.getResult());
+                editais = parseJson(json);
+                preencheTabela(editais);
+            }
+            load.dismiss();
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -92,25 +115,47 @@ public class Todos extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    private class GetJson extends AsyncTask<Void, Void, ArrayList<Edital>> {
+    private ArrayList<Edital> parseJson(String json){
+        try {
+            ArrayList<Edital> editais = new ArrayList<>();
+            JSONArray array = new JSONArray(json);
 
-        @Override
-        protected void onPreExecute(){
-            load = ProgressDialog.show(getContext(), "Por favor Aguarde ...", "Recuperando Informações do Servidor...");
-        }
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//            Date data;
 
-        @Override
-        protected ArrayList<Edital> doInBackground(Void... params) {
-            Import util = new Import();
-            ActivityIndex m = new ActivityIndex();
-            return util.getInformacao(WebServiceCaller.getBaseUrl()+"/rest/notice");
-        }
+            //JSONObject objArray = array.getJSONObject(0);
 
-        @Override
-        protected void onPostExecute(ArrayList<Edital> edital){
-            listaEditais = edital;
-            preencheTabela(edital);
-            load.dismiss();
+            for(int i=0; i < array.length(); i++) {
+                Edital edital = new Edital();
+                JSONObject jsonobject = array.getJSONObject(i);
+                Log.i("######", "Edital numero "+i+" com valor: " +jsonobject.getString("fileName"));
+
+                JSONObject obj = jsonobject.getJSONObject("user");
+
+                edital.setOrgao(obj.getString("socialName"));
+
+                obj = jsonobject.getJSONObject("modality");
+                edital.setModalidade(obj.getString("acronyms"));
+
+                obj = jsonobject.getJSONObject("companyType");
+                edital.setTipoDeEmpresa(obj.getString("description"));
+
+                edital.setNumero(jsonobject.getString("number"));
+                edital.setObjeto(jsonobject.getString("object"));
+                //edital.setCategoria(jsonobject.getString("category"));
+                edital.setData(jsonobject.getString("tradingDate"));
+                edital.setDataFechamento(jsonobject.getString("closingDate"));
+                edital.setDataPublicacao(jsonobject.getString("publishingDate"));
+                edital.setArquivos(jsonobject.getString("fileName"));
+                edital.setStatus(jsonobject.getString("status"));
+                editais.add(edital);
+            }
+
+
+            return editais;
+        }catch (JSONException e){
+            e.printStackTrace();
+            return null;
         }
     }
 

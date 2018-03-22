@@ -18,9 +18,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.vanessafurtado.prefeitura.R;
-import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Todos;
+import mobile.divulga.editais.ifsuldeminas.edu.br.R;
+
 import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Cadastrados;
+import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Todos;
 
 public class ActivityHome extends AppCompatActivity {
 
