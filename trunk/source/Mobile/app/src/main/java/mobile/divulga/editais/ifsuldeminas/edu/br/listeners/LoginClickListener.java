@@ -17,8 +17,6 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
 public class LoginClickListener implements View.OnClickListener{
 
-    private String url = "http://192.168.0.107:8080/DivulgaEditais/rest/";
-
     @Override
     public void onClick(final View v) {
 
@@ -31,7 +29,7 @@ public class LoginClickListener implements View.OnClickListener{
         String password = passwordText.getText().toString();
 
         if (email.trim().length() > 0 && password.trim().length() > 0) {
-            String endpoint = url + "user/login/" + email + "/" + password;
+            String endpoint = "user/login/" + email + "/" + password;
 
             new WebService<User>(User.class, v.getContext()).query(endpoint, new ResultCallback<User>() {
                 @Override
