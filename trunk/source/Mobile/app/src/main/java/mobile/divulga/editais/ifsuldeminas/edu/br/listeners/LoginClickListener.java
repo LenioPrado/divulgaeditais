@@ -6,20 +6,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.vanessafurtado.prefeitura.R;
-import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityHome;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.RequestMethods;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.Sessao;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.WebServiceCaller;
+import com.android.volley.VolleyError;
 
-import java.util.concurrent.ExecutionException;
+import mobile.divulga.editais.ifsuldeminas.edu.br.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityHome;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Session;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
 public class LoginClickListener implements View.OnClickListener{
 
-    @Override
-    public void onClick(View v) {
+    private String url = "http://192.168.0.107:8080/DivulgaEditais/rest/";
 
-        Activity host = (Activity) v.getContext();
+    @Override
+    public void onClick(final View v) {
+
+        final Activity host = (Activity) v.getContext();
 
         EditText emailText = host.findViewById(R.id.txtEmail);
         EditText passwordText = host.findViewById(R.id.txtSenha);
@@ -28,42 +31,39 @@ public class LoginClickListener implements View.OnClickListener{
         String password = passwordText.getText().toString();
 
         if (email.trim().length() > 0 && password.trim().length() > 0) {
+            String endpoint = url + "user/login/" + email + "/" + password;
 
-            String method = "user/login/" + email + "/" + password;
-            Object result = null;
-            try {
-                result = new WebServiceCaller(method, RequestMethods.POST).execute().get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            new WebService<User>(User.class, v.getContext()).query(endpoint, new ResultCallback<User>() {
+                @Override
+                public void onSuccess(User user) {
+                    if (user != null) {
+                        Session session = new Session(host.getApplicationContext());
+                        session.createLoginSession(user.getSocialName(), user.getEmail());
 
-            if (result != null || email.equals("test") && password.equals("test")) {
+                        Toast.makeText(v.getContext(), "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
 
-                // Creating user login session
-                // For testing i am stroing name, email as follow
-                // Use user real data
-                Sessao session = new Sessao(host.getApplicationContext());
-                session.createLoginSession("Android Hive", "anroidhive@gmail.com");
+                        Intent i = new Intent(v.getContext(), ActivityHome.class);
+                        host.startActivity(i);
+                        host.finish();
 
-                // Staring MainActivity
-                Intent i = new Intent(v.getContext(), ActivityHome.class);
-                host.startActivity(i);
-                host.finish();
+                    } else {
+                        Toast.makeText(v.getContext(), "Usuario ou senha incorretos", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-                Toast.makeText(host.getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+                @Override
+                public void onError(Exception e) {
+                    String error = String.format("Erro desconhecido: %s", e.getMessage());
+                    Toast.makeText(v.getContext(), "Usuario ou senha incorretos", Toast.LENGTH_SHORT).show();
+                }
 
-            } else {
-                // username / password doesn't match
-                //alert.showAlertDialog(LoginActivity.this, "Login failed..", "Username/Password is incorrect", false);
-                Toast.makeText(v.getContext(), "Usuario ou senha incorretos", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onVolleyError(VolleyError e) {
+                    String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
+                    Toast.makeText(v.getContext(), "Usuario ou senha incorretos", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
-            // user didn't entered username or password
-            // Show alert asking him to enter the details
-            //alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please enter username and password", false);
-
             Toast.makeText(v.getContext(), "Digite um usuário e senha válidos", Toast.LENGTH_SHORT).show();
         }
     }

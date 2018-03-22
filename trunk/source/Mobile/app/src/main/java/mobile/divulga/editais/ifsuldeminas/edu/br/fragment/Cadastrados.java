@@ -17,7 +17,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.vanessafurtado.prefeitura.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 
 /**
  * A simple {@link Fragment} subclass.

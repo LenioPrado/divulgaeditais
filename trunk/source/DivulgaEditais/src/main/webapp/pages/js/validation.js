@@ -118,18 +118,21 @@ function validateLogin(callback){
 }
 
 function validateUserRegister(callback) {
+
+	var optionalRules;
+	
 	var option = $("#type").val();
 	if(option == "branch"){
-		$("form[name='registerForm']").validate({
+		optionalRules = {
             rules: {
             	branch: "required"
             },
             messages: {
             	branch: "Digite um setor válido"
             }
-		});
+		};
 	}else{
-		$("form[name='registerForm']").validate({
+		optionalRules = {
             rules: {
             	cnae: "required",
             	companyType: "required"
@@ -138,32 +141,32 @@ function validateUserRegister(callback) {
             	cnae: "Digite um CNAE válido",
             	companyType: "Selecione uma categoria válida"
             }
-		});
+		};
 	}
 	
-  $("form[name='registerForm']").validate({
-            rules: {
-            	socialName: "required",
-            	fantasyName: "required",
-                email: {
-                    required: true,
-                    email: true
-                },
-                password: {
-                    required: true,
-                    minlength: 5
-                },
-                cnpj: "required",
-                type: "required",
-                zipCode: "required",
-                address: "required",
-                number: "required",
-                city: "required",
-                state: "required",
-                phonePrimary: "required",
-                responsibleName: "required",
-                responsibleCpf: "required"
-            },
+	var generalRules = {
+			rules: {
+		    	socialName: "required",
+		    	fantasyName: "required",
+		        email: {
+		            required: true,
+		            email: true
+		        },
+		        password: {
+		            required: true,
+		            minlength: 5
+		        },
+		        cnpj: "required",
+		        type: "required",
+		        zipCode: "required",
+		        address: "required",
+		        number: "required",
+		        city: "required",
+		        state: "required",
+		        phonePrimary: "required",
+		        responsibleName: "required",
+		        responsibleCpf: "required"
+			},
 
             messages: {
             	socialName: "Digite uma razão social válida",
@@ -183,7 +186,15 @@ function validateUserRegister(callback) {
                 phonePrimary: "Digite um telefone válido",
                 responsibleName: "Digite um nome válido",
                 responsibleCpf: "Digite um CPF válido"
-            },
+            }
+	};
+	
+	var rules = $.extend(generalRules['rules'], optionalRules['rules']);
+	var messages = $.extend(generalRules['messages'], optionalRules['messages']);
+	
+  $("form[name='registerForm']").validate({
+            rules,
+            messages,
             errorClass: "registerError",
             validClass: "registerSuccess",
 

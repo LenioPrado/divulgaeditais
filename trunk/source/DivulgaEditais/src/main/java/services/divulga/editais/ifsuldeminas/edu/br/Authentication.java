@@ -1,5 +1,9 @@
 package services.divulga.editais.ifsuldeminas.edu.br;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.WebApplicationException;
@@ -9,6 +13,9 @@ import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
+
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import beans.divulga.editais.ifsuldeminas.edu.br.User;
 import utils.divulga.editais.ifsuldeminas.edu.br.UserUtils;
@@ -35,11 +42,32 @@ public class Authentication implements ContainerRequestFilter {
 		
 		return allowed;
 	}
+	
+	private String getRequestJsonString(ContainerRequestContext requestContext) {
+		String json = "";
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if(requestContext.getEntityStream() != null) {
+    		try {
+    			IOUtils.copy(requestContext.getEntityStream(),baos);
+    			byte[] jsonBytes = baos.toByteArray();
+    			json = new String(jsonBytes, "UTF-8");
+    			requestContext.setEntityStream( new ByteArrayInputStream(jsonBytes) );
+    		} catch (UnsupportedEncodingException e) {
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+		}
+        return json;
+	}
 
 	@Override
 	public void filter(ContainerRequestContext containerRequest) throws WebApplicationException {
-		//
+		
 		System.out.println("ENTROU NO MÉTODO FILTER");
+
+        System.out.println("JSON String");
+        System.out.println(getRequestJsonString(containerRequest));
 		
         String method = containerRequest.getMethod();
         String path = containerRequest.getUriInfo().getPath(true);
@@ -50,7 +78,7 @@ public class Authentication implements ContainerRequestFilter {
         	System.out.println("Caminho ou método permitido");
             return;
         } 
-		
+	
 		HttpSession session = servletRequest.getSession(false);
 		 
         if (session == null) {

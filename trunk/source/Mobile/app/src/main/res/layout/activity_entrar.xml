@@ -66,6 +66,7 @@
                     android:ems="10"
                     android:hint="Digite sua senha"
                     android:inputType="textPassword"
+                    android:text="divulga"
                     android:textSize="18sp" />
             </LinearLayout>
 
