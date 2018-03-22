@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -17,6 +18,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
+
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -45,6 +48,40 @@ public class WebService<T> {
             }
         });
         gson = gsonBuilder.create();
+    }
+
+    public void query(String endpoint, JSONObject jsonObject, final ResultCallback<T> callback){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, endpoint, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("#### PostLoaded: ", response.toString());
+                try {
+                    T entity = gson.fromJson(response.toString(), classType);
+                    callback.onSuccess(entity);
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                    callback.onError(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("#### PostError", error.toString());
+                callback.onVolleyError(error);
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+
+        requestQueue.add(request);
     }
 
     public void query(String endpoint, final ResultCallback<T> callback) {

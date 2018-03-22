@@ -1,5 +1,6 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,8 +18,10 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 
@@ -29,10 +32,9 @@ import org.json.JSONObject;
 import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityIndex;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Divisoes;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Edital;
-import mobile.divulga.editais.ifsuldeminas.edu.br.services.AsyncTaskResult;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.RequestMethods;
-import mobile.divulga.editais.ifsuldeminas.edu.br.services.NoticeServiceCaller;
-import mobile.divulga.editais.ifsuldeminas.edu.br.services.UnusedWebServiceCaller;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
 public class Todos extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
@@ -86,23 +88,41 @@ public class Todos extends Fragment implements View.OnClickListener {
 
         ActivityIndex m = new ActivityIndex();
 
-        UnusedWebServiceCaller caller = new NoticeServiceCaller(this.getContext(), "/rest/notice", RequestMethods.GET);
-        AsyncTaskResult<Object> result = null;
-        try {
-            result = caller.execute().get();
-            if(result != null){
-                ArrayList<Edital> editais = new ArrayList<>();
-                String json = String.valueOf(result.getResult());
-                editais = parseJson(json);
-                preencheTabela(editais);
-            }
-            load.dismiss();
+        getNotices((Activity) getContext());
+    }
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+    private void getNotices(final Context context){
+        String endpoint = "user/create";
+        final Activity host = (Activity)context;
+
+        Class<List<Notice>> entityClass = (Class) List.class;
+
+        new WebService<List<Notice>>(entityClass, context).query(endpoint, new ResultCallback<List<Notice>>() {
+            @Override
+            public void onSuccess(List<Notice> notices) {
+                if (notices != null) {
+
+                    Toast.makeText(context, "Lista de editais carregada com sucesso!", Toast.LENGTH_SHORT).show();
+//                    notices
+//                    ArrayList<Edital> editais = new ArrayList<>();
+//                    String json = String.valueOf(result.getResult());
+//                    editais = parseJson(json);
+//                    preencheTabela(editais);
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                String error = String.format("Erro desconhecido: %s", e.getMessage());
+                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onVolleyError(VolleyError e) {
+                String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
+                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

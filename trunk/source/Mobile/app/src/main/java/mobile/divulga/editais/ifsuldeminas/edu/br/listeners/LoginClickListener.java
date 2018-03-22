@@ -54,13 +54,13 @@ public class LoginClickListener implements View.OnClickListener{
                 @Override
                 public void onError(Exception e) {
                     String error = String.format("Erro desconhecido: %s", e.getMessage());
-                    Toast.makeText(v.getContext(), "Usuario ou senha incorretos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), error, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onVolleyError(VolleyError e) {
                     String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
-                    Toast.makeText(v.getContext(), "Usuario ou senha incorretos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), error, Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
