@@ -26,10 +26,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 
 public class WebService<T> {
 
+    private String baseUrl = "http://%s:8080/DivulgaEditais/rest/";
     private final Class<T> classType;
     private Gson gson;
     private Context context;
@@ -37,6 +39,10 @@ public class WebService<T> {
     public WebService(Class<T> classType, Context context){
         this.classType = classType;
         this.context = context;
+
+        String serverAddress = context.getResources().getString(R.string.serverAddress);
+        baseUrl = String.format(baseUrl, serverAddress);
+
         createGsonBuilder();
     }
 
@@ -53,7 +59,9 @@ public class WebService<T> {
     public void query(String endpoint, JSONObject jsonObject, final ResultCallback<T> callback){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, endpoint, jsonObject, new Response.Listener<JSONObject>() {
+        String url = baseUrl + endpoint;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("#### PostLoaded: ", response.toString());
@@ -87,7 +95,9 @@ public class WebService<T> {
     public void query(String endpoint, final ResultCallback<T> callback) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        StringRequest request = new StringRequest(Request.Method.POST, endpoint, new Response.Listener<String>() {
+        String url = baseUrl + endpoint;
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("#### PostLoaded: ", response);
