@@ -1,5 +1,6 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,9 +12,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.RequestMethods;
-import mobile.divulga.editais.ifsuldeminas.edu.br.services.UserServiceCaller;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Session;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,11 +71,37 @@ public class ActivityRegister extends AppCompatActivity {
         cadastrar.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onClick(View v) {
-                if (inputDataIsValid()) {
-                    JSONObject user = getUserData();
-                    new UserServiceCaller(v.getContext(), "user/create", RequestMethods.POST, user).execute();
-                }
+            public void onClick(final View v) {
+            if (inputDataIsValid()) {
+                JSONObject user = getUserData();
+                final Activity host = (Activity) v.getContext();
+                String endpoint = "user/create";
+
+                new WebService<User>(User.class, v.getContext()).query(endpoint, user, new ResultCallback<User>() {
+                    @Override
+                    public void onSuccess(User user) {
+                        if (user != null) {
+                            Toast.makeText(v.getContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                            Intent i = new Intent(v.getContext(), ActivityLogin.class);
+                            host.startActivity(i);
+                            host.finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        String error = String.format("Erro desconhecido: %s", e.getMessage());
+                        Toast.makeText(v.getContext(), error, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onVolleyError(VolleyError e) {
+                        String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
+                        Toast.makeText(v.getContext(), error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
             }
         });
     }
