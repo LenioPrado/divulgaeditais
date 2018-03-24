@@ -22,6 +22,7 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Cadastrados;
 import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Todos;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Sessao;
 
 public class ActivityHome extends AppCompatActivity {
 
@@ -54,6 +55,9 @@ public class ActivityHome extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mHandler = new Handler();
+
+        Sessao s = new Sessao(this);
+        //s.checkLogin();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -161,6 +165,13 @@ public class ActivityHome extends AppCompatActivity {
                         navItemIndex=1;
                         CURRENT_TAG=TAG_TODOS;
                         break;
+                    case R.id.logout:
+                        // launch new intent instead of loading fragment
+                        Sessao s = new Sessao(getApplicationContext());
+                        s.logoutUser();
+                        startActivity(new Intent(ActivityHome.this, ActivityIndex.class));
+                        drawer.closeDrawers();
+                        return true;
                     default:
                         navItemIndex=1;
                         CURRENT_TAG=TAG_TODOS;
