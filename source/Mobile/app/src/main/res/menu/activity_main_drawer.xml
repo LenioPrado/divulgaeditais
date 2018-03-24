@@ -13,12 +13,12 @@
 
     </group>
 
-    <!--<item android:title="Other">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_privacy_policy"-->
-                <!--android:title="@string/privacy_policy" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    <item android:title="Conta">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
 
 </menu>
