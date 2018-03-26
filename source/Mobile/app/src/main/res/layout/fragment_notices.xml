@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context="mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Todos">
+    tools:context="mobile.divulga.editais.ifsuldeminas.edu.br.fragment.NoticesFragment">
 
     <ScrollView
         android:layout_width="match_parent"

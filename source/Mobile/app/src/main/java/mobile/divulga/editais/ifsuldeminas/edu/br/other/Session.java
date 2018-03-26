@@ -23,8 +23,8 @@ public class Session {
 
     private static final String IS_LOGIN = "IsLoggedIn";
 
+    public static final String KEY_ID = "userId";
     public static final String KEY_NAME = "name";
-
     public static final String KEY_EMAIL = "email";
 
     public Session(Context context) {
@@ -33,8 +33,9 @@ public class Session {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String email) {
+    public void createLoginSession(int userId, String name, String email) {
         editor.putBoolean(IS_LOGIN, true);
+        editor.putInt(KEY_ID, userId);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.commit();
@@ -45,6 +46,10 @@ public class Session {
         if (!this.isLoggedIn()) {
             redirectToIndex();
         }
+    }
+
+    public int getUserId() {
+        return pref.getInt(KEY_ID, 0);
     }
 
     public HashMap<String, String> getUserDetails() {

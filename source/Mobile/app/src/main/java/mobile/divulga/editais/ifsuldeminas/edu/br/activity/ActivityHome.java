@@ -20,9 +20,8 @@ import android.widget.TextView;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 
-import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Cadastrados;
-import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.Todos;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.Sessao;
+import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.NoticesFragment;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Session;
 
 public class ActivityHome extends AppCompatActivity {
 
@@ -56,7 +55,7 @@ public class ActivityHome extends AppCompatActivity {
 
         mHandler = new Handler();
 
-        Sessao s = new Sessao(this);
+        Session s = new Session(this);
         //s.checkLogin();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,7 +109,16 @@ public class ActivityHome extends AppCompatActivity {
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
-                Fragment fragment = getHomeFragment();
+                Fragment fragment = null;
+                if(CURRENT_TAG.equals(TAG_TODOS)){
+                    fragment = new NoticesFragment();
+                } else {
+                    int userId = new Session(getApplicationContext()).getUserId();
+                    fragment = NoticesFragment.newUserNoticesFragmentInstance(userId);
+                }
+
+
+
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                         android.R.anim.fade_out);
@@ -125,17 +133,6 @@ public class ActivityHome extends AppCompatActivity {
 
         drawer.closeDrawers();
         invalidateOptionsMenu();
-    }
-
-    private Fragment getHomeFragment() {
-        switch (navItemIndex) {
-            case 0:
-                return new Cadastrados();
-            case 1:
-                return new Todos();
-            default:
-                return new Todos();
-        }
     }
 
     private void setToolbarTitle() {
@@ -167,7 +164,7 @@ public class ActivityHome extends AppCompatActivity {
                         break;
                     case R.id.logout:
                         // launch new intent instead of loading fragment
-                        Sessao s = new Sessao(getApplicationContext());
+                        Session s = new Session(getApplicationContext());
                         s.logoutUser();
                         startActivity(new Intent(ActivityHome.this, ActivityIndex.class));
                         drawer.closeDrawers();
