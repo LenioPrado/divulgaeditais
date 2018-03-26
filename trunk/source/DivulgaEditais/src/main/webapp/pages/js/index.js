@@ -74,7 +74,7 @@ function checkUser(){
 		   },
 		   error: function(jqXHR, exception) {
 				var msg = jqXHR.responseText;
-				showMessage(msg,'error');
+				showIndexMessage('messagesLogin', msg,'error');
 		   }
 	});
 }
