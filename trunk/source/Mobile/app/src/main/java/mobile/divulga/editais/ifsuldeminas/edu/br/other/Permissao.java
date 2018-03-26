@@ -13,8 +13,8 @@ import android.util.Log;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityIndex;
 
-
 public class Permissao {
+
     private static final Permissao ourInstance = new Permissao();
     final int permissaoEscritaDeArquivo = 1;
 
@@ -25,11 +25,9 @@ public class Permissao {
     private Permissao() {
     }
 
-
     public void tentarPermissaoDeArquivo(Activity activity) {
 
         int permissao = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
 
         Log.i("Permissao ", "Permissao " + permissao);
         Log.i("Permissao ", "Arquivo " + permissaoEscritaDeArquivo);
@@ -51,7 +49,6 @@ public class Permissao {
             return true;
         } else
             return false;
-
     }
 
     public void permissoesConcedidas(final Activity activity){

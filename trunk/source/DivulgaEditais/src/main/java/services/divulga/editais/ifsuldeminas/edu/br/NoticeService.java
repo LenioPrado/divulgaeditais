@@ -55,8 +55,8 @@ public class NoticeService extends BaseService<Notice> {
 	
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-	@Path("/listSubscribed")
-    public List<Notice> listNoticesRegisteredByUser() {
+	@Path("/listSubscribed/{userId}")
+    public List<Notice> listNoticesRegisteredByUser(int userId) {
 		return listNotices("IN");
     }
 
