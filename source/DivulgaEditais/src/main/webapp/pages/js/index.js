@@ -61,7 +61,7 @@ function checkUser(){
 		   type: "post",
 		   dataType: "json",
 		   url: getServerUrl() + url,
-		   processData: false,
+		   processData: true,
 		   contentType: 'application/json',
 		   success: function(data){
 			   if(data['message']){
@@ -73,7 +73,7 @@ function checkUser(){
 			   }			   
 		   },
 		   error: function(jqXHR, exception) {
-				if(data['message']){
+				if(jqXHR.responseText['message']){
 					showIndexMessage('messagesLogin', data['message'],'error');
 				} else {
 					var msg = jqXHR.responseText;
