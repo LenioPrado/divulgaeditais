@@ -12,6 +12,7 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityHome;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Session;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.RequestMethods;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
@@ -31,7 +32,7 @@ public class LoginClickListener implements View.OnClickListener{
         if (email.trim().length() > 0 && password.trim().length() > 0) {
             String endpoint = "user/login/" + email + "/" + password;
 
-            new WebService<User>(User.class, v.getContext()).query(endpoint, new ResultCallback<User>() {
+            new WebService<User>(User.class, v.getContext()).query(endpoint, RequestMethods.POST, new ResultCallback<User>() {
                 @Override
                 public void onSuccess(User user) {
                     if (user != null) {

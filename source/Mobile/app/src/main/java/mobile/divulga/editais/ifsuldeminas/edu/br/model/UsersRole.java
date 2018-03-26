@@ -1,6 +1,10 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.model;
 
-public class UsersRole {
+import java.io.Serializable;
+
+public class UsersRole implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private UsersRolePK id;
 

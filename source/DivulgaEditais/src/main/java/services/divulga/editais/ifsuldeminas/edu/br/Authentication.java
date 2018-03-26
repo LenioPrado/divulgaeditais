@@ -47,6 +47,7 @@ public class Authentication implements ContainerRequestFilter {
 		String json = "";
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if(requestContext.getEntityStream() != null) {
+        	 System.out.println("JSON String");
     		try {
     			IOUtils.copy(requestContext.getEntityStream(),baos);
     			byte[] jsonBytes = baos.toByteArray();
@@ -57,7 +58,8 @@ public class Authentication implements ContainerRequestFilter {
     		} catch (IOException e) {
     			e.printStackTrace();
     		}
-		}
+    		System.out.println(json);
+		}        
         return json;
 	}
 
@@ -66,13 +68,17 @@ public class Authentication implements ContainerRequestFilter {
 		
 		System.out.println("ENTROU NO MÉTODO FILTER");
 
-        System.out.println("JSON String");
-        System.out.println(getRequestJsonString(containerRequest));
+		getRequestJsonString(containerRequest);
 		
         String method = containerRequest.getMethod();
         String path = containerRequest.getUriInfo().getPath(true);
         
         System.out.println(String.format("Path: %s -- Method: %s ", path, method));
+        
+        if(containerRequest.getHeaderString("User-Agent").contains("Android")) {
+        	System.out.println("Android Client!");
+            return;
+        }
         
         if(isPathOrMethodAllowed(path, method)){
         	System.out.println("Caminho ou método permitido");

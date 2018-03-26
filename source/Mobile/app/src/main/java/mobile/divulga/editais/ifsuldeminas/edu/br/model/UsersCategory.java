@@ -1,6 +1,10 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.model;
 
-public class UsersCategory {
+import java.io.Serializable;
+
+public class UsersCategory implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int userCategoryId;
 

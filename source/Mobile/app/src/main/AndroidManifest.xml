@@ -30,8 +30,9 @@
 
 
         </activity>
-        <activity android:name="mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityRegister"/>
+        <activity android:name="mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityRegister"></activity>
         <activity android:name="mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityLogin"></activity>
+        <activity android:name="mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityNoticeDetails"></activity>
     </application>
 
 </manifest>
