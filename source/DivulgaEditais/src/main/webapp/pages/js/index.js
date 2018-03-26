@@ -73,8 +73,12 @@ function checkUser(){
 			   }			   
 		   },
 		   error: function(jqXHR, exception) {
-				var msg = jqXHR.responseText;
-				showIndexMessage('messagesLogin', msg,'error');
+				if(data['message']){
+					showIndexMessage('messagesLogin', data['message'],'error');
+				} else {
+					var msg = jqXHR.responseText;
+					showIndexMessage('messagesLogin', msg,'error');
+				}				
 		   }
 	});
 }
