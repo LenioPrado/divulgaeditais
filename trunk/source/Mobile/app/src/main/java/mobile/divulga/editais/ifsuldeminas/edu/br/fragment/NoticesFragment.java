@@ -24,15 +24,14 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityIndex;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.EditalClickListener;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Edital;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.RequestMethods;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
-public class Todos extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class NoticesFragment extends Fragment {
+
+    private static final String USER_ID = "userId";
     private ProgressDialog load;
     private OnFragmentInteractionListener mListener;
     private LinearLayout layout;
@@ -40,40 +39,33 @@ public class Todos extends Fragment {
 
     static final int ID_SCREENDIALOG = 1;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public static Todos newInstance(String param1, String param2) {
-        Todos fragment = new Todos();
+    public static NoticesFragment newUserNoticesFragmentInstance(int userId) {
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-//        editais = new Divisoes("Editais");
-//        orgao = new Divisoes("Orgão");
+        args.putInt(USER_ID, userId);
 
+        NoticesFragment fragment = new NoticesFragment();
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int userId = 0;
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            userId = getArguments().getInt(USER_ID);
         }
-
-        ActivityIndex m = new ActivityIndex();
-
-        getNotices((Activity) getContext());
+        getNotices((Activity) getContext(), userId);
     }
 
-    private void getNotices(final Context context){
-        String endpoint = "notice";
-        final Activity host = (Activity)context;
+    private void getNotices(final Context context, int userId){
+        String endpoint = "";
 
-        Class<List<Notice>> listClass = (Class) List.class;
+        if(userId == 0){
+            endpoint = "notice";
+        } else {
+            endpoint = "notice/listNoticesRegisteredByUser/"+userId;
+        }
 
         new WebService<Notice[]>(Notice[].class, context).query(endpoint, RequestMethods.GET, new ResultCallback<Notice[]>() {
             @Override
