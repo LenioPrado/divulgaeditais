@@ -2,8 +2,8 @@ package mobile.divulga.editais.ifsuldeminas.edu.br.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,14 +14,14 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import mobile.divulga.editais.ifsuldeminas.edu.br.R;
-import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.Session;
-import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
-import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import mobile.divulga.editais.ifsuldeminas.edu.br.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.RequestMethods;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
+import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
 public class ActivityRegister extends AppCompatActivity {
 
@@ -77,7 +77,7 @@ public class ActivityRegister extends AppCompatActivity {
                 final Activity host = (Activity) v.getContext();
                 String endpoint = "user/create";
 
-                new WebService<User>(User.class, v.getContext()).query(endpoint, user, new ResultCallback<User>() {
+                new WebService<User>(User.class, v.getContext()).query(endpoint, user, RequestMethods.POST, new ResultCallback<User>() {
                     @Override
                     public void onSuccess(User user) {
                         if (user != null) {

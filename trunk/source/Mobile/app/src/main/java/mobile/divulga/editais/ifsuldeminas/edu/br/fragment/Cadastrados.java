@@ -96,7 +96,7 @@ public class Cadastrados extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_cadastrados, container, false);
+        View v = inflater.inflate(R.layout.fragment_notices, container, false);
 
         layout = v.findViewById(R.id.layout);
 
@@ -183,7 +183,7 @@ public class Cadastrados extends Fragment implements View.OnClickListener {
 
     protected Dialog onCreateDialog(String trecho) {
         screenDialog = new Dialog(getContext());
-        screenDialog.setContentView(R.layout.popup);
+        screenDialog.setContentView(R.layout.notice_details);
         TextView modalidade = screenDialog.findViewById(R.id.txtModalidade);
         TextView numero = screenDialog.findViewById(R.id.txtNumero);
         TextView objeto = screenDialog.findViewById(R.id.txtObjeto);
@@ -202,7 +202,7 @@ public class Cadastrados extends Fragment implements View.OnClickListener {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow();
-        dialog.setContentView(R.layout.popup);
+        dialog.setContentView(R.layout.notice_details);
         dialog.setTitle("yor title");
         dialog.setCancelable(false);
 

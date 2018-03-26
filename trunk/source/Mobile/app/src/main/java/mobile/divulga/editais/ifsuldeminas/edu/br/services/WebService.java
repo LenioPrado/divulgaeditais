@@ -1,6 +1,7 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.services;
 
 import android.content.Context;
+import android.os.Debug;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -18,10 +19,13 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.itextpdf.text.List;
 
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,14 +36,13 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 public class WebService<T> {
 
     private String baseUrl = "http://%s:8080/DivulgaEditais/rest/";
-    private final Class<T> classType;
     private Gson gson;
     private Context context;
+    private Class<T> classType;
 
     public WebService(Class<T> classType, Context context){
-        this.classType = classType;
         this.context = context;
-
+        this.classType = classType;
         String serverAddress = context.getResources().getString(R.string.serverAddress);
         baseUrl = String.format(baseUrl, serverAddress);
 
@@ -56,12 +59,12 @@ public class WebService<T> {
         gson = gsonBuilder.create();
     }
 
-    public void query(String endpoint, JSONObject jsonObject, final ResultCallback<T> callback){
+    public void query(String endpoint, JSONObject jsonObject, RequestMethods requestMethod, final ResultCallback<T> callback){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         String url = baseUrl + endpoint;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(requestMethod.getValue(), url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("#### PostLoaded: ", response.toString());
@@ -92,12 +95,12 @@ public class WebService<T> {
         requestQueue.add(request);
     }
 
-    public void query(String endpoint, final ResultCallback<T> callback) {
+    public void query(String endpoint, RequestMethods requestMethod, final ResultCallback<T> callback) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         String url = baseUrl + endpoint;
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(requestMethod.getValue(), url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("#### PostLoaded: ", response);

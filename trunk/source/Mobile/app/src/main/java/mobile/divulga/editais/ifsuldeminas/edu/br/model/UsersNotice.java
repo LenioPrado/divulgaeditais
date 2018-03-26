@@ -1,6 +1,8 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.model;
 
-public class UsersNotice {
+import java.io.Serializable;
+
+public class UsersNotice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,8 +1,11 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CompanyType {
+public class CompanyType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int companyTypeId;
 
