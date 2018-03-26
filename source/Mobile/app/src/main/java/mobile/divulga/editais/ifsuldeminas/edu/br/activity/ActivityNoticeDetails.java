@@ -8,8 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.DownloadNoticeClickListener;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.EditalClickListener;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Category;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
@@ -24,22 +26,11 @@ public class ActivityNoticeDetails extends AppCompatActivity {
         setContentView(R.layout.notice_details);
 
         Button open = findViewById(R.id.abrir);
-        open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ActivityRegister.class));
-                finish();
-            }
-        });
+        open.setOnClickListener(new DownloadNoticeClickListener());
 
         Bundle bundle = getIntent().getExtras();
         Notice notice = (Notice)bundle.getSerializable("Notice");
         showNoticeDetails(notice);
-
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
     }
 
     protected void showNoticeDetails(Notice notice) {
@@ -74,11 +65,11 @@ public class ActivityNoticeDetails extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            finish();
-            return false;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed()
+    {
+        Intent i  = new Intent(this, ActivityHome.class);
+        startActivity(i);
+        this.finish();
+        super.onBackPressed();  // optional depending on your needs
     }
 }
