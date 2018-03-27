@@ -2,21 +2,16 @@ package mobile.divulga.editais.ifsuldeminas.edu.br.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.DownloadNoticeClickListener;
-import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.EditalClickListener;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Category;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.NoticesCategory;
-import mobile.divulga.editais.ifsuldeminas.edu.br.other.DateUtil;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Utils;
 
 public class ActivityNoticeDetails extends AppCompatActivity {
 
@@ -25,12 +20,13 @@ public class ActivityNoticeDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notice_details);
 
-        Button open = findViewById(R.id.abrir);
-        open.setOnClickListener(new DownloadNoticeClickListener());
-
         Bundle bundle = getIntent().getExtras();
         Notice notice = (Notice)bundle.getSerializable("Notice");
         showNoticeDetails(notice);
+
+        Button open = findViewById(R.id.abrir);
+        open.setTag(notice);
+        open.setOnClickListener(new DownloadNoticeClickListener());
     }
 
     protected void showNoticeDetails(Notice notice) {
@@ -50,9 +46,9 @@ public class ActivityNoticeDetails extends AppCompatActivity {
         modality.setText(modalityText);
         numero.setText(notice.getNumber());
         objeto.setText(notice.getObject());
-        data.setText(DateUtil.createDateFormatyyyyMMdd(notice.getTradingDate()));
-        dataFecha.setText(DateUtil.createDateFormatyyyyMMdd(notice.getClosingDate()));
-        dataPubli.setText(DateUtil.createDateFormatyyyyMMdd(notice.getPublishingDate()));
+        data.setText(Utils.createDateFormatddMMyyyy(notice.getTradingDate()));
+        dataFecha.setText(Utils.createDateFormatddMMyyyy(notice.getClosingDate()));
+        dataPubli.setText(Utils.createDateFormatddMMyyyy(notice.getPublishingDate()));
         status.setText(notice.getStatus());
 
         String categoryText = "";

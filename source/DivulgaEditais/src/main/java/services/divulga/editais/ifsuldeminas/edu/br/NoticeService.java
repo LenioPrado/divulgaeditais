@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -50,20 +51,28 @@ public class NoticeService extends BaseService<Notice> {
     @Produces(MediaType.APPLICATION_JSON)
 	@Path("/listNotSubscribed")
     public List<Notice> listNoticesNotSubscribed() {
-		return listNotices("NOT IN");
+		User user = UserUtils.getUserInSession(getSession());
+		return listNotices("NOT IN", user.getUserId());
     }
 	
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-	@Path("/listSubscribed/{userId}")
-    public List<Notice> listNoticesRegisteredByUser(int userId) {
-		return listNotices("IN");
+	@Path("/listSubscribedByUserId/{userId}")
+    public List<Notice> listNoticesRegisteredByUserId(@PathParam("userId") int userId) {
+		return listNotices("IN", userId);
+    }
+	
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+	@Path("/listSubscribed")
+    public List<Notice> listNoticesRegisteredByUser() {
+		User user = UserUtils.getUserInSession(getSession());
+		return listNotices("IN", user.getUserId());
     }
 
-    private List<Notice> listNotices(String queryPart) {
-		User user = UserUtils.getUserInSession(getSession());
+    private List<Notice> listNotices(String queryPart, int userId) {		
 		String query = "select t from Notice t WHERE t.noticeId " + queryPart +
-				" (select un.notice.noticeId from UsersNotice un where un.user.userId = "+ user.getUserId() +")"; 
+				" (select un.notice.noticeId from UsersNotice un where un.user.userId = "+ userId +")"; 
 		return listFiltering(query);
     }	
 }
