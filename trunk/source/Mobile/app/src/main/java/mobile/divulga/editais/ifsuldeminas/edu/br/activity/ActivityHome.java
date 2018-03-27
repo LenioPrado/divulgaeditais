@@ -37,7 +37,7 @@ public class ActivityHome extends AppCompatActivity {
     private static final String TAG_INICIO = "inicio";
     private static final String TAG_TODOS = "todos";
     private static final String TAG_CADASTRADOS = "cadastrados";
-    public static String CURRENT_TAG;
+    public static String CURRENT_TAG = TAG_CADASTRADOS;
     private String trecho="";
 
 
@@ -78,7 +78,6 @@ public class ActivityHome extends AppCompatActivity {
 
         loadHomeFragment();
 
-        Log.i("Tentando", "Permissao");
         Log.i("navItem", "Nav item "+String.valueOf(navItemIndex));
         Log.i("navItem", "current tag "+CURRENT_TAG);
     }
@@ -116,8 +115,6 @@ public class ActivityHome extends AppCompatActivity {
                     int userId = new Session(getApplicationContext()).getUserId();
                     fragment = NoticesFragment.newUserNoticesFragmentInstance(userId);
                 }
-
-
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,

@@ -1,12 +1,12 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,7 +17,12 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+import java.util.List;
+
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.CompanyType;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.CompanyTypeAdapter;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.RequestMethods;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
@@ -27,8 +32,6 @@ public class ActivityRegister extends AppCompatActivity {
 
     EditText email, password, socialName, fantasyName, cnpj, cnae, zipCode, address, number, complement, neighbourhood, city, phonePrimary, state, phoneSecundary, resposibleName, responsibleCPF;
     Spinner companyType;
-    Button cadastrar;
-    String baseURL;
 
     String[] listaEmpresas = new String[] {
             "Selecione","Micro e Pequeno Porte","Médio Porte", "Grande porte"
@@ -41,7 +44,7 @@ public class ActivityRegister extends AppCompatActivity {
 
         getInputsFromView();
         setButtonListeners();
-        fillViewSelects();
+        getCompanyTypes(getApplicationContext());
     }
 
     private void getInputsFromView(){
@@ -63,10 +66,11 @@ public class ActivityRegister extends AppCompatActivity {
         phoneSecundary = findViewById(R.id.phoneSecundary);
         resposibleName = findViewById(R.id.resposibleName);
         responsibleCPF = findViewById(R.id.responsibleCPF);
-        cadastrar = findViewById(R.id.cadastrar);
     }
 
     private void setButtonListeners(){
+
+        Button cadastrar = findViewById(R.id.cadastrar);
 
         cadastrar.setOnClickListener(new View.OnClickListener(){
 
@@ -77,7 +81,7 @@ public class ActivityRegister extends AppCompatActivity {
                 final Activity host = (Activity) v.getContext();
                 String endpoint = "user/create";
 
-                new WebService<User>(User.class, v.getContext()).query(endpoint, user, RequestMethods.POST, new ResultCallback<User>() {
+                new WebService<User>(User.class, v.getContext()).querySingle(endpoint, user, RequestMethods.POST, new ResultCallback<User>() {
                     @Override
                     public void onSuccess(User user) {
                         if (user != null) {
@@ -106,11 +110,39 @@ public class ActivityRegister extends AppCompatActivity {
         });
     }
 
-    private void fillViewSelects(){
-        ArrayAdapter<String> adapterTipo = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, listaEmpresas);
-        adapterTipo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        companyType.setAdapter(adapterTipo);
+    private void getCompanyTypes(final Context context){
+        String endpoint = "companyType";
+        new WebService<CompanyType[]>(CompanyType[].class, getApplicationContext()).queryList(endpoint, null, RequestMethods.GET, new ResultCallback<CompanyType[]>() {
+            @Override
+            public void onSuccess(CompanyType[] companyTypesArray) {
+                Log.d("######", "GET Company Types Results");
+                List<CompanyType> companyTypes = Arrays.asList(companyTypesArray);;
+                if (companyTypes == null){
+                    Toast.makeText(context, "Erro ao recuperar lista de tipos de empresa!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("###### Company Types", companyTypes.toString());
+                    fillViewSelects(companyTypes);
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                String error = String.format("Erro desconhecido: %s", e.getMessage());
+                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onVolleyError(VolleyError e) {
+                String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
+                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fillViewSelects(List<CompanyType> companyTypes){
+        CompanyTypeAdapter adapter = new CompanyTypeAdapter(this, companyTypes);
+        Spinner listView = (Spinner) findViewById(R.id.companyType);
+        listView.setAdapter(adapter);
     }
 
     private JSONObject getUserData(){
@@ -118,13 +150,8 @@ public class ActivityRegister extends AppCompatActivity {
         try {
             user.put("socialName", socialName.getText().toString());
             user.put("fantasyName", fantasyName.getText().toString());
-
-            //user.put("companyType", companyType.getSelectedItem().toString());
-
-            //TODO: Corrigir pois está hardcoded
-
-            user.put("companyType", "PE");
-
+            CompanyType data = (CompanyType)companyType.getSelectedItem();
+            user.put("companyType", data.getAcronyms());
             user.put("type", "empresa");
             user.put("email", email.getText().toString());
             user.put("password", password.getText().toString());
@@ -168,6 +195,10 @@ public class ActivityRegister extends AppCompatActivity {
         }
         if(cnpj.getText().toString().equalsIgnoreCase("")){
             Toast.makeText(this, "Digite um CNPJ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(companyType.getSelectedItem() == null){
+            Toast.makeText(this, "Selecione um Tipo de Empresa", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(cnae.getText().toString().equalsIgnoreCase("")){
@@ -219,6 +250,6 @@ public class ActivityRegister extends AppCompatActivity {
         Intent i  = new Intent(this, ActivityIndex.class);
         startActivity(i);
         this.finish();
-        super.onBackPressed();  // optional depending on your needs
+        super.onBackPressed();
     }
 }

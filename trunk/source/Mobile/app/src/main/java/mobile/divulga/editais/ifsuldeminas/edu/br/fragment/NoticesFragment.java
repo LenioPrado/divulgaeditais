@@ -20,11 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
-import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityIndex;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.EditalClickListener;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Edital;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
-import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.RequestMethods;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
@@ -32,12 +30,8 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 public class NoticesFragment extends Fragment {
 
     private static final String USER_ID = "userId";
-    private ProgressDialog load;
     private OnFragmentInteractionListener mListener;
     private LinearLayout layout;
-    private List<Edital> listaEditais;
-
-    static final int ID_SCREENDIALOG = 1;
 
     public static NoticesFragment newUserNoticesFragmentInstance(int userId) {
         Bundle args = new Bundle();
@@ -64,15 +58,15 @@ public class NoticesFragment extends Fragment {
         if(userId == 0){
             endpoint = "notice";
         } else {
-            endpoint = "notice/listNoticesRegisteredByUser/"+userId;
+            endpoint = "notice/listSubscribedByUserId/"+userId;
         }
 
-        new WebService<Notice[]>(Notice[].class, context).query(endpoint, RequestMethods.GET, new ResultCallback<Notice[]>() {
+        new WebService<Notice[]>(Notice[].class, context).queryList(endpoint, null, RequestMethods.GET, new ResultCallback<Notice[]>() {
             @Override
             public void onSuccess(Notice[] noticesArray) {
                 if (noticesArray != null) {
                     List<Notice> notices = Arrays.asList(noticesArray);
-                    FillScreenTable(notices);
+                    fillScreenTable(notices);
                     Toast.makeText(context, "Lista de editais carregada com sucesso!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -132,17 +126,7 @@ public class NoticesFragment extends Fragment {
         return textView;
     }
 
-    private LinearLayout getLayout(int index, Object tagContent){
-        LinearLayout layout = new LinearLayout(getContext());
-        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-        layout.setOnClickListener(new EditalClickListener());
-        layout.setBackgroundResource(getBackground(index));
-        layout.setTag(tagContent);
-
-        return layout;
-    }
-
-    public void FillScreenTable(List<Notice> notices){
+    public void fillScreenTable(List<Notice> notices){
 
         for (int i = 0; i < notices.size(); i++) {
 
@@ -159,32 +143,30 @@ public class NoticesFragment extends Fragment {
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    private LinearLayout getLayout(int index, Object tagContent){
+        LinearLayout layout = new LinearLayout(getContext());
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+        layout.setOnClickListener(new EditalClickListener());
+        layout.setBackgroundResource(getBackground(index));
+        layout.setTag(tagContent);
+
+        return layout;
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

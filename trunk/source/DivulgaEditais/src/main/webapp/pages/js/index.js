@@ -58,7 +58,7 @@ function checkUser(){
 	var data = getFormData('loginForm');
 	var url = "user/login" + "/" + data['userEmail'] + "/" + data['userPassword'] 
 	$.ajax({
-		   type: "post",
+		   type: "get",
 		   dataType: "json",
 		   url: getServerUrl() + url,
 		   processData: true,

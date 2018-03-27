@@ -32,12 +32,12 @@ public class LoginClickListener implements View.OnClickListener{
         if (email.trim().length() > 0 && password.trim().length() > 0) {
             String endpoint = "user/login/" + email + "/" + password;
 
-            new WebService<User>(User.class, v.getContext()).query(endpoint, RequestMethods.POST, new ResultCallback<User>() {
+            new WebService<User>(User.class, v.getContext()).querySingle(endpoint, null, RequestMethods.GET, new ResultCallback<User>() {
                 @Override
                 public void onSuccess(User user) {
                     if (user != null) {
                         Session session = new Session(host.getApplicationContext());
-                        session.createLoginSession(user.getSocialName(), user.getEmail());
+                        session.createLoginSession(user.getUserId(), user.getSocialName(), user.getEmail());
 
                         Toast.makeText(v.getContext(), "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
 

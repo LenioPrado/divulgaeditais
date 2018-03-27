@@ -18,6 +18,11 @@ public class CompanyType implements Serializable {
     public CompanyType() {
     }
 
+    public CompanyType(String acronyms, String description) {
+        this.acronyms = acronyms;
+        this.description = description;
+    }
+
     public int getCompanyTypeId() {
         return this.companyTypeId;
     }
@@ -62,5 +67,10 @@ public class CompanyType implements Serializable {
         notice.setCompanyType(null);
 
         return notice;
+    }
+
+    @Override
+    public String toString() {
+        return description ;
     }
 }

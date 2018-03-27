@@ -239,7 +239,7 @@ function logout(){
 	var urlToGetData = "user/logout";
 	
 	$.ajax({
-		   type: "post",
+		   type: "get",
 		   dataType: "text",
 		   url: getServerUrl() + urlToGetData,
 		   processData: false,
