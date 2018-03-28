@@ -101,8 +101,7 @@ public class ActivityRegister extends AppCompatActivity {
 
                     @Override
                     public void onVolleyError(VolleyError e) {
-                        String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
-                        Toast.makeText(v.getContext(), error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), "Ocorreu um erro ao realizar a operação!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -133,8 +132,7 @@ public class ActivityRegister extends AppCompatActivity {
 
             @Override
             public void onVolleyError(VolleyError e) {
-                String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
-                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Ocorreu um erro ao realizar a operação!", Toast.LENGTH_SHORT).show();
             }
         });
     }

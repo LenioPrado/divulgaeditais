@@ -69,7 +69,7 @@ public class WebService<T> {
     private void createDialog(Context context){
         processDialog = new ProgressDialog(context);
         processDialog.setMax(100);
-        processDialog.setMessage("Efetuando download...");
+        processDialog.setMessage("Processando...");
         processDialog.setTitle("Por favor, aguarde!");
         processDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     }
@@ -77,7 +77,7 @@ public class WebService<T> {
     public void querySingle(String endpoint, JSONObject jsonObject, RequestMethods requestMethod, final ResultCallback<T> callback){
 
         String url = Utils.getBaseUrl(context) + endpoint;
-        Log.i("Download Endpoint: ", url);
+        Log.i("Query Single Endpoint: ", url);
 
         processDialog.show();
 
@@ -105,7 +105,7 @@ public class WebService<T> {
     public void queryList(String endpoint, JSONArray jsonArray, RequestMethods requestMethod, final ResultCallback<T> callback){
 
         String url = Utils.getBaseUrl(context) + endpoint;
-        Log.i("Download Endpoint: ", url);
+        Log.i("Query List Endpoint: ", url);
 
         processDialog.show();
 

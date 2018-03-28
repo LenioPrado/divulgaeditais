@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.DownloadNoticeClickListener;
+import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.SubUnsubscribeNoticeClickListener;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Category;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.NoticesCategory;
@@ -21,12 +22,25 @@ public class ActivityNoticeDetails extends AppCompatActivity {
         setContentView(R.layout.notice_details);
 
         Bundle bundle = getIntent().getExtras();
-        Notice notice = (Notice)bundle.getSerializable("Notice");
+        Notice notice = (Notice)bundle.get("Notice");
+        String currentTag = bundle.get(Utils.getCurrentTagKey()).toString();
+
         showNoticeDetails(notice);
 
         Button open = findViewById(R.id.abrir);
         open.setTag(notice);
         open.setOnClickListener(new DownloadNoticeClickListener());
+
+        Button subUnsubscribe = findViewById(R.id.subUnsubscribe);
+        if(Utils.isTagScreenAllNotices(currentTag)){
+            subUnsubscribe.setText("Inscrever");
+            subUnsubscribe.setTag(Utils.getSubscribeAction());
+        } else {
+            subUnsubscribe.setText("Desinscrever");
+            subUnsubscribe.setTag(Utils.getUnsubscribeAction());
+        }
+
+        subUnsubscribe.setOnClickListener(new SubUnsubscribeNoticeClickListener(notice));
     }
 
     protected void showNoticeDetails(Notice notice) {
@@ -52,9 +66,13 @@ public class ActivityNoticeDetails extends AppCompatActivity {
         status.setText(notice.getStatus());
 
         String categoryText = "";
-        for (NoticesCategory noticeCategory : notice.getNoticesCategories() ) {
+        for (int i=0;i<notice.getNoticesCategories().size();i++) {
+            NoticesCategory noticeCategory = notice.getNoticesCategories().get(i);
             Category category = noticeCategory.getCategory();
-            categoryText += category.getDescription() + "-";
+            categoryText += category.getDescription();
+            if(i<notice.getNoticesCategories().size()-1){
+                categoryText += "-";
+            }
         }
 
         tipo.setText(categoryText);

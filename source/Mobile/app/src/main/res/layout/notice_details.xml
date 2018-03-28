@@ -200,14 +200,33 @@
                 android:text=""
                 android:textSize="18sp" />
 
-            <Button
-                android:id="@+id/abrir"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_circle"
-                android:text="Abrir Arquivo"
-                android:textColor="@color/cardview_light_background"/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/abrir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circle"
+                    android:text="Abrir Arquivo"
+                    android:textColor="@color/cardview_light_background" />
+
+                <Button
+                    android:id="@+id/subUnsubscribe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circle"
+                    android:text=""
+                    android:textColor="@color/cardview_light_background" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
