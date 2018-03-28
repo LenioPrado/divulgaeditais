@@ -68,10 +68,9 @@ public class WebService<T> {
 
     private void createDialog(Context context){
         processDialog = new ProgressDialog(context);
-        processDialog.setMax(100);
+        processDialog.setCancelable(false);
         processDialog.setMessage("Processando...");
         processDialog.setTitle("Por favor, aguarde!");
-        processDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     }
 
     public void querySingle(String endpoint, JSONObject jsonObject, RequestMethods requestMethod, final ResultCallback<T> callback){
@@ -170,7 +169,6 @@ public class WebService<T> {
             outputStream.write(response);
             outputStream.close();
             Log.i("File Saved: ", fileName);
-            processDialog.setProgress(100);
             processDialog.dismiss();
             callback.onSuccess(null);
         } catch (Exception e) {

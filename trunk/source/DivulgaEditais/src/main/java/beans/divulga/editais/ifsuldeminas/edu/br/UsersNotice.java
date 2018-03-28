@@ -44,6 +44,11 @@ public class UsersNotice implements Serializable {
 
 	public UsersNotice() {
 	}
+	
+	public UsersNotice(int noticeId, int userId) {
+		notice = new Notice(noticeId);
+		user = new User(userId);
+	}
 
 	public int getUserNoticeId() {
 		return this.userNoticeId;

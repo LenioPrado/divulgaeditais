@@ -80,6 +80,10 @@ public class Notice implements Serializable {
 
 	public Notice() {
 	}
+	
+	public Notice(int noticeId) {
+		this.noticeId = noticeId;
+	}
 
 	public int getNoticeId() {
 		return this.noticeId;

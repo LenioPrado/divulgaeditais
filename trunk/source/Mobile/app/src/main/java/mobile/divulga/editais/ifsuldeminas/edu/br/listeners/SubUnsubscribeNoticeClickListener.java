@@ -46,13 +46,15 @@ public class SubUnsubscribeNoticeClickListener implements View.OnClickListener {
                 if (notice != null) {
                     String message = "";
 
-                    if(Utils.isTagScreenAllNotices(currentTag)){
+                    if(Utils.isSubscribeAction(currentTag)){
                         message = "Inscrição no edital realizada com sucesso!";
                     } else {
                         message = "Inscrição no edital removida com sucesso!";
                     }
 
                     Toast.makeText(v.getContext(), message, Toast.LENGTH_SHORT).show();
+                    Activity activity = (Activity) v.getContext();
+                    activity.onBackPressed();
                 }
             }
 
