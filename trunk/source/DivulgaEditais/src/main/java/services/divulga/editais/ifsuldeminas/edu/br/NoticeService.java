@@ -49,6 +49,13 @@ public class NoticeService extends BaseService<Notice> {
 	
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
+	@Path("/listNotSubscribed/{userId}")
+    public List<Notice> listNoticesNotSubscribedByUserId(@PathParam("userId") int userId) {
+		return listNotices("NOT IN", userId);
+    }
+	
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
 	@Path("/listNotSubscribed")
     public List<Notice> listNoticesNotSubscribed() {
 		User user = UserUtils.getUserInSession(getSession());

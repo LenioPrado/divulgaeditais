@@ -23,6 +23,7 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.EditalClickListener;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Edital;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Utils;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.RequestMethods;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
@@ -32,10 +33,12 @@ public class NoticesFragment extends Fragment {
     private static final String USER_ID = "userId";
     private OnFragmentInteractionListener mListener;
     private LinearLayout layout;
+    private String currentTag = Utils.getTagScreenAllNotices();
 
-    public static NoticesFragment newUserNoticesFragmentInstance(int userId) {
+    public static NoticesFragment newUserNoticesFragmentInstance(int userId, String currentTag) {
         Bundle args = new Bundle();
         args.putInt(USER_ID, userId);
+        args.putString(Utils.getCurrentTagKey(), currentTag);
 
         NoticesFragment fragment = new NoticesFragment();
         fragment.setArguments(args);
@@ -48,6 +51,7 @@ public class NoticesFragment extends Fragment {
         int userId = 0;
         if (getArguments() != null) {
             userId = getArguments().getInt(USER_ID);
+            currentTag = getArguments().getString(Utils.getCurrentTagKey());
         }
         getNotices((Activity) getContext(), userId);
     }
@@ -55,8 +59,8 @@ public class NoticesFragment extends Fragment {
     private void getNotices(final Context context, int userId){
         String endpoint = "";
 
-        if(userId == 0){
-            endpoint = "notice";
+        if(Utils.isTagScreenAllNotices(currentTag)){
+            endpoint = "notice/listNotSubscribed/"+userId;
         } else {
             endpoint = "notice/listSubscribedByUserId/"+userId;
         }
@@ -79,8 +83,7 @@ public class NoticesFragment extends Fragment {
 
             @Override
             public void onVolleyError(VolleyError e) {
-                String error = String.format("Erro ao trabalhar com o resultado: %s", e.getMessage());
-                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Ocorreu um erro ao realizar a operação!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -134,7 +137,10 @@ public class NoticesFragment extends Fragment {
 
             TextView companyName = getTextView(i, notice.getUser().getSocialName());
             TextView description = getTextView(i, notice.getObject());
-            LinearLayout contentLayout = getLayout(i, notice);
+            Object[] tags = new Object[2];
+            tags[0] = notice;
+            tags[1] = currentTag;
+            LinearLayout contentLayout = getLayout(i, tags);
 
             contentLayout.addView(companyName);
             contentLayout.addView(description);
@@ -143,12 +149,12 @@ public class NoticesFragment extends Fragment {
         }
     }
 
-    private LinearLayout getLayout(int index, Object tagContent){
+    private LinearLayout getLayout(int index, Object[] tagContents){
         LinearLayout layout = new LinearLayout(getContext());
         layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
         layout.setOnClickListener(new EditalClickListener());
         layout.setBackgroundResource(getBackground(index));
-        layout.setTag(tagContent);
+        layout.setTag(tagContents);
 
         return layout;
     }

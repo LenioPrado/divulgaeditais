@@ -22,6 +22,7 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.NoticesFragment;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Session;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Utils;
 
 public class ActivityHome extends AppCompatActivity {
 
@@ -34,14 +35,10 @@ public class ActivityHome extends AppCompatActivity {
     private FloatingActionButton fab;
 
     public static int navItemIndex = 0;
-    private static final String TAG_INICIO = "inicio";
-    private static final String TAG_TODOS = "todos";
-    private static final String TAG_CADASTRADOS = "cadastrados";
-    public static String CURRENT_TAG = TAG_CADASTRADOS;
     private String trecho="";
-
-
     private String[] activityTitles;
+
+    private static String CURRENT_TAG = Utils.getTagScreenRegisteredNotices();
 
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
@@ -63,16 +60,6 @@ public class ActivityHome extends AppCompatActivity {
         navHeader = navigationView.getHeaderView(0);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
-
-        Bundle b = getIntent().getExtras();
-        if (b != null) {
-            Log.d("###############", "Bundle não vazio");
-            navItemIndex = Integer.parseInt(b.getString("item"));
-            CURRENT_TAG = b.getString("tag");
-            trecho = b.getString("trecho");
-            Log.d("###############", ""+ String.valueOf(navItemIndex));
-            Log.d("###############", ""+ CURRENT_TAG);
-        }
 
         setUpNavigationView();
 
@@ -109,16 +96,12 @@ public class ActivityHome extends AppCompatActivity {
             @Override
             public void run() {
                 Fragment fragment = null;
-                if(CURRENT_TAG.equals(TAG_TODOS)){
-                    fragment = new NoticesFragment();
-                } else {
-                    int userId = new Session(getApplicationContext()).getUserId();
-                    fragment = NoticesFragment.newUserNoticesFragmentInstance(userId);
-                }
+                int userId = new Session(getApplicationContext()).getUserId();
+                Log.i("CURRENT_TAG", CURRENT_TAG);
+                fragment = NoticesFragment.newUserNoticesFragmentInstance(userId, CURRENT_TAG);
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
                 fragmentTransaction.commitAllowingStateLoss();
             }
@@ -153,11 +136,11 @@ public class ActivityHome extends AppCompatActivity {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.nav_cadastrados:
                         navItemIndex=0;
-                        CURRENT_TAG=TAG_CADASTRADOS;
+                        CURRENT_TAG=Utils.getTagScreenRegisteredNotices();
                         break;
                     case R.id.nav_todos:
                         navItemIndex=1;
-                        CURRENT_TAG=TAG_TODOS;
+                        CURRENT_TAG=Utils.getTagScreenAllNotices();
                         break;
                     case R.id.logout:
                         // launch new intent instead of loading fragment
@@ -168,7 +151,7 @@ public class ActivityHome extends AppCompatActivity {
                         return true;
                     default:
                         navItemIndex=1;
-                        CURRENT_TAG=TAG_TODOS;
+                        CURRENT_TAG=Utils.getTagScreenAllNotices();
                         break;
                 }
                 if (menuItem.isChecked()) {

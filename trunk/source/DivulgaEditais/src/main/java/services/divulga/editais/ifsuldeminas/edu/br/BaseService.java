@@ -62,6 +62,21 @@ public class BaseService<T> {
 		}
 		return entity;
     }
+    
+    protected Response insert(String query) {
+    	EntityManager em = getEM(); 
+    	int count;   	
+		try {
+			em.getTransaction().begin();
+			count = em.createNativeQuery(query).executeUpdate();
+			em.getTransaction().commit();
+			System.out.println(String.format("Registros inseridos: %d", count));
+			return Response.ok(getJsonFormattedMessage("Registro Inserido com Sucesso!"), MediaType.APPLICATION_JSON).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+    }    
 
     protected Response delete(String query) {
     	EntityManager em = getEM(); 
@@ -144,7 +159,7 @@ public class BaseService<T> {
     }
 
 	@POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/edit")
     public Response edit(T entity) {
