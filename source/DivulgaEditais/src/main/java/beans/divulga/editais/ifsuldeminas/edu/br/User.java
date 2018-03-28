@@ -97,6 +97,10 @@ public class User implements Serializable {
 
 	public User() {
 	}
+	
+	public User(int userId) {
+		this.userId = userId;
+	}
 
 	public int getUserId() {
 		return this.userId;

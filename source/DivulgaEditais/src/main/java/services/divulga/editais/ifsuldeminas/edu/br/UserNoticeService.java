@@ -25,26 +25,20 @@ public class UserNoticeService extends BaseService<UsersNotice> {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/subscribe")
 	public Response subscribe(Notice notice) {
-		User user = UserUtils.getUserInSession(getSession());		
+		User user = UserUtils.getUserInSession(getSession());
     	UsersNotice userNotice = new UsersNotice();
     	userNotice.setNotice(notice);
     	userNotice.setUser(user);
 		return super.edit(userNotice);
 	}
 	
+	@POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/subscribeByUserId/{noticeId}/{userId}")
 	public Response subscribeByUserId(@PathParam("noticeId") int noticeId, @PathParam("userId") int userId) {
-    	String query = getInsertQuery(noticeId, userId);
-		return super.insert(query);
+		return super.edit(new UsersNotice(noticeId, userId));
 	}
-    
-    private String getInsertQuery(int noticeId, int userId) {
-		String query = String.format("INSERT INTO Users_Notices (notice_id, user_id) VALUES (%d, %d)",
-				noticeId, userId);		
-		return query;
-    }
 
 	protected String getEditSuccessMessage() {
 		return "Inscrição Realizada com Sucesso!";
