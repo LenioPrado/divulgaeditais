@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class NoticesFragment extends Fragment implements Results{
     private static final String USER_ID = "userId";
     private OnFragmentInteractionListener mListener;
     private LinearLayout layout, preLayout;
+    private Button limpar;
     private String currentTag = Utils.getTagScreenAllNotices();
     public static List<Notice> notices;
     public static ArrayList<String> categories = new ArrayList<>();
@@ -78,7 +80,7 @@ public class NoticesFragment extends Fragment implements Results{
             public void onSuccess(Notice[] noticesArray) {
                 if (noticesArray != null) {
                     notices = Arrays.asList(noticesArray);
-                    fillScreenTable(notices, getContext());
+                    fillScreenTable(notices, getContext(), layout, preLayout);
                     Toast.makeText(context, "Lista de editais carregada com sucesso!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -154,6 +156,14 @@ public class NoticesFragment extends Fragment implements Results{
 
         layout = v.findViewById(R.id.layout);
         preLayout = v.findViewById(R.id.layout3);
+        limpar = v.findViewById(R.id.btnLimpar);
+        limpar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(final View v) {
+                preLayout.removeAllViews();
+            }
+            });
 
         return v;
     }
@@ -189,10 +199,10 @@ public class NoticesFragment extends Fragment implements Results{
         return textView;
     }
 
-    public void fillScreenTable(List<Notice> notices, Context context){
+    public void fillScreenTable(List<Notice> notices, Context context, LinearLayout layout, LinearLayout preLayout){
 
-//        if(((LinearLayout) preLayout).getChildCount() > 0)
-//            ((LinearLayout) preLayout).removeAllViews();
+        if(preLayout.getChildCount() > 0)
+            preLayout.removeAllViews();
 
         for (int i = 0; i < notices.size(); i++) {
 
@@ -208,7 +218,7 @@ public class NoticesFragment extends Fragment implements Results{
             contentLayout.addView(companyName);
             contentLayout.addView(description);
 
-            layout.addView(contentLayout);
+            preLayout.addView(contentLayout);
         }
         //layout.addView(preLayout);
     }
@@ -231,7 +241,7 @@ public class NoticesFragment extends Fragment implements Results{
 
     @Override
     public void resultadoFiltro(List<Notice> resultado, Context context) {
-        fillScreenTable(resultado, context);
+        fillScreenTable(resultado, context, getLayout(), getPreLayout());
     }
 
     public interface OnFragmentInteractionListener {
@@ -243,5 +253,13 @@ public class NoticesFragment extends Fragment implements Results{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public LinearLayout getLayout(){
+        return layout;
+    }
+
+    public LinearLayout getPreLayout(){
+        return preLayout;
     }
 }
