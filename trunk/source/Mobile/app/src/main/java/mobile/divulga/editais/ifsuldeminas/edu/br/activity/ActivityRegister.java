@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,11 +31,13 @@ import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
 public class ActivityRegister extends AppCompatActivity {
 
-    EditText email, password, socialName, fantasyName, cnpj, cnae, zipCode, address, number, complement, neighbourhood, city, phonePrimary, state, phoneSecundary, resposibleName, responsibleCPF;
-    Spinner companyType;
+    EditText email, password, socialName, fantasyName, cnpj, cnae, zipCode, address, number, complement, neighbourhood, city, phonePrimary, phoneSecundary, resposibleName, responsibleCPF;
+    Spinner companyType, state;
 
-    String[] listaEmpresas = new String[] {
-            "Selecione","Micro e Pequeno Porte","Médio Porte", "Grande porte"
+    String[] listaEstados = new String[] {
+            "Selecione", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO",
+            "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
+            "RS", "RO", "RR", "SC", "SP", "SE", "TO"
     };
 
     @Override
@@ -45,6 +48,7 @@ public class ActivityRegister extends AppCompatActivity {
         getInputsFromView();
         setButtonListeners();
         getCompanyTypes(getApplicationContext());
+        fillStateSelect();
     }
 
     private void getInputsFromView(){
@@ -143,6 +147,13 @@ public class ActivityRegister extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    private void fillStateSelect(){
+        Spinner listView = (Spinner) findViewById(R.id.companyType);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.company_type_list);
+        adapter.add(listaEstados);
+        listView.setAdapter(adapter);
+    }
+
     private JSONObject getUserData(){
         JSONObject user = new JSONObject();
         try {
@@ -154,7 +165,7 @@ public class ActivityRegister extends AppCompatActivity {
             user.put("email", email.getText().toString());
             user.put("password", password.getText().toString());
             user.put("cnpj", cnpj.getText().toString());
-            user.put("state", state.getText().toString());
+            user.put("state", state.getSelectedItem().toString());
             user.put("cnae", cnae.getText().toString());
             user.put("zipCode", zipCode.getText().toString());
             user.put("address", address.getText().toString());
@@ -227,8 +238,8 @@ public class ActivityRegister extends AppCompatActivity {
             Toast.makeText(this, "Digite um Telefone", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(state.getText().toString().equalsIgnoreCase("")){
-            Toast.makeText(this, "Digite um Estado", Toast.LENGTH_SHORT).show();
+        if(state.getSelectedItem().toString().equalsIgnoreCase("")|| state.getSelectedItem().toString().equalsIgnoreCase("Selecione")){
+            Toast.makeText(this, "Selecione um Estado", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(resposibleName.getText().toString().equalsIgnoreCase("")){
