@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,9 +42,9 @@ public class NoticesFragment extends Fragment implements Results{
     private LinearLayout layout, preLayout;
     private Button limpar;
     private String currentTag = Utils.getTagScreenAllNotices();
-    public static List<Notice> notices;
-    public static ArrayList<String> categories = new ArrayList<>();
-    public static ArrayList<String> insertedBy = new ArrayList<>();
+    private List<Notice> notices;
+    private ArrayList<String> categories = new ArrayList<>();
+    private ArrayList<String> insertedBy = new ArrayList<>();
 
     public static NoticesFragment newUserNoticesFragmentInstance(int userId, String currentTag) {
         Bundle args = new Bundle();
@@ -67,6 +68,9 @@ public class NoticesFragment extends Fragment implements Results{
     }
 
     private void getNotices(final Context context, int userId){
+
+        Teste.getInstance().teste();
+
         String endpoint = "";
 
         if(Utils.isTagScreenAllNotices(currentTag)){
@@ -80,7 +84,7 @@ public class NoticesFragment extends Fragment implements Results{
             public void onSuccess(Notice[] noticesArray) {
                 if (noticesArray != null) {
                     notices = Arrays.asList(noticesArray);
-                    fillScreenTable(notices, getContext(), layout, preLayout);
+                    fillScreenTable(notices, getContext());
                     Toast.makeText(context, "Lista de editais carregada com sucesso!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -98,7 +102,7 @@ public class NoticesFragment extends Fragment implements Results{
         });
     }
 
-    public static List<String> categoryList(){
+    public List<String> categoryList(){
         for(Notice n : notices){
             List<NoticesCategory> noticesCategories = n.getNoticesCategories();
             for(NoticesCategory c : noticesCategories){
@@ -110,7 +114,7 @@ public class NoticesFragment extends Fragment implements Results{
         return categories;
     }
 
-    public static List<String> insertedByList(){
+    public List<String> insertedByList(){
         for(Notice n : notices){
             String verify = n.getUser().getSocialName();
             if(verifyExistence(insertedBy, verify))
@@ -119,7 +123,7 @@ public class NoticesFragment extends Fragment implements Results{
         return insertedBy;
     }
 
-    private static boolean verifyExistence(ArrayList<String> list, String verify){
+    private boolean verifyExistence(ArrayList<String> list, String verify){
         if(!list.isEmpty()){
             for(String s : list){
                 if(s.compareToIgnoreCase(verify)==0){
@@ -199,11 +203,15 @@ public class NoticesFragment extends Fragment implements Results{
         return textView;
     }
 
-    public void fillScreenTable(List<Notice> notices, Context context, LinearLayout layout, LinearLayout preLayout){
+    public void fillScreenTable(List<Notice> notices, Context context){
 
-        if(preLayout.getChildCount() > 0)
-            preLayout.removeAllViews();
 
+
+
+        if(preLayout !=null) {
+            if (preLayout.getChildCount() > 0)
+                preLayout.removeAllViews();
+        }
         for (int i = 0; i < notices.size(); i++) {
 
             Notice notice = notices.get(i);
@@ -241,7 +249,10 @@ public class NoticesFragment extends Fragment implements Results{
 
     @Override
     public void resultadoFiltro(List<Notice> resultado, Context context) {
-        fillScreenTable(resultado, context, getLayout(), getPreLayout());
+
+
+
+        fillScreenTable(resultado, context);
     }
 
     public interface OnFragmentInteractionListener {
@@ -255,11 +266,4 @@ public class NoticesFragment extends Fragment implements Results{
         mListener = null;
     }
 
-    public LinearLayout getLayout(){
-        return layout;
-    }
-
-    public LinearLayout getPreLayout(){
-        return preLayout;
-    }
 }
