@@ -41,13 +41,6 @@ public class Session {
         editor.commit();
     }
 
-    public void checkLogin() {
-
-        if (!this.isLoggedIn()) {
-            redirectToIndex();
-        }
-    }
-
     public int getUserId() {
         return pref.getInt(KEY_ID, 0);
     }

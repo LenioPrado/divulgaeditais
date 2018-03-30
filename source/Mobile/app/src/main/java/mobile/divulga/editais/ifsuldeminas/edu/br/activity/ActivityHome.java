@@ -1,5 +1,8 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 
@@ -35,13 +39,19 @@ public class ActivityHome extends AppCompatActivity {
     private FloatingActionButton fab;
 
     public static int navItemIndex = 0;
-    private String trecho="";
     private String[] activityTitles;
 
     private static String CURRENT_TAG = Utils.getTagScreenRegisteredNotices();
 
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+
+
+    String[] listaEstados = new String[] {
+            "Selecione", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO",
+            "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
+            "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +63,11 @@ public class ActivityHome extends AppCompatActivity {
         mHandler = new Handler();
 
         Session s = new Session(this);
-        //s.checkLogin();
+        if(!s.isLoggedIn()){
+            Intent i = new Intent(this, ActivityIndex.class);
+            startActivity(i);
+            this.finish();
+        }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -194,6 +208,51 @@ public class ActivityHome extends AppCompatActivity {
         if (navItemIndex == 0) {
             getMenuInflater().inflate(R.menu.main, menu);
         }
+
+        getMenuInflater().inflate(R.menu.notifications, menu);
+
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.inserted_by) {
+            showPopup("inserted_by");
+            return true;
+        }
+
+        if (id == R.id.company_type) {
+            showPopup("company_type");
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void showPopup(String type){
+
+        //TODO:  rest pra pegar a lista de õrgãos e de tipos de empresa
+
+        final String[] list = {"tipo 1", "tipo 2"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Filtrar por "+type+":")
+                .setItems(list, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        //TODO: carregar os editais com o filtro selecionado
+
+                        Toast.makeText(getApplicationContext(), "Voce selecionou o" +list[which]+"", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        Dialog dialog = builder.create();
+        dialog.setContentView(R.layout.desc_item);
+        dialog.show();
+    }
+
 }

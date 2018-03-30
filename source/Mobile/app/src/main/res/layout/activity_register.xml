@@ -354,13 +354,11 @@
                     android:text="Estado"
                     android:textSize="18sp" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Estado"
-                    android:inputType="textPersonName"
+                    android:layout_weight="1"
                     android:textSize="18sp" />
 
             </LinearLayout>
