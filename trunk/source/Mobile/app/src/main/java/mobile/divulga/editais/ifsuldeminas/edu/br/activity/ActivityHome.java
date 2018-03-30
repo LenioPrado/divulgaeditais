@@ -22,9 +22,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.fragment.NoticesFragment;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Results;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Session;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Utils;
 
@@ -37,6 +41,7 @@ public class ActivityHome extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
+    private Results result;
 
     public static int navItemIndex = 0;
     private String[] activityTitles;
@@ -223,30 +228,40 @@ public class ActivityHome extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.inserted_by) {
-            showPopup("inserted_by");
+            showPopup("Órgão");
             return true;
         }
 
         if (id == R.id.company_type) {
-            showPopup("company_type");
+            showPopup("Tipo de Empresa");
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void showPopup(String type){
+    public void showPopup(final String type){
+        final List<String> filteredList;
+        final String[] items;
+        if(type.compareToIgnoreCase("Órgão")==0){
+            filteredList = NoticesFragment.insertedByList();
+        }
+        else{
+            filteredList = NoticesFragment.categoryList();
+        }
+        items = new String[filteredList.size()];
+        for(int i=0; i<filteredList.size(); i++){
+            items[i] = filteredList.get(i);
+        }
 
-        //TODO:  rest pra pegar a lista de õrgãos e de tipos de empresa
-
-        final String[] list = {"tipo 1", "tipo 2"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Filtrar por "+type+":")
-                .setItems(list, new DialogInterface.OnClickListener() {
+                .setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
+                        NoticesFragment noticesFragment = new NoticesFragment();
                         //TODO: carregar os editais com o filtro selecionado
-
-                        Toast.makeText(getApplicationContext(), "Voce selecionou o" +list[which]+"", Toast.LENGTH_LONG).show();
+                        //noticesFragment.setFilteredNotices(items[which], type, getApplicationContext());
+                        noticesFragment.resultadoFiltro(noticesFragment.setFilteredNotices(items[which], type), getApplicationContext());
+                        Toast.makeText(getApplicationContext(), "Voce selecionou "+items[which]+"", Toast.LENGTH_LONG).show();
                     }
                 });
 

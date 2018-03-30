@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,24 +17,31 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.EditalClickListener;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.Category;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Edital;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
+import mobile.divulga.editais.ifsuldeminas.edu.br.model.NoticesCategory;
+import mobile.divulga.editais.ifsuldeminas.edu.br.other.Results;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Utils;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.RequestMethods;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.ResultCallback;
 import mobile.divulga.editais.ifsuldeminas.edu.br.services.WebService;
 
-public class NoticesFragment extends Fragment {
+public class NoticesFragment extends Fragment implements Results{
 
     private static final String USER_ID = "userId";
     private OnFragmentInteractionListener mListener;
-    private LinearLayout layout;
+    private LinearLayout layout, preLayout;
     private String currentTag = Utils.getTagScreenAllNotices();
+    public static List<Notice> notices;
+    public static ArrayList<String> categories = new ArrayList<>();
+    public static ArrayList<String> insertedBy = new ArrayList<>();
 
     public static NoticesFragment newUserNoticesFragmentInstance(int userId, String currentTag) {
         Bundle args = new Bundle();
@@ -69,8 +77,8 @@ public class NoticesFragment extends Fragment {
             @Override
             public void onSuccess(Notice[] noticesArray) {
                 if (noticesArray != null) {
-                    List<Notice> notices = Arrays.asList(noticesArray);
-                    fillScreenTable(notices);
+                    notices = Arrays.asList(noticesArray);
+                    fillScreenTable(notices, getContext());
                     Toast.makeText(context, "Lista de editais carregada com sucesso!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -88,21 +96,73 @@ public class NoticesFragment extends Fragment {
         });
     }
 
+    public static List<String> categoryList(){
+        for(Notice n : notices){
+            List<NoticesCategory> noticesCategories = n.getNoticesCategories();
+            for(NoticesCategory c : noticesCategories){
+                String verify = c.getCategory().getDescription();
+                if(verifyExistence(categories, verify))
+                categories.add(verify);
+            }
+        }
+        return categories;
+    }
+
+    public static List<String> insertedByList(){
+        for(Notice n : notices){
+            String verify = n.getUser().getSocialName();
+            if(verifyExistence(insertedBy, verify))
+                insertedBy.add(verify);
+            }
+        return insertedBy;
+    }
+
+    private static boolean verifyExistence(ArrayList<String> list, String verify){
+        if(!list.isEmpty()){
+            for(String s : list){
+                if(s.compareToIgnoreCase(verify)==0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public List<Notice> setFilteredNotices(String filter, String type){
+        List<Notice> filteredNotices = new ArrayList<Notice>();
+        for(Notice n : notices){
+            if(type.compareToIgnoreCase("Órgão")==0){
+                if(n.getUser().getSocialName().compareToIgnoreCase(filter)==0){
+                    filteredNotices.add(n);
+                }
+            }else{
+                List<NoticesCategory> categories = n.getNoticesCategories();
+                for(NoticesCategory c : categories){
+                    if(c.getCategory().getDescription().compareToIgnoreCase(filter)==0){
+                        filteredNotices.add(n);
+                    }
+                }
+            }
+        }
+        return filteredNotices;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_notices, container, false);
 
         layout = v.findViewById(R.id.layout);
+        preLayout = v.findViewById(R.id.layout3);
 
         return v;
     }
 
-    private int getColor(int index){
+    private int getColor(int index, Context context){
         if(index%2==0) {
-            return getResources().getColor(R.color.cardview_light_background);
+            return context.getResources().getColor(R.color.cardview_light_background);
         } else {
-            return getResources().getColor(R.color.cardview_dark_background);
+            return context.getResources().getColor(R.color.cardview_dark_background);
         }
     }
 
@@ -114,8 +174,8 @@ public class NoticesFragment extends Fragment {
         }
     }
 
-    private TextView getTextView(int index, String textContent){
-        TextView textView = new TextView(getContext());
+    private TextView getTextView(int index, String textContent, Context context){
+        TextView textView = new TextView(context);
 
         textView.setText(textContent);
         textView.setTextSize(20);
@@ -124,33 +184,37 @@ public class NoticesFragment extends Fragment {
         }
         textView.setPadding(5,5,5,5);
         textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
-        textView.setTextColor(getColor(index));
+        textView.setTextColor(getColor(index, context));
 
         return textView;
     }
 
-    public void fillScreenTable(List<Notice> notices){
+    public void fillScreenTable(List<Notice> notices, Context context){
+
+//        if(((LinearLayout) preLayout).getChildCount() > 0)
+//            ((LinearLayout) preLayout).removeAllViews();
 
         for (int i = 0; i < notices.size(); i++) {
 
             Notice notice = notices.get(i);
 
-            TextView companyName = getTextView(i, notice.getUser().getSocialName());
-            TextView description = getTextView(i, notice.getObject());
+            TextView companyName = getTextView(i, notice.getUser().getSocialName(), context);
+            TextView description = getTextView(i, notice.getObject(), context);
             Object[] tags = new Object[2];
             tags[0] = notice;
             tags[1] = currentTag;
-            LinearLayout contentLayout = getLayout(i, tags);
+            LinearLayout contentLayout = getLayout(i, tags, context);
 
             contentLayout.addView(companyName);
             contentLayout.addView(description);
 
             layout.addView(contentLayout);
         }
+        //layout.addView(preLayout);
     }
 
-    private LinearLayout getLayout(int index, Object[] tagContents){
-        LinearLayout layout = new LinearLayout(getContext());
+    private LinearLayout getLayout(int index, Object[] tagContents, Context context){
+        LinearLayout layout = new LinearLayout(context);
         layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
         layout.setOnClickListener(new EditalClickListener());
         layout.setBackgroundResource(getBackground(index));
@@ -163,6 +227,11 @@ public class NoticesFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void resultadoFiltro(List<Notice> resultado, Context context) {
+        fillScreenTable(resultado, context);
     }
 
     public interface OnFragmentInteractionListener {
