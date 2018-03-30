@@ -42,6 +42,7 @@ public class ActivityHome extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private Results result;
+    NoticesFragment noticesFragment;
 
     public static int navItemIndex = 0;
     private String[] activityTitles;
@@ -114,14 +115,14 @@ public class ActivityHome extends AppCompatActivity {
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
-                Fragment fragment = null;
+
                 int userId = new Session(getApplicationContext()).getUserId();
                 Log.i("CURRENT_TAG", CURRENT_TAG);
-                fragment = NoticesFragment.newUserNoticesFragmentInstance(userId, CURRENT_TAG);
+                noticesFragment = NoticesFragment.newUserNoticesFragmentInstance(userId, CURRENT_TAG);
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
+                fragmentTransaction.replace(R.id.frame, noticesFragment, CURRENT_TAG);
                 fragmentTransaction.commitAllowingStateLoss();
             }
         };
@@ -173,11 +174,9 @@ public class ActivityHome extends AppCompatActivity {
                         CURRENT_TAG=Utils.getTagScreenAllNotices();
                         break;
                 }
-                if (menuItem.isChecked()) {
-                    menuItem.setChecked(false);
-                } else {
-                    menuItem.setChecked(true);
-                }
+
+                menuItem.setChecked(!menuItem.isChecked());
+
                 menuItem.setChecked(true);
 
                 loadHomeFragment();
@@ -243,10 +242,10 @@ public class ActivityHome extends AppCompatActivity {
         final List<String> filteredList;
         final String[] items;
         if(type.compareToIgnoreCase("Órgão")==0){
-            filteredList = NoticesFragment.insertedByList();
+            filteredList = noticesFragment.insertedByList();
         }
         else{
-            filteredList = NoticesFragment.categoryList();
+            filteredList = noticesFragment.categoryList();
         }
         items = new String[filteredList.size()];
         for(int i=0; i<filteredList.size(); i++){
@@ -257,9 +256,6 @@ public class ActivityHome extends AppCompatActivity {
         builder.setTitle("Filtrar por "+type+":")
                 .setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        NoticesFragment noticesFragment = new NoticesFragment();
-                        //TODO: carregar os editais com o filtro selecionado
-                        //noticesFragment.setFilteredNotices(items[which], type, getApplicationContext());
                         noticesFragment.resultadoFiltro(noticesFragment.setFilteredNotices(items[which], type), getApplicationContext());
                         Toast.makeText(getApplicationContext(), "Voce selecionou "+items[which]+"", Toast.LENGTH_LONG).show();
                     }

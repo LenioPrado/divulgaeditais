@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
+import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityRegister;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Utils;
 
