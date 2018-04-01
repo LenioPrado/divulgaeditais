@@ -40,10 +40,34 @@ INSERT INTO notices (notice_id,modality_id,inserted_by,company_type_id,number,ob
 INSERT INTO notices (notice_id,modality_id,inserted_by,company_type_id,number,object,status,trading_date,publishing_date,closing_date,file_name) VALUES (4,4,4,4,'325/17',"AQUISIÇÃO DE CAMINHÃO",'Inativo','2020-04-30','2020-04-30','2020-06-30','pregao4.pdf');
 
 ## Categories ##
-INSERT INTO categories (category_id,description) VALUES (1,'Limpeza');
-INSERT INTO categories (category_id,description) VALUES (2,'Obras');
-INSERT INTO categories (category_id,description) VALUES (3,'Escritório');
-INSERT INTO categories (category_id,description) VALUES (4,'Alimentos');
+INSERT INTO categories (category_id,description) VALUES (1,'ALIMENTAÇÃO');
+INSERT INTO categories (category_id,description) VALUES (2,'ASSESSORIAS');
+INSERT INTO categories (category_id,description) VALUES (3,'COMBUSTÍVEIS');
+INSERT INTO categories (category_id,description) VALUES (4,'DECORAÇÃO E CONFECÇÃO');
+INSERT INTO categories (category_id,description) VALUES (5,'ELETROELETRÔNICOS');
+INSERT INTO categories (category_id,description) VALUES (6,'EMBALAGENS E DESCARTÁVEIS');
+INSERT INTO categories (category_id,description) VALUES (7,'ENGENHARIA E CONSTRUÇÃO');
+INSERT INTO categories (category_id,description) VALUES (8,'ESCRITÓRIO, GRÁFICA E SINALIZAÇÃO');
+INSERT INTO categories (category_id,description) VALUES (9,'ESPORTIVOS');
+INSERT INTO categories (category_id,description) VALUES (10,'EVENTOS E MUSICAIS');
+INSERT INTO categories (category_id,description) VALUES (11,'FERRAMENTAS E EQUIPAMENTOS DIVERSOS');
+INSERT INTO categories (category_id,description) VALUES (12,'FUNERÁRIOS');
+INSERT INTO categories (category_id,description) VALUES (13,'INFORMÁTICA');
+INSERT INTO categories (category_id,description) VALUES (14,'INSTALAÇÕES');
+INSERT INTO categories (category_id,description) VALUES (15,'LIMPEZA');
+INSERT INTO categories (category_id,description) VALUES (16,'LIMPEZA URBANA');
+INSERT INTO categories (category_id,description) VALUES (17,'MATERIAIS PARA OBRAS');
+INSERT INTO categories (category_id,description) VALUES (18,'MOBILIÁRIOS');
+INSERT INTO categories (category_id,description) VALUES (19,'PRODUTOS AGRÍCOLAS');
+INSERT INTO categories (category_id,description) VALUES (20,'PRODUTOS QUÍMICOS E SIMILARES');
+INSERT INTO categories (category_id,description) VALUES (21,'PUBLICIDADE');
+INSERT INTO categories (category_id,description) VALUES (22,'SAÚDE, HOSPITALARES, ODONTOLÓGICOS E SIMILARES');
+INSERT INTO categories (category_id,description) VALUES (23,'SEGURANÇA E PROTEÇÃO INDIVIDUAL E COLETIVA – EPI E EPC');
+INSERT INTO categories (category_id,description) VALUES (24,'TELECOMUNICAÇÕES');
+INSERT INTO categories (category_id,description) VALUES (25,'TRANSPORTES');
+INSERT INTO categories (category_id,description) VALUES (26,'UTENSÍLIOS DOMÉSTICOS');
+INSERT INTO categories (category_id,description) VALUES (27,'VEÍCULOS');
+INSERT INTO categories (category_id,description) VALUES (28,'OUTROS');
 
 ## Notices Categories ##
 INSERT INTO notices_categories (notice_category_id,notice_id,category_id) VALUES (1,1,1);

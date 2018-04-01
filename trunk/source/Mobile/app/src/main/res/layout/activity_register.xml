@@ -20,325 +20,358 @@
             android:padding="10dp">
 
 
-                <TextView
-                    android:id="@+id/Nome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Razão Social"
-                    android:textSize="18sp" />
+            <TextView
+                android:id="@+id/Nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Razão Social"
+                android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/socialName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Digite sua Razão Social"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
-
-
-                <TextView
-                    android:id="@+id/NomeFantasia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nome Fantasia"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/fantasyName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Digite seu Nome Fantasia"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/Email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Digite seu email"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/socialName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Digite sua Razão Social"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
 
+            <TextView
+                android:id="@+id/NomeFantasia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Nome Fantasia"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/Senha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Senha"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/fantasyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Digite seu Nome Fantasia"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Digite sua senha"
-                    android:inputType="textPassword"
-                    android:textSize="18sp" />
+            <TextView
+                android:id="@+id/Email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Email"
+                android:textSize="18sp" />
 
-
-
-                <TextView
-                    android:id="@+id/labelCNPJ"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CNPJ"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/cnpj"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Digite seu CNPJ"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
-
-
-                    <TextView
-                        android:id="@+id/tipo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:text="Tipo de Empresa"
-                        android:textSize="18sp" />
-
-                    <Spinner
-                        android:id="@+id/companyType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="18sp" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Digite seu email"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
 
-                    <TextView
-                        android:id="@+id/txtcnae"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CNAEs"
-                        android:textSize="18sp" />
+            <TextView
+                android:id="@+id/Senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Senha"
+                android:textSize="18sp" />
 
-                    <EditText
-                        android:id="@+id/cnae"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Digite os CNAEs registrados, separados por ;"
-                        android:inputType="textPersonName"
-                        android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/CEP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="CEP"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/zipCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Digite seu CEP"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Digite sua senha"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
 
-                <TextView
-                    android:id="@+id/Endereco"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Endereço"
-                    android:textSize="18sp" />
+            <TextView
+                android:id="@+id/labelCNPJ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="CNPJ"
+                android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Endereço"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/Numero"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Numero"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Numero"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/cnpj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Digite seu CNPJ"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
 
+            <TextView
+                android:id="@+id/tipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:padding="5dp"
+                android:text="Tipo de Empresa"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/Complemento"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Complemento"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/complement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Complemento"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
-
-
-
-                <TextView
-                    android:id="@+id/Bairro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bairro"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/neighbourhood"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Bairro"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <Spinner
+                android:id="@+id/companyType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
 
-                <TextView
-                    android:id="@+id/Cidade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cidade"
-                    android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtcnae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="CNAEs"
+                android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/city"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Cidade"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/cnae"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Digite os CNAEs registrados, separados por ;"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/CEP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:padding="5dp"
+                android:text="CEP"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/Estado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Estado"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/state"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18sp" />
-
-
-                <TextView
-                    android:id="@+id/Telefone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Telefone"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/phonePrimary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Telefone"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/zipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Digite seu CEP"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
 
+            <TextView
+                android:id="@+id/Endereco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Endereço"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/Celular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Celular"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Endereço"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/phoneSecundary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Celular"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <TextView
+                android:id="@+id/Numero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Numero"
+                android:textSize="18sp" />
 
-
-                <TextView
-                    android:id="@+id/ResponsavelNome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nome do Responsavel"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/resposibleName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Nome do Responsavel"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
-
-
-                <TextView
-                    android:id="@+id/ResponsavelCPF"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CPF do Responsavel"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/responsibleCPF"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="CPF do Responsavel"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Numero"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
 
-                <TextView
-                    android:id="@+id/Interessado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Interessado em"
-                    android:textSize="18sp" />
+            <TextView
+                android:id="@+id/Complemento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Complemento"
+                android:textSize="18sp" />
 
-                <Spinner
-                    android:id="@+id/interessadoEm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18sp" />
+            <EditText
+                android:id="@+id/complement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Complemento"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/Bairro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Bairro"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/neighbourhood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Bairro"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/Cidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Cidade"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Cidade"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/Estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Estado"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/Telefone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Telefone"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/phonePrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Telefone"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/Celular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Celular"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/phoneSecundary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Celular"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/ResponsavelNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Nome do Responsavel"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/resposibleName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nome do Responsavel"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/ResponsavelCPF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="CPF do Responsavel"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/responsibleCPF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="CPF do Responsavel"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/Interessado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Interessado em"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/interessadoEm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/cadastrar"
@@ -346,6 +379,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/bg_circle"
+                android:padding="5dp"
                 android:text="Cadastrar"
                 android:textColor="@color/cardview_light_background" />
         </LinearLayout>

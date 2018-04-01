@@ -17,8 +17,8 @@ function assignEvents(){
 }
 
 function show(selected){
-    var branch = document.getElementById("branch");
-    var cnae = document.getElementById("cnae");
+    var branch = document.getElementById("prefeitura");
+    var cnae = document.getElementById("empresa");
     var option = document.getElementById("type").value;
     var show = document.getElementById(option);
 
