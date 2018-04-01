@@ -128,7 +128,7 @@ function fillSelect(json, selectId, valueFields, textFields){
 		var o = new Option(textStr,valueStr);
 		select.append(o);
 	});	
-}
+}	
 
 function getTableData(data, tableFields){
 	var str="";

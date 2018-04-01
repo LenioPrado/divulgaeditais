@@ -56,13 +56,13 @@
 	        <label>Tipo</label>
 	        <select id="type" name="type" onchange="show(this);">
 	                <option value="none" selected="selected">(Selecione uma opção)</option>
-	                <option value="branch">Usuário da Prefeitura</option>
-	                <option value="cnae">Empresa concorrente</option>
+	                <!-- <option value="prefeitura">Usuário da Prefeitura</option> -->
+	                <option value="empresa">Empresa concorrente</option>
 	        </select> <br>
-	        <div id="branch" style="display:none">
+	        <div id="prefeitura" style="display:none">
 		        <label>Setor de atuação</label> <input type="text" name="branch" id="branch"/> <br>
 	        </div>
-	        <div id="cnae" style="display:none">
+	        <div id="empresa" style="display:none">
 		        <label>CNAE</label> <input type="text" name="cnae" id="cnae"/> <br>
 		        <label>Tipo de Empresa</label>
 		        <select id="companyType" name="companyType">
@@ -113,7 +113,6 @@
 					<option value="TO">Tocantins</option> 
 				</select>
 			<label>Telefone Principal</label> <input type="text" name="phonePrimary" id="phonePrimary"/> <br>
-	        <label>Telefone Principal</label> <input type="text" name="phonePrimary" id="phonePrimary"/> <br>
 	        <label>Celular</label> <input type="text" name="phoneSecondary" id="phoneSecondary"/> <br>
 	        <label>Nome do Responsável</label> <input type="text" name="responsibleName" id="responsibleName"/> <br>
 	        <label>CPF do Responsável</label> <input type="text" name="responsibleCpf" id="responsibleCpf"/> <br>

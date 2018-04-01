@@ -11,39 +11,46 @@
 	  <strong></strong>
 	</div> 		
       <div class="row">
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <form name="registerNotice" id="registerNotice" method="post" action="" enctype="multipart/form-data">
-              <div class="box-body">
+      <form name="registerNotice" id="registerNotice" method="post" action="" enctype="multipart/form-data">
+             
+        <div class="col-xs-2">
+          <!-- <div class="box box-primary"> -->
+             <!-- <div class="box-body"> -->
+                <div class="form-group"><label>Modalidade</label></div>
+                <div class="form-group"><label>Direcionado a</label></div>
+               <div class="form-group"><label>Categoria</label></div>
+                <div class="form-group"><label>Numero</label></div>
+                <div class="form-group"><label>Objeto</label></div>
+                <div class="form-group"><label>Data do Pregão</label></div>
+                <div class="form-group"><label>Data de Fechamento</label></div>
+                <div class="form-group"><label>File input</label></div>
+               </div>
+         <div class="col-xs-10">
                 <div class="form-group">
-                  <label>Modalidade</label>
                       <select name="modality" id="modality">
                       </select>
-                </div>
-                <div class="form-group">
-                  <label>Direcionado a</label>
                       <select name="companyType" id="companyType">
                       </select>
                 </div>
                 <div class="form-group">
-                  <label>Categoria</label> 
+                  <!-- <label>Categoria</label>  -->
                       <select multiple name="noticesCategories" id="noticesCategories">
                       </select>                                       
                 </div>                
                 <div class="form-group">
-                  <label>Numero </label> <input type="text" name="number" id="number" /> <br>
+                  <!-- <label>Numero </label> --> <input type="text" name="number" id="number" /> <br>
                 </div>
                 <div class="form-group">
-                  <label>Objeto </label> <input type="text" name="object" id="object"/> <br>
+                  <!-- <label>Objeto </label> --> <input type="text" name="object" id="object"/> <br>
                 </div>
                 <div class="form-group">
-                  <label>Data do Pregão</label> <input type="date" name="tradingDate" id="tradingDate" /> <br>
+                  <!-- <label>Data do Pregão</label> --> <input type="date" name="tradingDate" id="tradingDate" /> <br>
                 </div>
                 <div class="form-group">
-                  <label>Data de Fechamento</label> <input type="date" name="closingDate" id="closingDate" /> <br>
+                  <!-- <label>Data de Fechamento</label> --> <input type="date" name="closingDate" id="closingDate" /> <br>
                 </div>
                 <div class="form-group notEditable">
-                  <label for="fileName">File input</label>
+                  <!-- <label for="fileName">File input</label> -->
                   <input type="file" name="fileName" id="fileName" accept=".pdf"/>
                 </div>
 			    <div class="progress notEditable">
@@ -53,10 +60,11 @@
               </div>
               <div class="box-footer">
                  <input type="submit" value="Cadastrar" id="submitNotice" class="btn btn-primary">
-              </div>
+             </div>
+            <!--  </div> -->
             </form>
-            </div>
         </div>
-      </div>
+       <!--  </div> -->
+<!--       </div> -->
     </section>
 </section>

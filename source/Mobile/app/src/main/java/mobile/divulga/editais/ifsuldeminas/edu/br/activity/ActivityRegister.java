@@ -1,12 +1,14 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -115,7 +118,7 @@ public class ActivityRegister extends AppCompatActivity {
 
     private void getCompanyTypes(final Context context){
         String endpoint = "companyType";
-        new WebService<CompanyType[]>(CompanyType[].class, getApplicationContext()).queryList(endpoint, null, RequestMethods.GET, new ResultCallback<CompanyType[]>() {
+        new WebService<CompanyType[]>(CompanyType[].class, ActivityRegister.this).queryList(endpoint, null, RequestMethods.GET, new ResultCallback<CompanyType[]>() {
             @Override
             public void onSuccess(CompanyType[] companyTypesArray) {
                 Log.d("######", "GET Company Types Results");
@@ -148,10 +151,18 @@ public class ActivityRegister extends AppCompatActivity {
     }
 
     private void fillStateSelect(){
-        Spinner listView = (Spinner) findViewById(R.id.companyType);
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.company_type_list);
-        adapter.add(listaEstados);
-        listView.setAdapter(adapter);
+
+        List<String> list = new ArrayList<String>();
+        for(String s : listaEstados)
+        list.add(s);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        state.setAdapter(dataAdapter);
+
+//        Spinner listView = (Spinner) findViewById(R.id.companyType);
+//        Adapter adapter new Adapter();
+//        adapter.add(listaEstados);
     }
 
     private JSONObject getUserData(){
