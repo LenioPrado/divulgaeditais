@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -29,6 +31,9 @@ import services.divulga.editais.ifsuldeminas.edu.br.NoticeService;
 
 @Path("/file")
 public class FileResource extends HttpServlet {
+	
+	@Context
+    private HttpServletRequest request;	
 
 	private static final long serialVersionUID = 1L;
 	private static String _filesPath = "context.path";
@@ -63,9 +68,9 @@ public class FileResource extends HttpServlet {
 		try {
 			jsonPart.setMediaType(MediaType.APPLICATION_JSON_TYPE);
 		    Notice notice = jsonPart.getValueAs(Notice.class);
-		    NoticeService service = new NoticeService();
+		    NoticeService service = new NoticeService(request);
 		    service.create(notice);
-			
+		    
 		    int fileSize = saveFile(notice.getNoticeId(), uploadedInputStream, fileDetail);
 			
 			return Response.ok(Integer.toString(fileSize), MediaType.TEXT_PLAIN).build();

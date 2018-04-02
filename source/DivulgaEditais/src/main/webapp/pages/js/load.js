@@ -35,6 +35,10 @@ function loadNotice(actionToExecute, loadedCallback){
 			if(hasToLoad === 0 && loadedCallback){
 				loadedCallback();
 			}
+			$('.selectpicker').selectpicker({
+				size: 4
+			});
+			$('.filter-option pull-left').text('Selecione');
 		});	
 	});	
 }

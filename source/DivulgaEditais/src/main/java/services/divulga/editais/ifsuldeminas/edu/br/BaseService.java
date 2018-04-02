@@ -37,6 +37,11 @@ public class BaseService<T> {
 		this.classType = classType;
 	}
 	
+	public BaseService(Class<T> classType, HttpServletRequest request){
+		this.classType = classType;
+		this.request = request;
+	}
+	
 	protected HttpSession getSession() {
 		return request.getSession();
 	}
