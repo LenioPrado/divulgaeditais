@@ -3,6 +3,7 @@ package services.divulga.editais.ifsuldeminas.edu.br;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -19,6 +20,10 @@ public class NoticeService extends BaseService<Notice> {
 
 	public NoticeService() {
 		super(Notice.class);
+	}
+	
+	public NoticeService(HttpServletRequest request) {
+		super(Notice.class, request);
 	}
 
 	protected Notice beforeCreate(Notice notice) {

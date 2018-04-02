@@ -2,6 +2,7 @@ function validateNotice(callback) {
 	  $("form[name='registerNotice']").validate({
             rules: {
             	companyType: "required",
+            	noticesCategories: "required",
             	modality: "required",
                 number: "required",
                 object: "required",
@@ -13,6 +14,7 @@ function validateNotice(callback) {
 
             messages: {
             	companyType: "Selecione um tipo válido",
+            	noticesCategories: "Selecione a(s) categoria(s)",
                 modality: "Escolha uma modalidade válida",
                 number: "Digite um número válido",
                 object: "Digite uma descrição válida",
