@@ -1,17 +1,14 @@
 package mobile.divulga.editais.ifsuldeminas.edu.br.fragment;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,8 +22,6 @@ import java.util.List;
 
 import mobile.divulga.editais.ifsuldeminas.edu.br.R;
 import mobile.divulga.editais.ifsuldeminas.edu.br.listeners.EditalClickListener;
-import mobile.divulga.editais.ifsuldeminas.edu.br.model.Category;
-import mobile.divulga.editais.ifsuldeminas.edu.br.model.Edital;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.Notice;
 import mobile.divulga.editais.ifsuldeminas.edu.br.model.NoticesCategory;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Results;
@@ -68,8 +63,6 @@ public class NoticesFragment extends Fragment implements Results{
     }
 
     private void getNotices(final Context context, int userId){
-
-        Teste.getInstance().teste();
 
         String endpoint = "";
 
@@ -249,8 +242,6 @@ public class NoticesFragment extends Fragment implements Results{
 
     @Override
     public void resultadoFiltro(List<Notice> resultado, Context context) {
-
-
 
         fillScreenTable(resultado, context);
     }
