@@ -2,20 +2,15 @@ package mobile.divulga.editais.ifsuldeminas.edu.br.services;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.Debug;
-import android.os.Environment;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,23 +19,16 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import com.itextpdf.text.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import mobile.divulga.editais.ifsuldeminas.edu.br.R;
-import mobile.divulga.editais.ifsuldeminas.edu.br.activity.ActivityRegister;
-import mobile.divulga.editais.ifsuldeminas.edu.br.model.User;
 import mobile.divulga.editais.ifsuldeminas.edu.br.other.Utils;
 
 public class WebService<T> {
